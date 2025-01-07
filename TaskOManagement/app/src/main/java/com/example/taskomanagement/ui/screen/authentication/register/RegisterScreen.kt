@@ -1,4 +1,4 @@
-package com.example.taskomanagement.ui.screen.authentication.login
+package com.example.taskomanagement.ui.screen.authentication.register
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -20,10 +20,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,11 +43,15 @@ import com.example.taskomanagement.R
 import com.example.taskomanagement.ui.theme.TaskOManagementTheme
 import com.example.taskomanagement.utils.Screen
 
+
 @Composable
-fun Login(navController: NavController) {
+fun Register(navController: NavController) {
+    var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var passwordConfirmation by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    var passwordConfirmationVisible by remember { mutableStateOf(false) }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -62,10 +66,33 @@ fun Login(navController: NavController) {
         )
         Spacer(modifier = Modifier.weight(1f))
         Text(
-            text = "Masuk ke Akun",
+            text = "Buat Akun",
             fontSize = 18.sp,
             fontWeight = SemiBold,
             modifier = Modifier.padding(bottom = 16.dp)
+        )
+        TextField(
+            value = name,
+            onValueChange = {
+                name = it
+            },
+            placeholder = { Text(text = "Nama lengkap") },
+            shape = RoundedCornerShape(14.dp),
+            colors = TextFieldDefaults.colors(
+                unfocusedContainerColor = colorResource(id = R.color.grey),
+                focusedContainerColor = colorResource(id = R.color.grey),
+                unfocusedTextColor = colorResource(id = R.color.black),
+                focusedTextColor = colorResource(id = R.color.black),
+                unfocusedIndicatorColor = Color.Transparent,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedPlaceholderColor = colorResource(id = R.color.grey_1),
+                focusedPlaceholderColor = colorResource(id = R.color.grey_1),
+            ),
+            leadingIcon = { Icon(painter = painterResource(id = R.drawable.person), contentDescription = "") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp, bottom = 8.dp, start = 16.dp, end = 16.dp)
+
         )
         TextField(
             value = email,
@@ -85,7 +112,7 @@ fun Login(navController: NavController) {
                 unfocusedPlaceholderColor = colorResource(id = R.color.grey_1),
                 focusedPlaceholderColor = colorResource(id = R.color.grey_1),
             ),
-            leadingIcon = { Icon(painter = painterResource(id = R.drawable.email), contentDescription = "")},
+            leadingIcon = { Icon(painter = painterResource(id = R.drawable.email), contentDescription = "") },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = 16.dp)
@@ -110,7 +137,7 @@ fun Login(navController: NavController) {
                 unfocusedPlaceholderColor = colorResource(id = R.color.grey_1),
                 focusedPlaceholderColor = colorResource(id = R.color.grey_1),
             ),
-            leadingIcon = { Icon(painter = painterResource(id = R.drawable.lock), contentDescription = "")},
+            leadingIcon = { Icon(painter = painterResource(id = R.drawable.lock), contentDescription = "") },
             trailingIcon = { IconButton(onClick = {
                 passwordVisible = !passwordVisible
             }) {
@@ -123,7 +150,47 @@ fun Login(navController: NavController) {
                     Icon(painter = painterResource(id = R.drawable.visibility_off),
                         contentDescription = "Disable password")
                 }
-            }},
+            }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = 16.dp)
+
+        )
+        TextField(
+            value = passwordConfirmation,
+            onValueChange = {
+                passwordConfirmation = it
+            },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            visualTransformation = if (passwordConfirmationVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            placeholder = { Text(text = "Konfirmasi passsword") },
+            shape = RoundedCornerShape(14.dp),
+            colors = TextFieldDefaults.colors(
+                unfocusedContainerColor = colorResource(id = R.color.grey),
+                focusedContainerColor = colorResource(id = R.color.grey),
+                unfocusedTextColor = colorResource(id = R.color.black),
+                focusedTextColor = colorResource(id = R.color.black),
+                unfocusedIndicatorColor = Color.Transparent,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedPlaceholderColor = colorResource(id = R.color.grey_1),
+                focusedPlaceholderColor = colorResource(id = R.color.grey_1),
+            ),
+            leadingIcon = { Icon(painter = painterResource(id = R.drawable.lock), contentDescription = "") },
+            trailingIcon = { IconButton(onClick = {
+                passwordConfirmationVisible = !passwordConfirmationVisible
+            }) {
+                if (passwordConfirmationVisible) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.visibility),
+                        contentDescription = "Enable password"
+                    )
+                } else {
+                    Icon(painter = painterResource(id = R.drawable.visibility_off),
+                        contentDescription = "Disable password")
+                }
+            }
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 8.dp, start = 16.dp, end = 16.dp)
@@ -139,7 +206,7 @@ fun Login(navController: NavController) {
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, bottom = 8.dp)
         ) {
-            Text(text = "Masuk")
+            Text(text = "Daftar")
         }
         Text(text = "Atau")
         Button(
@@ -157,14 +224,14 @@ fun Login(navController: NavController) {
             )
         }
         Row {
-            Text(text = "Belum punya akun?")
+            Text(text = "Sudah punya akun?")
             Text(
-                text = "Daftar",
+                text = "Masuk",
                 fontWeight = Bold,
-                color = colorResource(id = R.color.green),
+                color = colorResource(id = R.color.green_1),
                 modifier = Modifier
-                    .padding(start = 4.dp)
-                    .clickable { navController.navigate(Screen.RegisterScreen.routes) }
+                    .clickable { navController.navigate(Screen.LoginScreen.routes) }
+                    .padding(start = 4.dp),
             )
         }
         Spacer(modifier = Modifier.weight(1f))
@@ -175,6 +242,6 @@ fun Login(navController: NavController) {
 //@Composable
 //fun LoginPreview() {
 //    TaskOManagementTheme {
-//        Login()
+//        Register()
 //    }
 //}

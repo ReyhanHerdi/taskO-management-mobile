@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.taskomanagement.ui.screen.authentication.login.Login
+import com.example.taskomanagement.ui.screen.authentication.register.Register
 import com.example.taskomanagement.ui.screen.landingPage.LandingPage
 import com.example.taskomanagement.utils.Screen
 
@@ -13,6 +14,7 @@ fun Navigation(){
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.LandingPageScreen.routes) {
         composable(route = Screen.LandingPageScreen.routes) { LandingPage(navController) }
-        composable(route = Screen.LoginScreen.routes) { Login() }
+        composable(route = Screen.RegisterScreen.routes) { Register(navController) }
+        composable(route = Screen.LoginScreen.routes) { Login(navController) }
     }
 }
