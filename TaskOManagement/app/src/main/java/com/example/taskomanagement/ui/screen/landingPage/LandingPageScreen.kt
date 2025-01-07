@@ -1,9 +1,6 @@
-package com.example.taskomanagement
+package com.example.taskomanagement.ui.screen.landingPage
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,23 +19,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.taskomanagement.R
 import com.example.taskomanagement.ui.theme.TaskOManagementTheme
 
-class LandingPageActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            TaskOManagementTheme {
-                AppName()
-            }
-        }
-    }
-}
-
 @Composable
-fun AppName(
-) {
+fun LandingPage() {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -73,6 +58,6 @@ fun AppName(
 @Composable
 fun GreetingPreview2() {
     TaskOManagementTheme {
-        AppName()
+        LandingPage()
     }
 }
