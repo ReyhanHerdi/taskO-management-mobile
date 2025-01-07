@@ -199,7 +199,7 @@ fun Register(navController: NavController) {
         Spacer(modifier = Modifier.weight(1f))
         Button(
             onClick = {
-
+                navController.navigate(Screen.RegisterSuccessScreen.routes)
             },
             colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.green_1)),
             modifier = Modifier
