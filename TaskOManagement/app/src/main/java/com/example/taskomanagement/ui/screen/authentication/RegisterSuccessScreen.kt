@@ -64,6 +64,7 @@ fun RegisterSuccess(navController: NavController) {
         Spacer(modifier = Modifier.weight(1f))
         Button(
             onClick = {
+                navController.popBackStack()
                 navController.navigate(Screen.LoginScreen.routes)
             },
             colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.green_1)),
