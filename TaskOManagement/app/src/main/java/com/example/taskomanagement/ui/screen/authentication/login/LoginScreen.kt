@@ -137,7 +137,7 @@ fun Login(navController: NavController) {
         Spacer(modifier = Modifier.weight(1f))
         Button(
             onClick = {
-
+                navController.navigate(Screen.TaskOAppScreen.routes)
             },
             colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.green_1)),
             modifier = Modifier
