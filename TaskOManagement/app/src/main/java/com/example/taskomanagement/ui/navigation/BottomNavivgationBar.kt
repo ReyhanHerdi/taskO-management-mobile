@@ -2,8 +2,10 @@ package com.example.taskomanagement.ui.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Icon
@@ -35,6 +37,12 @@ fun BottomNavigationBar(
                 iconSelected = Icons.Filled.DateRange,
                 iconUnSelected = Icons.Filled.DateRange,
                 label = "Projects"
+            ),
+            BottomNavItem(
+                route = "MessageScreen",
+                iconSelected = Icons.Filled.Email,
+                iconUnSelected = Icons.Outlined.Email,
+                label = "Message"
             ),
             BottomNavItem(
                 route = "ProfileScreen",

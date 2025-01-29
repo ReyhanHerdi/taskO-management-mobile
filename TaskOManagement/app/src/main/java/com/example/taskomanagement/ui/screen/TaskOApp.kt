@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.taskomanagement.ui.navigation.BottomNavigationBar
 import com.example.taskomanagement.ui.screen.main.home.Home
+import com.example.taskomanagement.ui.screen.main.message.Message
 import com.example.taskomanagement.ui.screen.main.profile.Profile
 import com.example.taskomanagement.ui.screen.main.project.Projects
 import com.example.taskomanagement.utils.Screen
@@ -32,6 +33,7 @@ fun TaskOApp(
             composable(Screen.HomeScreen.routes) { Home() }
             composable(Screen.ProjectsScreen.routes) { Projects() }
             composable(Screen.ProfileScreen.routes) { Profile() }
+            composable(Screen.MessageScreen.routes) { Message() }
         }
     }
 }
