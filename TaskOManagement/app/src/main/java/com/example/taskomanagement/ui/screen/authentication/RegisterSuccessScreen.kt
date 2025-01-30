@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -67,7 +68,7 @@ fun RegisterSuccess(navController: NavController) {
                 navController.popBackStack()
                 navController.navigate(Screen.LoginScreen.routes)
             },
-            colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.green_1)),
+            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary),
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
                 .fillMaxWidth()

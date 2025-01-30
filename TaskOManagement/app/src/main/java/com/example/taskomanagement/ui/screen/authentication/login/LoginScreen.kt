@@ -19,6 +19,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -81,14 +82,14 @@ fun Login(navController: NavController) {
             placeholder = { Text(text = "Email") },
             shape = RoundedCornerShape(14.dp),
             colors = TextFieldDefaults.colors(
-                unfocusedContainerColor = colorResource(id = R.color.grey),
-                focusedContainerColor = colorResource(id = R.color.grey),
+                unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                focusedContainerColor = MaterialTheme.colorScheme.surface,
                 unfocusedTextColor = colorResource(id = R.color.black),
                 focusedTextColor = colorResource(id = R.color.black),
                 unfocusedIndicatorColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
-                unfocusedPlaceholderColor = colorResource(id = R.color.grey_1),
-                focusedPlaceholderColor = colorResource(id = R.color.grey_1),
+                unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurface,
+                focusedPlaceholderColor = MaterialTheme.colorScheme.onSurface,
             ),
             leadingIcon = { Icon(painter = painterResource(id = R.drawable.email), contentDescription = "")},
             modifier = Modifier
@@ -106,14 +107,14 @@ fun Login(navController: NavController) {
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             shape = RoundedCornerShape(14.dp),
             colors = TextFieldDefaults.colors(
-                unfocusedContainerColor = colorResource(id = R.color.grey),
-                focusedContainerColor = colorResource(id = R.color.grey),
+                unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                focusedContainerColor = MaterialTheme.colorScheme.surface,
                 unfocusedTextColor = colorResource(id = R.color.black),
                 focusedTextColor = colorResource(id = R.color.black),
                 unfocusedIndicatorColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
-                unfocusedPlaceholderColor = colorResource(id = R.color.grey_1),
-                focusedPlaceholderColor = colorResource(id = R.color.grey_1),
+                unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurface,
+                focusedPlaceholderColor = MaterialTheme.colorScheme.onSurface,
             ),
             leadingIcon = { Icon(painter = painterResource(id = R.drawable.lock), contentDescription = "")},
             trailingIcon = { IconButton(onClick = {
@@ -139,7 +140,7 @@ fun Login(navController: NavController) {
             onClick = {
                 navController.navigate(Screen.TaskOAppScreen.routes)
             },
-            colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.green_1)),
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, bottom = 8.dp)
@@ -166,7 +167,7 @@ fun Login(navController: NavController) {
             Text(
                 text = "Daftar",
                 fontWeight = Bold,
-                color = colorResource(id = R.color.green),
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .padding(start = 4.dp)
                     .clickable { navController.navigate(Screen.RegisterScreen.routes) }

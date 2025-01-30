@@ -9,11 +9,16 @@ import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -22,9 +27,13 @@ import com.example.taskomanagement.utils.BottomNavItem
 
 @Composable
 fun BottomNavigationBar(
-    navController: NavHostController
+    navController: NavHostController,
+    modifier: Modifier
 ) {
-    NavigationBar {
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.surfaceContainer,
+        modifier = modifier.shadow(12.dp)
+    ) {
         val items = listOf(
             BottomNavItem(
                 route = "HomeScreen",
@@ -61,6 +70,15 @@ fun BottomNavigationBar(
                     contentDescription = item.label) },
                 label = { Text(text = item.label) },
                 selected = currentRoute == item.route,
+                colors = NavigationBarItemColors(
+                    selectedIconColor = MaterialTheme.colorScheme.primary,
+                    unselectedIconColor = MaterialTheme.colorScheme.primary,
+                    selectedIndicatorColor = MaterialTheme.colorScheme.primaryContainer,
+                    disabledTextColor = MaterialTheme.colorScheme.primary,
+                    disabledIconColor = MaterialTheme.colorScheme.primary,
+                    selectedTextColor = MaterialTheme.colorScheme.primary,
+                    unselectedTextColor = MaterialTheme.colorScheme.primary
+                ),
                 onClick = {
                     navController.navigate(item.route) {
                         popUpTo(navController.graph.findStartDestination().id) {

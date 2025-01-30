@@ -17,11 +17,11 @@ import com.example.taskomanagement.utils.Screen
 
 @Composable
 fun TaskOApp(
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
 ) {
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(navController)
+            BottomNavigationBar(navController, Modifier)
         },
         modifier = Modifier
     ) { innerPadding ->
