@@ -13,6 +13,7 @@ import com.example.taskomanagement.ui.screen.main.home.Home
 import com.example.taskomanagement.ui.screen.main.message.Message
 import com.example.taskomanagement.ui.screen.main.profile.Profile
 import com.example.taskomanagement.ui.screen.main.project.Projects
+import com.example.taskomanagement.ui.screen.main.teams.Teams
 import com.example.taskomanagement.utils.Screen
 
 @Composable
@@ -33,6 +34,7 @@ fun TaskOApp(
             composable(Screen.HomeScreen.routes) { Home() }
             composable(Screen.ProjectsScreen.routes) { Projects() }
             composable(Screen.ProfileScreen.routes) { Profile() }
+            composable(Screen.TeamsScreen.routes) { Teams() }
             composable(Screen.MessageScreen.routes) { Message() }
         }
     }
