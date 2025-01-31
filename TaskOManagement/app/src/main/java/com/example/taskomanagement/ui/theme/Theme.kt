@@ -21,11 +21,13 @@ private val LightColorScheme = lightColorScheme(
     primary = Green40,
     primaryContainer = Green90,
     onPrimary = Color.White,
-    secondary = GreenGrey40,
+    secondary = Green80,
+    secondaryContainer = GreenCyan80,
     tertiary = Pink40,
     surface = Grey90,
     onSurface = Grey50,
-    surfaceContainer = Color.White
+    surfaceContainer = Color.White,
+    surfaceVariant = Green40
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -58,6 +60,7 @@ fun TaskOManagementTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
-        content = content
+        content = content,
+        shapes = CardShapes
     )
 }
