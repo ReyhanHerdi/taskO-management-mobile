@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Button
@@ -24,10 +26,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.taskomanagement.list.TaskList
+import com.example.taskomanagement.ui.cutom.CustomTasksList
 import com.example.taskomanagement.ui.theme.TaskOManagementTheme
 
 @Composable
 fun Home() {
+    val taskList = TaskList()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -37,6 +42,7 @@ fun Home() {
                 top = 8.dp,
                 bottom = 8.dp
             )
+            .verticalScroll(rememberScrollState())
     ) {
         Row(
             modifier = Modifier
@@ -146,7 +152,7 @@ fun Home() {
             shape = MaterialTheme.shapes.extraLarge,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp)
+                .padding(top = 20.dp, bottom = 20.dp)
         ) {
             Row(
                 modifier = Modifier
@@ -180,6 +186,31 @@ fun Home() {
                         style = MaterialTheme.typography.labelSmall
                     )
                 }
+            }
+        }
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Text(
+                text = "Daftar Tugas",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Text(
+                text = "Selengkapnya",
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.align(Alignment.CenterVertically)
+            )
+        }
+        Column(
+            modifier = Modifier.padding(top = 8.dp)
+        ) {
+            taskList.forEach { task ->
+                CustomTasksList(tasks = task)
             }
         }
     }
