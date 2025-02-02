@@ -5,8 +5,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -33,6 +35,20 @@ fun CustomTasksList(tasks: Tasks) {
             .padding(bottom = 8.dp)
     ) {
         Row {
+            Icon(
+                imageVector = Icons.Filled.DateRange,
+                contentDescription = "ongoing",
+                tint = when (tasks.status) {
+                    "ongoing" -> MaterialTheme.colorScheme.primary
+                    "done" -> Color.Blue
+                    "todo" -> Color.Red
+                    else -> Color.White
+                },
+                modifier = Modifier
+                    .size(width = 50.dp, height = 50.dp)
+                    .align(Alignment.CenterVertically)
+                    .padding(start = 16.dp)
+            )
             Column(
                 modifier = Modifier.padding(16.dp)
             ) {
@@ -42,19 +58,15 @@ fun CustomTasksList(tasks: Tasks) {
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
                 )
-//            Text(
-//                text = tasks.description,
-//                style = MaterialTheme.typography.bodyMedium
-//            )
                 Text(
-                    text = tasks.due,
+                    text = tasks.project,
                     style = MaterialTheme.typography.bodySmall,
+                    fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(vertical = 4.dp)
                 )
                 Text(
-                    text = tasks.status,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.primary
+                    text = tasks.due,
+                    style = MaterialTheme.typography.bodySmall,
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
@@ -75,6 +87,7 @@ fun CustomTasksListPreview() {
     CustomTasksList(
         Tasks(
             nameTask = "Task 1",
+            project = "Project 1",
             description = "Lorem ipsum dolor sit amet.",
             due = "12 Juni 2025",
             status = "ongoing"
