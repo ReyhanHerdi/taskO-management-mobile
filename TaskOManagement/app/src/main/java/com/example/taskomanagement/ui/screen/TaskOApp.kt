@@ -33,7 +33,7 @@ fun TaskOApp(
         ) {
             composable(Screen.HomeScreen.routes) { Home() }
             composable(Screen.ProjectsScreen.routes) { Projects() }
-            composable(Screen.ProfileScreen.routes) { Profile() }
+            composable(Screen.ProfileScreen.routes) { Profile(navController) }
             composable(Screen.TeamsScreen.routes) { Teams() }
             composable(Screen.MessageScreen.routes) { Message() }
         }
