@@ -22,10 +22,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.taskomanagement.utils.BottomNavItem
+import com.example.taskomanagement.utils.Screen
 
 
 @Composable
@@ -39,31 +39,31 @@ fun CustomBottomNavigationBar(
     ) {
         val items = listOf(
             BottomNavItem(
-                route = "HomeScreen",
+                route = Screen.HomeScreen.routes,
                 iconSelected = Icons.Filled.Home,
                 iconUnSelected = Icons.Outlined.Home,
                 label = "Home"
             ),
             BottomNavItem(
-                route = "ProjectsScreen",
+                route = Screen.ProjectsScreen.routes,
                 iconSelected = Icons.Filled.DateRange,
                 iconUnSelected = Icons.Outlined.DateRange,
                 label = "Projects"
             ),
             BottomNavItem(
-                route = "MessageScreen",
+                route = Screen.MessageScreen.routes,
                 iconSelected = Icons.Filled.Email,
                 iconUnSelected = Icons.Outlined.Email,
                 label = "Message"
             ),
             BottomNavItem(
-                route = "TeamsScreen",
+                route = Screen.TeamsScreen.routes,
                 iconSelected = Icons.Filled.AccountBox,
                 iconUnSelected = Icons.Outlined.AccountBox,
                 label = "Teams"
             ),
             BottomNavItem(
-                route = "ProfileScreen",
+                route = Screen.ProfileScreen.routes,
                 iconSelected = Icons.Filled.Person,
                 iconUnSelected = Icons.Outlined.Person,
                 label = "Profile"
@@ -90,7 +90,7 @@ fun CustomBottomNavigationBar(
                 ),
                 onClick = {
                     navController.navigate(item.route) {
-                        popUpTo(navController.graph.findStartDestination().id) {
+                        popUpTo(Screen.HomeScreen.routes) {
                             saveState = true
                         }
                         restoreState = true
