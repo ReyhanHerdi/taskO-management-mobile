@@ -1,2 +1,2 @@
-# taskO-management-mobile
+# TaskO Management Mobile
 Aplikasi manajemen tugas berbasis Android
