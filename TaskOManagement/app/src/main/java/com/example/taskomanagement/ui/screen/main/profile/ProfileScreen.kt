@@ -33,7 +33,6 @@ import androidx.navigation.NavController
 import com.example.taskomanagement.list.taskList
 import com.example.taskomanagement.ui.cutom.CustomHistoryTasksList
 import com.example.taskomanagement.utils.Screen
-import androidx.compose.material3.MaterialTheme as MaterialTheme1
 
 @Composable
 fun Profile(navController: NavController) {
@@ -79,13 +78,13 @@ fun Profile(navController: NavController) {
                 ) {
                     Text(
                         text = "Jane Doe",
-                        style = MaterialTheme1.typography.titleMedium,
+                        style = MaterialTheme.typography.titleMedium,
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                     )
                     Text(
                         text = "janedoe@mail.com",
-                        style = MaterialTheme1.typography.titleSmall
+                        style = MaterialTheme.typography.titleSmall
                     )
                 }
                 Spacer(modifier = Modifier.weight(1f))
@@ -115,14 +114,14 @@ fun Profile(navController: NavController) {
                 ) {
                     Text(
                         text = "20",
-                        style = MaterialTheme1.typography.titleLarge,
+                        style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.SemiBold,
                         color = Color.Black,
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     )
                     Text(
                         text = "Tugas",
-                        style = MaterialTheme1.typography.labelMedium
+                        style = MaterialTheme.typography.labelMedium
                     )
                 }
             }
@@ -142,14 +141,14 @@ fun Profile(navController: NavController) {
                 ) {
                     Text(
                         text = "7",
-                        style = MaterialTheme1.typography.titleLarge,
+                        style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.SemiBold,
                         color = Color.Black,
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     )
                     Text(
                         text = "Proyek",
-                        style = MaterialTheme1.typography.labelMedium,
+                        style = MaterialTheme.typography.labelMedium,
                     )
                 }
             }
@@ -168,14 +167,14 @@ fun Profile(navController: NavController) {
                 ) {
                     Text(
                         text = "5",
-                        style = MaterialTheme1.typography.titleLarge,
+                        style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.SemiBold,
                         color = Color.Black,
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     )
                     Text(
                         text = "Tim",
-                        style = MaterialTheme1.typography.labelMedium
+                        style = MaterialTheme.typography.labelMedium
                     )
                 }
             }
