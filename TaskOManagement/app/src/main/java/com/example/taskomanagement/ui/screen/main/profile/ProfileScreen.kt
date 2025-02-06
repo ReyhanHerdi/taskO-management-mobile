@@ -30,14 +30,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.taskomanagement.list.TaskList
+import com.example.taskomanagement.list.taskList
 import com.example.taskomanagement.ui.cutom.CustomHistoryTasksList
 import com.example.taskomanagement.utils.Screen
 import androidx.compose.material3.MaterialTheme as MaterialTheme1
 
 @Composable
 fun Profile(navController: NavController) {
-    val taskList = TaskList()
+    val taskList = taskList()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -50,7 +50,7 @@ fun Profile(navController: NavController) {
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .padding(bottom = 16.dp)
-                .align(Alignment.CenterHorizontally)
+                .align(Alignment.Start)
         )
         Card(
             colors = CardDefaults.cardColors(

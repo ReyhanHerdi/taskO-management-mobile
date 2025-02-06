@@ -2,7 +2,7 @@ package com.example.taskomanagement.list
 
 import com.example.taskomanagement.model.Tasks
 
-fun TaskList(): List<Tasks> {
+fun taskList(): List<Tasks> {
     return listOf(
         Tasks(
             nameTask = "Mendapat Pacar",
