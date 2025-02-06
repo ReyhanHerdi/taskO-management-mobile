@@ -45,7 +45,7 @@ fun LandingPage(navController: NavController) {
         Button(
             onClick = {
                 navController.popBackStack()
-                navController.navigate(Screen.RegisterScreen.routes)
+                navController.navigate(Screen.AuthenticationScreen.routes)
             },
             colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.green_1)),
             modifier = Modifier

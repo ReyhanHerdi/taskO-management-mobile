@@ -1,4 +1,4 @@
-package com.example.taskomanagement.ui.navigation
+package com.example.taskomanagement.ui.cutom
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
@@ -29,7 +29,7 @@ import com.example.taskomanagement.utils.BottomNavItem
 
 
 @Composable
-fun BottomNavigationBar(
+fun CustomBottomNavigationBar(
     navController: NavHostController,
     modifier: Modifier
 ) {

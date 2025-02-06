@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -16,12 +15,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -33,12 +28,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.taskomanagement.list.TaskList
 import com.example.taskomanagement.ui.cutom.CustomHistoryTasksList
-import com.example.taskomanagement.ui.cutom.CustomTasksList
 import com.example.taskomanagement.utils.Screen
 import androidx.compose.material3.MaterialTheme as MaterialTheme1
 
@@ -301,9 +294,9 @@ fun Profile(navController: NavController) {
             elevation = CardDefaults.cardElevation(7.dp),
             modifier = Modifier
                 .padding(top = 24.dp, bottom = 16.dp)
-//                .clickable(true) {
-//                    navController.navigate(Screen.LoginScreen.routes)
-//                }
+                .clickable(true) {
+                    navController.navigate(Screen.AuthenticationScreen.routes)
+                }
         ) {
             Row(
                 modifier = Modifier
