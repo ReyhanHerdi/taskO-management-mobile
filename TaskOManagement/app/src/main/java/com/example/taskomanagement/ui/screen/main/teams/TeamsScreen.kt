@@ -12,12 +12,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taskomanagement.list.teamList
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.taskomanagement.ViewModelFactory
+import com.example.taskomanagement.data.repository.Repository
 import com.example.taskomanagement.ui.cutom.CustomTeamsList
 
 @Composable
 fun Teams() {
-    val teamList = teamList()
+    val teamViewModel = viewModel<TeamViewModel>(
+        factory = ViewModelFactory(
+            repository = Repository()
+        )
+    )
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -33,11 +39,13 @@ fun Teams() {
         )
         LazyColumn(
             userScrollEnabled = true,
-//            modifier = Modifier.padding(top = 8.dp)
+            modifier = Modifier.padding(top = 8.dp)
         ) {
-            teamList.forEach { team ->
+            teamViewModel.getTeam()
+            teamViewModel.team.value?.forEach { team ->
                 item {
-                    CustomTeamsList(teams = team)
+                    CustomTeamsList(team)
+
                 }
             }
         }

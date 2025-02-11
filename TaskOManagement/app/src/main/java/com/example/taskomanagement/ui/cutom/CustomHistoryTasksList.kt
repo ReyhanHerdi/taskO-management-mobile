@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taskomanagement.model.Tasks
+import com.example.taskomanagement.data.model.Tasks
 
 @Composable
 fun CustomHistoryTasksList(tasks: Tasks) {

@@ -19,12 +19,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taskomanagement.model.Teams
+import com.example.taskomanagement.data.response.TeamDataItem
 
 @Composable
-fun CustomTeamsList(teams: Teams) {
+fun CustomTeamsList(teamDataItem: TeamDataItem) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -40,7 +39,7 @@ fun CustomTeamsList(teams: Teams) {
         ) {
             Icon(
                 imageVector = Icons.Filled.Notifications,
-                contentDescription = teams.namaTeams,
+                contentDescription = teamDataItem.nameTeam,
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
@@ -52,14 +51,14 @@ fun CustomTeamsList(teams: Teams) {
                     .align(Alignment.CenterVertically),
             ) {
                 Text(
-                    text = teams.namaTeams,
+                    text = teamDataItem.nameTeam,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
                     modifier = Modifier.padding(bottom = 4.dp)
                 )
                 Text(
-                    text = "Proyek: ${teams.projectSum}",
+                    text = "Proyek: ${teamDataItem.description}",
                     style = MaterialTheme.typography.bodyMedium,
                 )
 
@@ -74,11 +73,13 @@ fun CustomTeamsList(teams: Teams) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewCustomTeamsList() {
-    CustomTeamsList(Teams(
-        namaTeams = "Team 1",
-        projectSum = "5"
-    ))
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewCustomTeamsList() {
+//    CustomTeamsList(
+//        Teams(
+//        namaTeams = "Team 1",
+//        projectSum = "5"
+//    )
+//    )
+//}

@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taskomanagement.model.Projects
+import com.example.taskomanagement.data.model.Projects
 
 @Composable
 fun CustomProjectsList(projects: Projects) {
@@ -70,11 +70,13 @@ fun CustomProjectsList(projects: Projects) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewProjectsList() {
-    CustomProjectsList(Projects(
+    CustomProjectsList(
+        Projects(
         nameProject = "Proyek X",
         description = "Lorem ipsum doloe sit amet",
         due = "2 Juni 2025",
         status = "ongoing",
         nameTeam = "Team X"
-    ))
+    )
+    )
 }

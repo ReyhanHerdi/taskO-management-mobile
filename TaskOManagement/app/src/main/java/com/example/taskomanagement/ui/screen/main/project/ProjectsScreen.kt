@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taskomanagement.list.projectsList
+import com.example.taskomanagement.data.list.projectsList
 import com.example.taskomanagement.ui.cutom.CustomProjectsList
 
 @Composable

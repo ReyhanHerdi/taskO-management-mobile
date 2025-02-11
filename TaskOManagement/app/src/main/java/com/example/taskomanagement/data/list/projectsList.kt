@@ -1,6 +1,6 @@
-package com.example.taskomanagement.list
+package com.example.taskomanagement.data.list
 
-import com.example.taskomanagement.model.Projects
+import com.example.taskomanagement.data.model.Projects
 
 fun projectsList(): List<Projects> {
     return listOf(

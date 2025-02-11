@@ -1,4 +1,4 @@
-package com.example.taskomanagement.model
+package com.example.taskomanagement.data.model
 
 data class Teams(
     val namaTeams: String,

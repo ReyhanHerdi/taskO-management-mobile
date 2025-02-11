@@ -30,7 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.taskomanagement.list.taskList
+import com.example.taskomanagement.data.list.taskList
 import com.example.taskomanagement.ui.cutom.CustomHistoryTasksList
 import com.example.taskomanagement.utils.Screen
 

@@ -26,7 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taskomanagement.list.taskList
+import com.example.taskomanagement.data.list.taskList
 import com.example.taskomanagement.ui.cutom.CustomTasksList
 import com.example.taskomanagement.ui.theme.TaskOManagementTheme
 
