@@ -1,6 +1,7 @@
 package com.example.taskomanagement.ui.screen.authentication.register
 
 import android.app.Activity
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -13,8 +14,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -27,6 +30,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,23 +44,26 @@ import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.taskomanagement.R
-import com.example.taskomanagement.ui.theme.TaskOManagementTheme
 import com.example.taskomanagement.utils.Screen
-
+import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun Register(navController: NavController) {
+fun Register(
+    navController: NavController,
+    viewModel: RegisterViewModel = koinViewModel(),
+) {
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordConfirmation by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var passwordConfirmationVisible by remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -64,6 +71,7 @@ fun Register(navController: NavController) {
             .fillMaxSize()
             .padding(horizontal = (16.dp))
             .systemBarsPadding()
+            .verticalScroll(rememberScrollState())
     ) {
         Spacer(modifier = Modifier.weight(1f))
         Image(
@@ -204,13 +212,29 @@ fun Register(navController: NavController) {
         )
         Spacer(modifier = Modifier.weight(1f))
         Button(
+            enabled = viewModel.registerValidation(name, email, password, passwordConfirmation),
             onClick = {
-                navController.navigate(Screen.RegisterSuccessScreen.routes)
+                coroutineScope.launch {
+                    try {
+                        if (viewModel.register(name, email, password).status) {
+                            navController.navigate(Screen.RegisterSuccessScreen.routes)
+                        } else {
+                            Log.d("REGISTER HAS FAILED", "Email sudah terpakai")
+                        }
+                    } catch (e: Exception) {
+                        Log.d("REGISTER HAS FAILED", "${e.message}")
+                    }
+                }
             },
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+            colors = if (viewModel.registerValidation(name, email, password, passwordConfirmation)) {
+                ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+            } else {
+                ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, bottom = 8.dp)
+
         ) {
             Text(text = "Daftar")
         }

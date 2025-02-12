@@ -4,6 +4,7 @@ import com.example.taskomanagement.baseUrl
 import com.example.taskomanagement.data.api.ApiService
 import com.example.taskomanagement.data.repository.MainRepository
 import com.example.taskomanagement.data.repository.MainRepositoryImpl
+import com.example.taskomanagement.ui.screen.authentication.register.RegisterViewModel
 import com.example.taskomanagement.ui.screen.main.home.HomeViewModel
 import com.example.taskomanagement.ui.screen.main.profile.ProfileViewModel
 import com.example.taskomanagement.ui.screen.main.project.ProjectViewModel
@@ -31,6 +32,7 @@ val appModule = module {
     single<MainRepository> {
         MainRepositoryImpl(get())
     }
+    viewModel { RegisterViewModel(get()) }
     viewModel { HomeViewModel(get()) }
     viewModel { TeamViewModel(get()) }
     viewModel { ProjectViewModel(get()) }
