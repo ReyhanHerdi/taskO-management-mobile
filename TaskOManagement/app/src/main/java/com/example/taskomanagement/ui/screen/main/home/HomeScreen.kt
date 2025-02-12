@@ -29,10 +29,12 @@ import androidx.compose.ui.unit.dp
 import com.example.taskomanagement.data.list.taskList
 import com.example.taskomanagement.ui.cutom.CustomTasksList
 import com.example.taskomanagement.ui.theme.TaskOManagementTheme
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun Home() {
-    val taskList = taskList()
+fun Home(
+    viewModel: HomeViewModel = koinViewModel(),
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -209,7 +211,8 @@ fun Home() {
         Column(
             modifier = Modifier.padding(top = 8.dp)
         ) {
-            taskList.forEach { task ->
+            viewModel.getTask()
+            viewModel.task.value?.forEach { task ->
                 CustomTasksList(tasks = task)
             }
         }

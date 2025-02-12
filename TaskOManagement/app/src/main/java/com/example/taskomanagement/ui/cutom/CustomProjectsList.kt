@@ -21,9 +21,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.taskomanagement.data.model.Projects
+import com.example.taskomanagement.data.response.ProjectDataItem
 
 @Composable
-fun CustomProjectsList(projects: Projects) {
+fun CustomProjectsList(projects: ProjectDataItem) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -51,7 +52,7 @@ fun CustomProjectsList(projects: Projects) {
                 )
             }
             Text(
-                text = projects.nameTeam,
+                text = projects.teamId.toString(),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(top = 4.dp, bottom = 16.dp)
             )
@@ -67,16 +68,16 @@ fun CustomProjectsList(projects: Projects) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewProjectsList() {
-    CustomProjectsList(
-        Projects(
-        nameProject = "Proyek X",
-        description = "Lorem ipsum doloe sit amet",
-        due = "2 Juni 2025",
-        status = "ongoing",
-        nameTeam = "Team X"
-    )
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewProjectsList() {
+//    CustomProjectsList(
+//        Projects(
+//        nameProject = "Proyek X",
+//        description = "Lorem ipsum doloe sit amet",
+//        due = "2 Juni 2025",
+//        status = "ongoing",
+//        nameTeam = "Team X"
+//    )
+//    )
+//}

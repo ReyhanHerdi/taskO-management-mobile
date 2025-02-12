@@ -22,9 +22,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.taskomanagement.data.model.Tasks
+import com.example.taskomanagement.data.response.TaskDataItem
 
 @Composable
-fun CustomTasksList(tasks: Tasks) {
+fun CustomTasksList(tasks: TaskDataItem) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -41,7 +42,7 @@ fun CustomTasksList(tasks: Tasks) {
                 tint = when (tasks.status) {
                     "ongoing" -> MaterialTheme.colorScheme.primary
                     "done" -> Color.Blue
-                    "todo" -> Color.Red
+                    "pending" -> Color.Red
                     else -> Color.White
                 },
                 modifier = Modifier
@@ -59,7 +60,7 @@ fun CustomTasksList(tasks: Tasks) {
                     color = Color.Black
                 )
                 Text(
-                    text = tasks.project,
+                    text = tasks.projectId.toString(),
                     style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(vertical = 4.dp)
@@ -81,16 +82,16 @@ fun CustomTasksList(tasks: Tasks) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun CustomTasksListPreview() {
-    CustomTasksList(
-        Tasks(
-            nameTask = "Task 1",
-            project = "Project 1",
-            description = "Lorem ipsum dolor sit amet.",
-            due = "12 Juni 2025",
-            status = "ongoing"
-        )
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun CustomTasksListPreview() {
+//    CustomTasksList(
+//        Tasks(
+//            nameTask = "Task 1",
+//            project = "Project 1",
+//            description = "Lorem ipsum dolor sit amet.",
+//            due = "12 Juni 2025",
+//            status = "ongoing"
+//        )
+//    )
+//}

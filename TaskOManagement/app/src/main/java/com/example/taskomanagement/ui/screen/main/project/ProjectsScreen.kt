@@ -12,12 +12,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taskomanagement.data.list.projectsList
 import com.example.taskomanagement.ui.cutom.CustomProjectsList
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun Projects() {
-    val projectsList = projectsList()
+fun Projects(
+    viewModel: ProjectViewModel = koinViewModel(),
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -32,7 +33,8 @@ fun Projects() {
         LazyColumn(
             modifier = Modifier.padding(top = 16.dp)
         ) {
-            projectsList.forEach { project ->
+            viewModel.getProject()
+            viewModel.project.value?.forEach { project ->
                 item {
                     CustomProjectsList(projects = project)
                 }

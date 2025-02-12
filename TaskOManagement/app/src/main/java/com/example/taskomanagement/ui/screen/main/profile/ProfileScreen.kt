@@ -30,13 +30,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.taskomanagement.data.list.taskList
 import com.example.taskomanagement.ui.cutom.CustomHistoryTasksList
 import com.example.taskomanagement.utils.Screen
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun Profile(navController: NavController) {
-    val taskList = taskList()
+fun Profile(
+    navController: NavController,
+    viewModel: ProfileViewModel = koinViewModel(),
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -211,7 +213,8 @@ fun Profile(navController: NavController) {
                     modifier = Modifier
                         .padding(top = 8.dp)
                 ) {
-                    taskList.forEach { task ->
+                    viewModel.getTask()
+                    viewModel.task.value?.forEach { task ->
                         item {
                             CustomHistoryTasksList(tasks = task)
                         }

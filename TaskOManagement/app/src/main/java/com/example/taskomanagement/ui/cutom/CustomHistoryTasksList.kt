@@ -22,9 +22,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.taskomanagement.data.model.Tasks
+import com.example.taskomanagement.data.response.TaskDataItem
 
 @Composable
-fun CustomHistoryTasksList(tasks: Tasks) {
+fun CustomHistoryTasksList(tasks: TaskDataItem) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -56,7 +57,7 @@ fun CustomHistoryTasksList(tasks: Tasks) {
                     color = Color.Black
                 )
                 Text(
-                    text = tasks.project,
+                    text = tasks.projectId.toString(),
                     style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(vertical = 4.dp)
@@ -78,16 +79,16 @@ fun CustomHistoryTasksList(tasks: Tasks) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun CustomHistoryTasksListPreview() {
-    CustomHistoryTasksList(
-        Tasks(
-            nameTask = "Task 1",
-            project = "Project 1",
-            description = "Lorem ipsum dolor sit amet.",
-            due = "12 Juni 2025",
-            status = "ongoing"
-        )
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun CustomHistoryTasksListPreview() {
+//    CustomHistoryTasksList(
+//        Tasks(
+//            nameTask = "Task 1",
+//            project = "Project 1",
+//            description = "Lorem ipsum dolor sit amet.",
+//            due = "12 Juni 2025",
+//            status = "ongoing"
+//        )
+//    )
+//}
