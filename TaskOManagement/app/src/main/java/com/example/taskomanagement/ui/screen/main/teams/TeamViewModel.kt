@@ -5,11 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.taskomanagement.data.repository.Repository
+import com.example.taskomanagement.data.repository.MainRepository
 import com.example.taskomanagement.data.response.TeamDataItem
 import kotlinx.coroutines.launch
 
-class TeamViewModel(private val repository: Repository): ViewModel() {
+class TeamViewModel(private val repository: MainRepository): ViewModel() {
     private val _team = MutableLiveData<List<TeamDataItem>>()
     val team: LiveData<List<TeamDataItem>> get() = _team
 

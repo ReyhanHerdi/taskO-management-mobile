@@ -12,18 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.taskomanagement.ViewModelFactory
-import com.example.taskomanagement.data.repository.Repository
 import com.example.taskomanagement.ui.cutom.CustomTeamsList
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun Teams() {
-    val teamViewModel = viewModel<TeamViewModel>(
-        factory = ViewModelFactory(
-            repository = Repository()
-        )
-    )
+fun Teams(
+    viewModel: TeamViewModel = koinViewModel(),
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -41,11 +36,10 @@ fun Teams() {
             userScrollEnabled = true,
             modifier = Modifier.padding(top = 8.dp)
         ) {
-            teamViewModel.getTeam()
-            teamViewModel.team.value?.forEach { team ->
+            viewModel.getTeam()
+            viewModel.team.value?.forEach { team ->
                 item {
                     CustomTeamsList(team)
-
                 }
             }
         }

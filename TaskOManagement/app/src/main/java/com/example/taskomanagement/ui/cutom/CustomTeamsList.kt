@@ -72,14 +72,3 @@ fun CustomTeamsList(teamDataItem: TeamDataItem) {
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun PreviewCustomTeamsList() {
-//    CustomTeamsList(
-//        Teams(
-//        namaTeams = "Team 1",
-//        projectSum = "5"
-//    )
-//    )
-//}
