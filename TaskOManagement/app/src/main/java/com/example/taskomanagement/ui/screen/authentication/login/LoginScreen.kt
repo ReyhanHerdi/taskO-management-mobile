@@ -24,9 +24,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,14 +45,22 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.taskomanagement.R
 import com.example.taskomanagement.utils.Screen
+import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun Login(navController: NavController) {
+fun Login(
+    navController: NavController,
+    viewModel: LoginViewModel = koinViewModel(),
+) {
+    val scope = rememberCoroutineScope()
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    OnLogin(navController, viewModel)
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -136,9 +146,17 @@ fun Login(navController: NavController) {
         Spacer(modifier = Modifier.weight(1f))
         Button(
             onClick = {
-                navController.navigate(Screen.MainScreen.routes) {
-                    popUpTo(Screen.AuthenticationScreen.routes) {
-                        inclusive = true
+                scope.launch {
+                    try {
+                        viewModel.login(email, password)
+                    } finally {
+                        if (viewModel.getUserLogin()) {
+                            navController.navigate(Screen.MainScreen.routes) {
+                                popUpTo(Screen.AuthenticationScreen.routes) {
+                                    inclusive = true
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -193,5 +211,24 @@ private fun OnBackPressed() {
     val activity = (LocalContext.current as? Activity)
     BackHandler {
         activity?.finish()
+    }
+}
+
+@Composable
+private fun OnLogin(
+    navController: NavController,
+    viewModel: LoginViewModel
+) {
+    val scope = rememberCoroutineScope()
+    LaunchedEffect(1) {
+        scope.launch {
+            if (viewModel.getUserLogin()) {
+                navController.navigate(Screen.MainScreen.routes) {
+                    popUpTo(Screen.AuthenticationScreen.routes) {
+                        inclusive = true
+                    }
+                }
+            }
+        }
     }
 }

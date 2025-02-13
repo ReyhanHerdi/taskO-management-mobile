@@ -80,4 +80,7 @@ dependencies {
     implementation (libs.koin.androidx.navigation)
     implementation (libs.koin.androidx.compose)
     testImplementation (libs.koin.test.junit4)
+
+    // Datastore
+    implementation (libs.androidx.datastore.preferences)
 }

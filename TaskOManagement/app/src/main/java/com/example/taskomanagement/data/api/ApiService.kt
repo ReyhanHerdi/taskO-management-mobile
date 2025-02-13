@@ -1,5 +1,6 @@
 package com.example.taskomanagement.data.api
 
+import com.example.taskomanagement.data.response.LoginResponse
 import com.example.taskomanagement.data.response.ProjectResponse
 import com.example.taskomanagement.data.response.TaskResponse
 import com.example.taskomanagement.data.response.TeamResponse
@@ -12,6 +13,13 @@ import retrofit2.http.POST
 interface ApiService {
     @GET("api/users")
     suspend fun getUsers() : UserResponse
+
+    @FormUrlEncoded
+    @POST("api/login")
+    suspend fun login(
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): LoginResponse
 
     @FormUrlEncoded
     @POST("api/register")
