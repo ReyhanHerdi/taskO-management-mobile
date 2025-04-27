@@ -24,6 +24,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,7 +36,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.taskomanagement.ui.cutom.CustomHistoryTasksList
+import com.example.taskomanagement.ui.screen.main.home.HomeViewModel
 import com.example.taskomanagement.utils.Screen
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -39,6 +46,15 @@ fun Profile(
     navController: NavController,
     viewModel: ProfileViewModel = koinViewModel(),
 ) {
+    val authStatus by viewModel.auth.collectAsState()
+
+    LaunchedEffect(key1 = authStatus) {
+        if (!authStatus) {
+            navController.popBackStack()
+            navController.navigate(Screen.AuthenticationScreen.routes)
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -297,7 +313,7 @@ fun Profile(
             modifier = Modifier
                 .padding(top = 24.dp, bottom = 16.dp)
                 .clickable(true) {
-                    navController.navigate(Screen.AuthenticationScreen.routes)
+                    viewModel.logout()
                 }
         ) {
             Row(
@@ -331,3 +347,4 @@ fun Profile(
 //fun ProfilePreview() {
 //    Profile()
 //}
+

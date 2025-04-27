@@ -24,6 +24,13 @@ class AuthDataStore(private val context: Context) {
         return status[dataStoreKey] ?: false
     }
 
+    suspend fun setUserLogout() {
+        val dataStoreKey = booleanPreferencesKey(authDataStoreKey)
+        context.datastore.edit {
+            it[dataStoreKey] = false
+        }
+    }
+
     private object PreferencesKey {
         val USER_LOGIN = booleanPreferencesKey("user_login")
     }

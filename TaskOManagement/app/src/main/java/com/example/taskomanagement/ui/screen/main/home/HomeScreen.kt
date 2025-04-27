@@ -20,21 +20,33 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.taskomanagement.data.list.taskList
 import com.example.taskomanagement.ui.cutom.CustomTasksList
+import com.example.taskomanagement.ui.screen.authentication.login.LoginViewModel
 import com.example.taskomanagement.ui.theme.TaskOManagementTheme
+import com.example.taskomanagement.utils.Screen
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun Home(
+    navController: NavController,
     viewModel: HomeViewModel = koinViewModel(),
 ) {
+    AuthCheck(navController = navController, viewModel = viewModel)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -219,10 +231,26 @@ fun Home(
     }
 }
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
+//@Composable
+//fun HomePreview(modifier: Modifier = Modifier) {
+//    TaskOManagementTheme {
+//        Home()
+//    }
+//}
+
 @Composable
-fun HomePreview(modifier: Modifier = Modifier) {
-    TaskOManagementTheme {
-        Home()
+private fun AuthCheck(
+    navController: NavController,
+    viewModel: HomeViewModel
+) {
+    val scope = rememberCoroutineScope()
+    LaunchedEffect(1) {
+        scope.launch {
+            if (!viewModel.getUserLogin()) {
+                navController.popBackStack()
+                navController.navigate(Screen.AuthenticationScreen.routes)
+            }
+        }
     }
 }

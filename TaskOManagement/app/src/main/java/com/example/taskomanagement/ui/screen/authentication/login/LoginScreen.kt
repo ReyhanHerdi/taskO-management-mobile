@@ -1,6 +1,7 @@
 package com.example.taskomanagement.ui.screen.authentication.login
 
 import android.app.Activity
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -25,6 +26,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,7 +49,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.taskomanagement.R
+import com.example.taskomanagement.ui.screen.main.home.HomeViewModel
 import com.example.taskomanagement.utils.Screen
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -60,7 +64,16 @@ fun Login(
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
-    OnLogin(navController, viewModel)
+    val authStatus by viewModel.auth.collectAsState()
+    
+    LaunchedEffect(key1 = authStatus) {
+        Log.d("AUTH CHECK", authStatus.toString())
+        if (authStatus) {
+            navController.popBackStack()
+            navController.navigate(Screen.MainScreen.routes)
+        }
+    }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -147,17 +160,7 @@ fun Login(
         Button(
             onClick = {
                 scope.launch {
-                    try {
-                        viewModel.login(email, password)
-                    } finally {
-                        if (viewModel.getUserLogin()) {
-                            navController.navigate(Screen.MainScreen.routes) {
-                                popUpTo(Screen.AuthenticationScreen.routes) {
-                                    inclusive = true
-                                }
-                            }
-                        }
-                    }
+                    viewModel.login(email, password)
                 }
             },
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
@@ -170,7 +173,7 @@ fun Login(
         Text(text = "Atau")
         Button(
             onClick = {
-
+                Log.d("AUTH STATUS", authStatus.toString())
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
             modifier = Modifier
@@ -211,24 +214,5 @@ private fun OnBackPressed() {
     val activity = (LocalContext.current as? Activity)
     BackHandler {
         activity?.finish()
-    }
-}
-
-@Composable
-private fun OnLogin(
-    navController: NavController,
-    viewModel: LoginViewModel
-) {
-    val scope = rememberCoroutineScope()
-    LaunchedEffect(1) {
-        scope.launch {
-            if (viewModel.getUserLogin()) {
-                navController.navigate(Screen.MainScreen.routes) {
-                    popUpTo(Screen.AuthenticationScreen.routes) {
-                        inclusive = true
-                    }
-                }
-            }
-        }
     }
 }

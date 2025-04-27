@@ -58,7 +58,7 @@ fun Navigation(){
                 startDestination = Screen.HomeScreen.routes,
                 route = Screen.MainScreen.routes
             ) {
-                composable(Screen.HomeScreen.routes) { Home() }
+                composable(Screen.HomeScreen.routes) { Home(navController) }
                 composable(Screen.ProjectsScreen.routes) { Projects() }
                 composable(Screen.ProfileScreen.routes) { Profile(navController) }
                 composable(Screen.TeamsScreen.routes) { Teams() }

@@ -19,6 +19,7 @@ interface MainRepository {
         password: String
     ): LoginResponse
     suspend fun setUserLogin()
+    suspend fun setUserLogout()
     suspend fun getUserLogin(): Boolean
     // Main
     suspend fun getTeam(): TeamResponse
