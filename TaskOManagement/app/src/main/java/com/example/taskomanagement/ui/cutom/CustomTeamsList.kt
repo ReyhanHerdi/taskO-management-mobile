@@ -20,10 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.taskomanagement.data.response.TeamDataItem
+import com.example.taskomanagement.data.response.TeamItem
 
 @Composable
-fun CustomTeamsList(teamDataItem: TeamDataItem) {
+fun CustomTeamsList(teamDataItem: TeamItem) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer

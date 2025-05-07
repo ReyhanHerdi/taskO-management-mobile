@@ -1,25 +1,33 @@
 package com.example.taskomanagement.ui.screen.main.teams
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taskomanagement.data.repository.MainRepository
-import com.example.taskomanagement.data.response.TeamDataItem
+import com.example.taskomanagement.data.response.TeamItem
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class TeamViewModel(private val repository: MainRepository): ViewModel() {
-    private val _team = MutableLiveData<List<TeamDataItem>>()
-    val team: LiveData<List<TeamDataItem>> get() = _team
+    private val _team = MutableStateFlow<List<TeamItem>>(emptyList())
+    val team = _team.asStateFlow()
+
+    private suspend fun getUserId(): Int = repository.getUserId()
 
     fun getTeam() {
         viewModelScope.launch {
             try {
-                val teamData = repository.getTeam()
-                _team.value = teamData.data
+                val user = repository.getUserTeams(getUserId())
+                user.data.forEach {
+                    it.member.forEach { member ->
+                        _team.value = member.team
+                    }
+                }
             } catch (e: Exception) {
-                Log.d("ERROR", "${e.message}")
+                e.printStackTrace()
+            } finally {
+                Log.d("TEAMS", "data: ${team.value}")
             }
         }
     }
