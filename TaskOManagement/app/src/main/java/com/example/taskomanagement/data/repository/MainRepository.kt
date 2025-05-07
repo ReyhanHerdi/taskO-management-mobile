@@ -5,7 +5,6 @@ import com.example.taskomanagement.data.response.ProjectResponse
 import com.example.taskomanagement.data.response.TaskResponse
 import com.example.taskomanagement.data.response.TeamResponse
 import com.example.taskomanagement.data.response.UserResponse
-import java.util.concurrent.Flow
 
 interface MainRepository {
     // Auth
@@ -21,6 +20,8 @@ interface MainRepository {
     suspend fun setUserLogin()
     suspend fun setUserLogout()
     suspend fun getUserLogin(): Boolean
+    suspend fun setUserId(uid: Int)
+    suspend fun getUserId(): Int
     // Main
     suspend fun getTeam(): TeamResponse
     suspend fun getProject(): ProjectResponse

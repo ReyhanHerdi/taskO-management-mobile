@@ -1,7 +1,6 @@
 package com.example.taskomanagement.ui.screen.main.profile
 
 import android.util.Log
-import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,6 +17,8 @@ class ProfileViewModel(private val repository: MainRepository): ViewModel() {
 
     private suspend fun setUserLogout() = repository.setUserLogout()
     private suspend fun getUserLogout(): Boolean = repository.getUserLogin()
+    private suspend fun setUserId(uid: Int) = repository.setUserId(uid)
+    private suspend fun getUserId(): Int = repository.getUserId()
 
     private val _auth = MutableStateFlow(true)
     val auth = _auth.asStateFlow()
@@ -45,8 +46,11 @@ class ProfileViewModel(private val repository: MainRepository): ViewModel() {
             try {
                 setUserLogout()
                 updateAuth()
+                setUserId(0)
             } catch (e: Exception) {
                 e.printStackTrace()
+            } finally {
+                Log.d("USER ID RESET", "uid: ${getUserId()}")
             }
         }
     }

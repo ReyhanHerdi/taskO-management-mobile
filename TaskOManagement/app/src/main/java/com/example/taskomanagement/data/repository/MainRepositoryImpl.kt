@@ -26,6 +26,9 @@ class MainRepositoryImpl(
     override suspend fun setUserLogin() = authDataStore.setUserLogin()
     override suspend fun setUserLogout() = authDataStore.setUserLogout()
     override suspend fun getUserLogin(): Boolean = authDataStore.getUserLogin()
+    override suspend fun setUserId(uid: Int) = authDataStore.setUserId(uid)
+    override suspend fun getUserId(): Int = authDataStore.getUserId()
+
     override suspend fun getTeam(): TeamResponse = apiService.getTeams()
     override suspend fun getProject(): ProjectResponse = apiService.getProjects()
     override suspend fun getTask(): TaskResponse = apiService.getTasks()
