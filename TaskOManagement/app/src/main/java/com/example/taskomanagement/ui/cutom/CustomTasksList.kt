@@ -19,13 +19,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taskomanagement.data.model.Tasks
-import com.example.taskomanagement.data.response.TaskDataItem
+import com.example.taskomanagement.data.response.TaskItem
 
 @Composable
-fun CustomTasksList(tasks: TaskDataItem) {
+fun CustomTasksList(tasks: TaskItem) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer

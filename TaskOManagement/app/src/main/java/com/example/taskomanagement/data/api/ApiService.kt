@@ -2,6 +2,7 @@ package com.example.taskomanagement.data.api
 
 import com.example.taskomanagement.data.response.LoginResponse
 import com.example.taskomanagement.data.response.ProjectResponse
+import com.example.taskomanagement.data.response.TaskExecutorResponse
 import com.example.taskomanagement.data.response.TaskResponse
 import com.example.taskomanagement.data.response.TeamOfUserResponse
 import com.example.taskomanagement.data.response.TeamResponse
@@ -13,8 +14,10 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ApiService {
-    @GET("api/users")
-    suspend fun getUsers() : UserResponse
+    @GET("api/user/{id}")
+    suspend fun getUser(
+        @Path("id") id: Int
+    ) : UserResponse
 
     @FormUrlEncoded
     @POST("api/login")
@@ -44,4 +47,9 @@ interface ApiService {
 
     @GET("api/tasks")
     suspend fun getTasks(): TaskResponse
+
+    @GET("api/task-executor/{id}")
+    suspend fun getTaskByExecutor(
+        @Path("id") id: Int
+    ): TaskExecutorResponse
 }

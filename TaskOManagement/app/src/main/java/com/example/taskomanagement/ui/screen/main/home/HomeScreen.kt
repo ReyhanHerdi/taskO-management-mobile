@@ -22,20 +22,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.taskomanagement.data.list.taskList
 import com.example.taskomanagement.ui.cutom.CustomTasksList
-import com.example.taskomanagement.ui.screen.authentication.login.LoginViewModel
-import com.example.taskomanagement.ui.theme.TaskOManagementTheme
 import com.example.taskomanagement.utils.Screen
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -46,7 +41,9 @@ fun Home(
     viewModel: HomeViewModel = koinViewModel(),
 ) {
     AuthCheck(navController = navController, viewModel = viewModel)
-
+    val user by viewModel.user.collectAsState()
+    val task by viewModel.task.collectAsState()
+    viewModel.getUser()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -68,7 +65,7 @@ fun Home(
                     style = MaterialTheme.typography.bodyMedium
                     )
                 Text(
-                    text = "Jane Doe!",
+                    text = user,
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold
                     )
@@ -224,8 +221,8 @@ fun Home(
             modifier = Modifier.padding(top = 8.dp)
         ) {
             viewModel.getTask()
-            viewModel.task.value?.forEach { task ->
-                CustomTasksList(tasks = task)
+            task.forEach { item ->
+                CustomTasksList(tasks = item)
             }
         }
     }
