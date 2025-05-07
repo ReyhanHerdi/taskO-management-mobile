@@ -3,12 +3,14 @@ package com.example.taskomanagement.data.api
 import com.example.taskomanagement.data.response.LoginResponse
 import com.example.taskomanagement.data.response.ProjectResponse
 import com.example.taskomanagement.data.response.TaskResponse
+import com.example.taskomanagement.data.response.TeamOfUserResponse
 import com.example.taskomanagement.data.response.TeamResponse
 import com.example.taskomanagement.data.response.UserResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
     @GET("api/users")
@@ -31,6 +33,11 @@ interface ApiService {
 
     @GET("api/teams")
     suspend fun getTeams(): TeamResponse
+
+    @GET("api/user-teams/{id}")
+    suspend fun getUserTeams(
+        @Path("id") id: Int
+    ): TeamOfUserResponse
 
     @GET("api/projects")
     suspend fun getProjects(): ProjectResponse

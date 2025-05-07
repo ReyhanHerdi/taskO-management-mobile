@@ -3,6 +3,7 @@ package com.example.taskomanagement.data.repository
 import com.example.taskomanagement.data.response.LoginResponse
 import com.example.taskomanagement.data.response.ProjectResponse
 import com.example.taskomanagement.data.response.TaskResponse
+import com.example.taskomanagement.data.response.TeamOfUserResponse
 import com.example.taskomanagement.data.response.TeamResponse
 import com.example.taskomanagement.data.response.UserResponse
 
@@ -24,6 +25,7 @@ interface MainRepository {
     suspend fun getUserId(): Int
     // Main
     suspend fun getTeam(): TeamResponse
+    suspend fun getUserTeams(id: Int): TeamOfUserResponse
     suspend fun getProject(): ProjectResponse
     suspend fun getTask(): TaskResponse
 }
