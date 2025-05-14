@@ -1,15 +1,11 @@
 package com.example.taskomanagement.ui.screen.main.project
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taskomanagement.data.repository.MainRepository
-import com.example.taskomanagement.data.response.MemberItem
 import com.example.taskomanagement.data.response.ProjectDataItem
-import com.example.taskomanagement.data.response.TeamDataItem
-import com.example.taskomanagement.data.response.TeamItem
+import com.example.taskomanagement.data.response.TeamMemberDataItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -20,22 +16,18 @@ class ProjectViewModel(private val repository: MainRepository): ViewModel() {
     private val _project = MutableStateFlow<List<ProjectDataItem>>(emptyList())
     val project = _project.asStateFlow()
 
-    private val _team = MutableStateFlow<List<MemberItem>>(emptyList())
+    private val _team = MutableStateFlow<List<TeamMemberDataItem>>(emptyList())
     val team = _team.asStateFlow()
 
     fun getTeam() {
         viewModelScope.launch {
             try {
-                val teamData = repository.getUserTeams(getUserId())
-                teamData.data.forEach { user ->
-                    user.member.forEach { it ->
-                        getProject(it.teamId)
-                    }
+                val teamData = repository.getTeamByUserId(getUserId())
+                teamData.data.forEach {
+                    getProject(it.teamId)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-            } finally {
-                Log.d("PROJECT BY ITEM", _project.toString())
             }
         }
     }
@@ -44,9 +36,20 @@ class ProjectViewModel(private val repository: MainRepository): ViewModel() {
         viewModelScope.launch {
             try {
                 val projectData = repository.getProject(teamId)
-                _project.value = projectData.data
+                val data = _project.value.toMutableList()
+                val idData = data.map { it.idProject }
+                Log.d("ID DATA", idData.toString())
+                projectData.data.forEach { prodata ->
+                    if (!data.contains(prodata)) {
+                        data.removeAll { prodata.idProject in idData}
+                        data.add(prodata)
+                    }
+                }
+                _project.value = data
             } catch (e: Exception) {
-                Log.d("FETCHED DATA FAIL", "${e.message}")
+                e.printStackTrace()
+            } finally {
+                Log.d("PROJECTS", project.value.toString())
             }
         }
     }
