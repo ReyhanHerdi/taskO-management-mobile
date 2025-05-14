@@ -38,7 +38,6 @@ class ProjectViewModel(private val repository: MainRepository): ViewModel() {
                 val projectData = repository.getProject(teamId)
                 val data = _project.value.toMutableList()
                 val idData = data.map { it.idProject }
-                Log.d("ID DATA", idData.toString())
                 projectData.data.forEach { prodata ->
                     if (!data.contains(prodata)) {
                         data.removeAll { prodata.idProject in idData}

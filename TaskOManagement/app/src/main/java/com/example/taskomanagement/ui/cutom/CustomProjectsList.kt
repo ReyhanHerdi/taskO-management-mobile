@@ -18,9 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taskomanagement.data.model.Projects
 import com.example.taskomanagement.data.response.ProjectDataItem
 
 @Composable
@@ -52,7 +50,7 @@ fun CustomProjectsList(projects: ProjectDataItem) {
                 )
             }
             Text(
-                text = projects.teamId.toString(),
+                text = projects.description ?: "-",
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(top = 4.dp, bottom = 16.dp)
             )

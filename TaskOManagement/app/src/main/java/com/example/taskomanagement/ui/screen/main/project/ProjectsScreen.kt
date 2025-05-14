@@ -38,7 +38,6 @@ fun Projects(
             modifier = Modifier.padding(top = 16.dp)
         ) {
             viewModel.getTeam()
-
             project.forEach { project ->
                 item {
                     CustomProjectsList(projects = project)
