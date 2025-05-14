@@ -27,8 +27,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,9 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.taskomanagement.ui.cutom.CustomHistoryTasksList
-import com.example.taskomanagement.ui.screen.main.home.HomeViewModel
 import com.example.taskomanagement.utils.Screen
-import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -47,6 +43,9 @@ fun Profile(
     viewModel: ProfileViewModel = koinViewModel(),
 ) {
     val authStatus by viewModel.auth.collectAsState()
+    val user by viewModel.user.collectAsState()
+    val task by viewModel.task.collectAsState()
+    val team by viewModel.team.collectAsState()
 
     LaunchedEffect(key1 = authStatus) {
         if (!authStatus) {
@@ -54,7 +53,8 @@ fun Profile(
             navController.navigate(Screen.AuthenticationScreen.routes)
         }
     }
-
+    viewModel.getUser()
+    viewModel.getTeam()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -95,13 +95,13 @@ fun Profile(
                         )
                 ) {
                     Text(
-                        text = "Jane Doe",
+                        text = "${user.name}",
                         style = MaterialTheme.typography.titleMedium,
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                     )
                     Text(
-                        text = "janedoe@mail.com",
+                        text = "${user.email}",
                         style = MaterialTheme.typography.titleSmall
                     )
                 }
@@ -131,7 +131,7 @@ fun Profile(
                         .align(Alignment.CenterHorizontally)
                 ) {
                     Text(
-                        text = "20",
+                        text = "${task.size}",
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.SemiBold,
                         color = Color.Black,
@@ -184,7 +184,7 @@ fun Profile(
                         .align(Alignment.CenterHorizontally)
                 ) {
                     Text(
-                        text = "5",
+                        text = "${team.size}",
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.SemiBold,
                         color = Color.Black,
@@ -230,8 +230,8 @@ fun Profile(
                         .padding(top = 8.dp)
                 ) {
                     viewModel.getTask()
-                    viewModel.task.value?.forEach { task ->
-                        item {
+                    task.forEach { task -> 
+                        item { 
                             CustomHistoryTasksList(tasks = task)
                         }
                     }
