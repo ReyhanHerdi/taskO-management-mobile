@@ -59,10 +59,10 @@ data class MemberItem(
 	val teamId: Int,
 
 	@field:SerializedName("team")
-	val team: List<TeamItem>
+	val team: List<TeamMemberItem>
 )
 
-data class TeamItem(
+data class TeamMemberItem(
 
 	@field:SerializedName("id_team")
 	val idTeam: Int,

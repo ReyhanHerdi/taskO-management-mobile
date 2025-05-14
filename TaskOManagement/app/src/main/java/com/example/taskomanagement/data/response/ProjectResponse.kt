@@ -29,7 +29,7 @@ data class ProjectDataItem(
 	val due: String,
 
 	@field:SerializedName("description")
-	val description: String? = null,
+	val description: Any,
 
 	@field:SerializedName("created_at")
 	val createdAt: String,

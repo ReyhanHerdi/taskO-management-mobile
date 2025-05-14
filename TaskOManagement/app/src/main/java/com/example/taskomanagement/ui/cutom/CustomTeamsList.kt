@@ -21,9 +21,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.taskomanagement.data.response.TeamItem
+import com.example.taskomanagement.data.response.TeamMemberDataItem
 
 @Composable
-fun CustomTeamsList(teamDataItem: TeamItem) {
+fun CustomTeamsList(teamDataItem: TeamMemberDataItem) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -32,43 +33,46 @@ fun CustomTeamsList(teamDataItem: TeamItem) {
         modifier = Modifier
             .padding(bottom = 8.dp)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = 16.dp)
-        ) {
-            Icon(
-                imageVector = Icons.Filled.Notifications,
-                contentDescription = teamDataItem.nameTeam,
-                tint = MaterialTheme.colorScheme.primary,
+        teamDataItem.team.forEach {
+            Row(
                 modifier = Modifier
-                    .align(Alignment.CenterVertically)
-                    .size(35.dp)
-            )
-            Column(
-                modifier = Modifier
-                    .padding(start = 16.dp)
-                    .align(Alignment.CenterVertically),
+                    .fillMaxWidth()
+                    .padding(all = 16.dp)
             ) {
-                Text(
-                    text = teamDataItem.nameTeam,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black,
-                    modifier = Modifier.padding(bottom = 4.dp)
+                Icon(
+                    imageVector = Icons.Filled.Notifications,
+                    contentDescription = it.nameTeam,
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .size(35.dp)
                 )
-                Text(
-                    text = "Proyek: ${teamDataItem.description}",
-                    style = MaterialTheme.typography.bodyMedium,
-                )
+                Column(
+                    modifier = Modifier
+                        .padding(start = 16.dp)
+                        .align(Alignment.CenterVertically),
+                ) {
+                    Text(
+                        text = it.nameTeam,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black,
+                        modifier = Modifier.padding(bottom = 4.dp)
+                    )
+                    Text(
+                        text = "Proyek: ${it.description}",
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
 
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                    contentDescription = "Lihat tim",
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                )
             }
-            Spacer(modifier = Modifier.weight(1f))
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                contentDescription = "Lihat tim",
-                modifier = Modifier.align(Alignment.CenterVertically)
-            )
         }
+
     }
 }
