@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.taskomanagement.data.response.TeamItem
 import com.example.taskomanagement.data.response.TeamMemberDataItem
 
 @Composable
@@ -60,7 +59,7 @@ fun CustomTeamsList(teamDataItem: TeamMemberDataItem) {
                         modifier = Modifier.padding(bottom = 4.dp)
                     )
                     Text(
-                        text = "Proyek: ${it.description}",
+                        text = it.description,
                         style = MaterialTheme.typography.bodyMedium,
                     )
 
