@@ -65,4 +65,9 @@ interface ApiService {
     suspend fun getTeamById(
         @Path("id") id: Int
     ): TeamResponse
+
+    @GET("api/projects-team/{id}")
+    suspend fun getProjectsByTeamId(
+        @Path("id") id: Int
+    ): ProjectResponse
 }

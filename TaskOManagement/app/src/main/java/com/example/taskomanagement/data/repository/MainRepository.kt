@@ -34,4 +34,5 @@ interface MainRepository {
     suspend fun getTaskByExector(id: Int): TaskExecutorResponse
     suspend fun getTeamByUserId(id: Int): TeamMemberResponse
     suspend fun getTeamByTeamId(id: Int): TeamResponse
+    suspend fun getProjectsByTeamId(id: Int): ProjectResponse
 }

@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.taskomanagement.data.response.TeamItem
+import com.example.taskomanagement.ui.cutom.CustomProjectsList
 import com.example.taskomanagement.ui.cutom.CustomTeamsList
 import org.koin.androidx.compose.koinViewModel
 
@@ -37,7 +38,11 @@ fun TeamDetail(
     viewModel: TeamDetailViewModel = koinViewModel(),
 ) {
     viewModel.getTeam(teamId)
+    viewModel.getProjects(teamId)
     val team by viewModel.team.collectAsState()
+    val projects by viewModel.project.collectAsState()
+    val projectSize = if (projects != null) projects.size else 0
+    
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -50,7 +55,7 @@ fun TeamDetail(
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Text(
-            text = "x Proyek",
+            text = "$projectSize Proyek",
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.Normal,
             modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -75,7 +80,13 @@ fun TeamDetail(
             userScrollEnabled = true,
             modifier = Modifier.padding(top = 8.dp)
         ) {
-
+            projects.forEach { project ->
+                item {
+                    if (project != null) {
+                        CustomProjectsList(projects = project)
+                    }
+                }
+            }
         }
 
     }
