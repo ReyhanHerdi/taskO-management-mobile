@@ -14,24 +14,6 @@ data class TeamMemberResponse(
 	val status: Boolean
 )
 
-data class TeamItem(
-
-	@field:SerializedName("id_team")
-	val idTeam: Int,
-
-	@field:SerializedName("updated_at")
-	val updatedAt: String,
-
-	@field:SerializedName("description")
-	val description: String,
-
-	@field:SerializedName("created_at")
-	val createdAt: String,
-
-	@field:SerializedName("name_team")
-	val nameTeam: String
-)
-
 data class TeamMemberDataItem(
 
 	@field:SerializedName("role")
@@ -50,5 +32,5 @@ data class TeamMemberDataItem(
 	val teamId: Int,
 
 	@field:SerializedName("team")
-	val team: List<TeamItem>
+	val team: List<TeamDataItem>
 )

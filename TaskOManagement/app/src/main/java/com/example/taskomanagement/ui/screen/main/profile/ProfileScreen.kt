@@ -46,6 +46,11 @@ fun Profile(
     val user by viewModel.user.collectAsState()
     val task by viewModel.task.collectAsState()
     val team by viewModel.team.collectAsState()
+    val project by viewModel.project.collectAsState()
+
+    val taskSize = if (task != null) task.size else 0
+    val teamSize = if (team != null) team.size else 0
+    val projectSize = if (project != null) project.size else 0
 
     LaunchedEffect(key1 = authStatus) {
         if (!authStatus) {
@@ -131,7 +136,7 @@ fun Profile(
                         .align(Alignment.CenterHorizontally)
                 ) {
                     Text(
-                        text = "${task.size}",
+                        text = "$taskSize",
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.SemiBold,
                         color = Color.Black,
@@ -158,7 +163,7 @@ fun Profile(
                         .align(Alignment.CenterHorizontally)
                 ) {
                     Text(
-                        text = "7",
+                        text = "$projectSize",
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.SemiBold,
                         color = Color.Black,
@@ -184,7 +189,7 @@ fun Profile(
                         .align(Alignment.CenterHorizontally)
                 ) {
                     Text(
-                        text = "${team.size}",
+                        text = "$teamSize",
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.SemiBold,
                         color = Color.Black,
@@ -231,8 +236,10 @@ fun Profile(
                 ) {
                     viewModel.getTask()
                     task.forEach { task -> 
-                        item { 
-                            CustomHistoryTasksList(tasks = task)
+                        item {
+                            if (task != null) {
+                                CustomHistoryTasksList(tasks = task)
+                            }
                         }
                     }
                 }
