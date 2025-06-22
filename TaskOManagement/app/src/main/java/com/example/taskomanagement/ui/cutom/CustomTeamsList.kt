@@ -1,5 +1,6 @@
 package com.example.taskomanagement.ui.cutom
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.example.taskomanagement.data.response.TeamMemberDataItem
 
 @Composable
-fun CustomTeamsList(teamDataItem: TeamMemberDataItem) {
+fun CustomTeamsList(teamDataItem: TeamMemberDataItem, onItemClick: (TeamMemberDataItem) -> Unit) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -31,6 +32,7 @@ fun CustomTeamsList(teamDataItem: TeamMemberDataItem) {
         elevation = CardDefaults.cardElevation(2.dp),
         modifier = Modifier
             .padding(bottom = 8.dp)
+            .clickable { onItemClick(teamDataItem) }
     ) {
         teamDataItem.team.forEach {
             Row(

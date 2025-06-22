@@ -60,4 +60,9 @@ interface ApiService {
     suspend fun getTeamsByUserId(
         @Path("id") id: Int
     ): TeamMemberResponse
+
+    @GET("api/team/{id}")
+    suspend fun getTeamById(
+        @Path("id") id: Int
+    ): TeamResponse
 }
