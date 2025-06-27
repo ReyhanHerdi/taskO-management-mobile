@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taskomanagement.data.repository.MainRepository
 import com.example.taskomanagement.data.response.ProjectDataItem
-import com.example.taskomanagement.data.response.TaskItem
+import com.example.taskomanagement.data.response.TaskDataItem
 import com.example.taskomanagement.data.response.TeamDataItem
 import com.example.taskomanagement.data.response.TeamMemberDataItem
 import com.example.taskomanagement.data.response.UserDataItem
@@ -23,7 +23,7 @@ class ProfileViewModel(private val repository: MainRepository): ViewModel() {
     private val _user =  MutableStateFlow(UserDataItem())
     val user = _user.asStateFlow()
 
-    private val _task = MutableStateFlow<List<TaskItem?>>(emptyList())
+    private val _task = MutableStateFlow<List<TaskDataItem?>>(emptyList())
     val task = _task.asStateFlow()
 
     private val _team = MutableStateFlow<List<TeamMemberDataItem?>>(emptyList())

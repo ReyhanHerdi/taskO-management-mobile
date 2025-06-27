@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.taskomanagement.ui.cutom.CustomProjectsList
+import com.example.taskomanagement.ui.cutom.CustomTasksList
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -38,6 +39,9 @@ fun ProjectDetail(
     }
     val team by viewModel.team.collectAsState()
     val nameTeam = if (team != null) team?.nameTeam else "Nama tim"
+    viewModel.getTasks(projectId)
+    val tasks by viewModel.task.collectAsState()
+    val taskSize = if (tasks != null) tasks.size else 0
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -65,7 +69,7 @@ fun ProjectDetail(
                 modifier = Modifier.padding(horizontal = 8.dp)
             )
             Text(
-                text = "x Tugas",
+                text = "$taskSize Tugas",
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Normal,
                 modifier = Modifier.align(Alignment.CenterVertically)
@@ -127,7 +131,13 @@ fun ProjectDetail(
             userScrollEnabled = true,
             modifier = Modifier.padding(top = 8.dp)
         ) {
-
+            if (tasks != null) {
+                tasks.forEach { task ->
+                    item {
+                        CustomTasksList(tasks = task)
+                    }
+                }
+            }
         }
     }
 }

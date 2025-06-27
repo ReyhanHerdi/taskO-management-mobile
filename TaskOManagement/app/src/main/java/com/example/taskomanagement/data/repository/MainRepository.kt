@@ -9,6 +9,7 @@ import com.example.taskomanagement.data.response.TeamMemberResponse
 import com.example.taskomanagement.data.response.TeamOfUserResponse
 import com.example.taskomanagement.data.response.TeamResponse
 import com.example.taskomanagement.data.response.UserResponse
+import okhttp3.internal.concurrent.Task
 
 interface MainRepository {
     // Auth
@@ -37,4 +38,5 @@ interface MainRepository {
     suspend fun getTeamByTeamId(id: Int): TeamResponse
     suspend fun getProjectsByTeamId(id: Int): ProjectResponse
     suspend fun getProjectById(id: Int): ProjectDetailResponse
+    suspend fun getTasksByProjectId(id: Int): TaskResponse
 }

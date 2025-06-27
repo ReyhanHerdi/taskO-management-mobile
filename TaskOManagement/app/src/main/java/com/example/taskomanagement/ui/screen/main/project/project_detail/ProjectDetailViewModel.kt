@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.taskomanagement.data.repository.MainRepository
 import com.example.taskomanagement.data.response.ProjectDataItem
 import com.example.taskomanagement.data.response.ProjectDetailData
+import com.example.taskomanagement.data.response.TaskDataItem
 import com.example.taskomanagement.data.response.TeamDataItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,6 +17,9 @@ class ProjectDetailViewModel(private val repository: MainRepository) : ViewModel
 
     private val _team = MutableStateFlow<TeamDataItem?>(null)
     val team = _team.asStateFlow()
+
+    private val _task = MutableStateFlow<List<TaskDataItem>>(emptyList())
+    val task = _task.asStateFlow()
 
     fun getProjectDetail(id: Int) {
         viewModelScope.launch {
@@ -33,6 +37,17 @@ class ProjectDetailViewModel(private val repository: MainRepository) : ViewModel
             try {
                 val teamData = repository.getTeamByTeamId(id)
                 _team.value = teamData.data
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun getTasks(id: Int) {
+        viewModelScope.launch {
+            try {
+                val taskData = repository.getTasksByProjectId(id)
+                _task.value = taskData.data
             } catch (e: Exception) {
                 e.printStackTrace()
             }

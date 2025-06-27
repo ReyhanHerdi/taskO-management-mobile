@@ -76,4 +76,9 @@ interface ApiService {
     suspend fun getProjectById(
         @Path("id") id: Int
     ): ProjectDetailResponse
+
+    @GET("api/tasks-project/{id}")
+    suspend fun getTaskByProjectId(
+        @Path("id") id: Int
+    ): TaskResponse
 }

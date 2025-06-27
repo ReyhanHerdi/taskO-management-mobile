@@ -3,7 +3,7 @@ package com.example.taskomanagement.ui.screen.main.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taskomanagement.data.repository.MainRepository
-import com.example.taskomanagement.data.response.TaskItem
+import com.example.taskomanagement.data.response.TaskDataItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -12,7 +12,7 @@ class HomeViewModel(private val repository: MainRepository): ViewModel() {
     private val _user = MutableStateFlow("name")
     val user = _user.asStateFlow()
 
-    private val _task = MutableStateFlow<List<TaskItem>>(emptyList())
+    private val _task = MutableStateFlow<List<TaskDataItem>>(emptyList())
     val task = _task.asStateFlow()
 
     private suspend fun getUserId(): Int = repository.getUserId()
