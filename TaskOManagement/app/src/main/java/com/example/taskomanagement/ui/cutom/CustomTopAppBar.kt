@@ -2,6 +2,7 @@ package com.example.taskomanagement.ui.cutom
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
@@ -27,7 +28,8 @@ import androidx.compose.ui.unit.dp
 fun CustomTopAppBar(
     title: String? = null,
     startIcon: ImageVector? = null,
-    endIcon: ImageVector? = null
+    endIcon: ImageVector? = null,
+    endIcon2: ImageVector? = null
 ) {
     TopAppBar(
         title = {
@@ -49,6 +51,15 @@ fun CustomTopAppBar(
             }
         },
         actions = {
+            if (endIcon2 != null) {
+                Icon(
+                    imageVector = endIcon2,
+                    contentDescription = "Fitur lainnya",
+                    modifier = Modifier
+                        .size(50.dp)
+                        .padding(end = 16.dp)
+                )
+            }
             if (endIcon != null) {
                 Icon(
                     imageVector = endIcon,

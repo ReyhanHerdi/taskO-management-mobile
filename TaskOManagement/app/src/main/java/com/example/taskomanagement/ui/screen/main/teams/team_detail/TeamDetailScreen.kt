@@ -44,30 +44,24 @@ fun TeamDetail(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
     ) {
-        Row {
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
             Column {
                Text(
                    text = nameTeam,
-                   style = MaterialTheme.typography.headlineMedium,
+                   style = MaterialTheme.typography.titleLarge,
                    fontWeight = FontWeight.SemiBold,
                )
                Text(
                    text = "$projectSize Proyek",
                    style = MaterialTheme.typography.titleSmall,
                    fontWeight = FontWeight.Normal,
+                   modifier = Modifier.align(Alignment.CenterHorizontally)
                )
            }
-            Spacer(modifier = Modifier.weight(1f))
-            Icon(
-                painter = painterResource(id = R.drawable.baseline_groups_24),
-                tint = MaterialTheme.colorScheme.primary,
-                contentDescription = "Daftar Anggota",
-                modifier = Modifier
-                    .align(Alignment.CenterVertically)
-                    .size(40.dp)
-            )
         }
         Text(
             text = "Deskripsi",

@@ -2,6 +2,7 @@ package com.example.taskomanagement.ui.navigation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Notifications
@@ -14,6 +15,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -22,6 +26,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.taskomanagement.R
 import com.example.taskomanagement.ui.cutom.CustomBottomNavigationBar
 import com.example.taskomanagement.ui.cutom.CustomTopAppBar
 import com.example.taskomanagement.ui.screen.authentication.RegisterSuccess
@@ -59,11 +64,18 @@ fun Navigation(){
         topBar = {
             if (currentRoute !in nonTopAppBarRoutes) {
                 when(currentRoute) {
-                    "HomeScreen" -> CustomTopAppBar(endIcon = Icons.Outlined.Notifications)
-                    "ProjectsScreen" -> CustomTopAppBar(title = "Daftar Proyek")
-                    "MessageScreen" -> CustomTopAppBar(title = "Daftar Pesan")
-                    "TeamsScreen" -> CustomTopAppBar(title = "Daftar Tim")
-                    "ProfileScreen" -> CustomTopAppBar(title = "Akun Saya", endIcon = Icons.Filled.Settings)
+                    Screen.HomeScreen.routes -> CustomTopAppBar(endIcon = Icons.Outlined.Notifications)
+                    Screen.ProjectsScreen.routes -> CustomTopAppBar(title = "Daftar Proyek")
+                    Screen.MessageScreen.routes -> CustomTopAppBar(title = "Daftar Pesan")
+                    Screen.TeamsScreen.routes -> CustomTopAppBar(title = "Daftar Tim")
+                    Screen.ProfileScreen.routes -> CustomTopAppBar(title = "Akun Saya", endIcon = Icons.Filled.Settings)
+                    Screen.TeamDetailScreem.routes -> CustomTopAppBar(
+                        startIcon = Icons.Filled.ArrowBack,
+                        endIcon2 = ImageVector.vectorResource(id = R.drawable.baseline_groups_24),
+                        endIcon = Icons.Filled.Settings
+                    )
+                    Screen.ProjectDetailScreen.routes -> CustomTopAppBar(startIcon = Icons.Filled.ArrowBack, endIcon = Icons.Filled.Settings)
+
                 }
             }
         },
