@@ -107,8 +107,6 @@ fun TeamDetail(
                                 onItemClick = { selectedItem ->
                                     navController.navigate("ProjectDetailScreen/${selectedItem.idProject}")
                                 },
-                                taskTotal = 100,
-                                taskComplete = 50
                             )
                         }
                     }

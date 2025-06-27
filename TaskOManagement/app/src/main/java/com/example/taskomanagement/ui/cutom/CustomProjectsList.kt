@@ -27,8 +27,6 @@ import com.example.taskomanagement.data.response.ProjectDataItem
 fun CustomProjectsList(
     projects: ProjectDataItem,
     onItemClick: (ProjectDataItem) -> Unit,
-    taskTotal: Int,
-    taskComplete: Int
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -64,7 +62,6 @@ fun CustomProjectsList(
             )
             val projectsDone = if (projects.task != null) projects.task.filter { it.status == "done" }.size else 90
             val projectsTotal = if (projects.task != null) projects.task.size else 90
-            Log.d("PROYEK PERCENTAGE", "$projectsDone / $projectsTotal")
             LinearProgressIndicator(
                 progress = { projectsDone.toFloat() / projectsTotal },
                 color = MaterialTheme.colorScheme.primary,
