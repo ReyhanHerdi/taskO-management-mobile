@@ -1,10 +1,20 @@
 package com.example.taskomanagement.ui.navigation
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,6 +23,7 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.taskomanagement.ui.cutom.CustomBottomNavigationBar
+import com.example.taskomanagement.ui.cutom.CustomTopAppBar
 import com.example.taskomanagement.ui.screen.authentication.RegisterSuccess
 import com.example.taskomanagement.ui.screen.authentication.login.Login
 import com.example.taskomanagement.ui.screen.authentication.register.Register
@@ -26,6 +37,7 @@ import com.example.taskomanagement.ui.screen.main.teams.Teams
 import com.example.taskomanagement.ui.screen.main.teams.team_detail.TeamDetail
 import com.example.taskomanagement.utils.Screen
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Navigation(){
     val navController = rememberNavController()
@@ -38,10 +50,32 @@ fun Navigation(){
         Screen.TeamsScreen.routes,
         Screen.ProfileScreen.routes
     )
+    val nonTopAppBarRoutes = listOf(
+        Screen.LandingPageScreen.routes,
+        Screen.AuthenticationScreen.routes
+    )
+
     Scaffold(
-        bottomBar = { if(currentRoute in bottomNavRoutes) {
-            CustomBottomNavigationBar(navController, Modifier)
-        } },
+        topBar = {
+            if (currentRoute !in nonTopAppBarRoutes) {
+                when(currentRoute) {
+                    "HomeScreen" -> CustomTopAppBar(endIcon = Icons.Outlined.Notifications)
+                    "ProjectsScreen" -> CustomTopAppBar(title = "Daftar Proyek")
+                    "MessageScreen" -> CustomTopAppBar(title = "Daftar Pesan")
+                    "TeamsScreen" -> CustomTopAppBar(title = "Daftar Tim")
+                    "ProfileScreen" -> CustomTopAppBar(title = "Akun Saya", endIcon = Icons.Filled.Settings)
+                }
+            }
+        },
+        bottomBar = {
+            if(currentRoute in bottomNavRoutes) {
+                CustomBottomNavigationBar(
+                    navController = navController,
+                    modifier = Modifier,
+
+                )
+            }
+        },
         modifier = Modifier
     ) { innerPadding ->
         NavHost(

@@ -32,21 +32,12 @@ fun Projects(
     viewModel: ProjectViewModel = koinViewModel(),
 ) {
     val project by viewModel.project.collectAsState()
-
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(all = 16.dp)
+            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
     ) {
-        Text(
-            text = "Daftar Proyek",
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black
-        )
-        LazyColumn(
-            modifier = Modifier.padding(top = 16.dp)
-        ) {
+        LazyColumn {
             viewModel.getTeam()
             project.forEach { project ->
                 item {

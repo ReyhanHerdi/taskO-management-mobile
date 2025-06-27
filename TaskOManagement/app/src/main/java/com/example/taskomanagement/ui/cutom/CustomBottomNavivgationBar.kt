@@ -31,7 +31,7 @@ import com.example.taskomanagement.utils.Screen
 @Composable
 fun CustomBottomNavigationBar(
     navController: NavHostController,
-    modifier: Modifier
+    modifier: Modifier,
 ) {
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.surfaceContainer,

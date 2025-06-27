@@ -35,19 +35,10 @@ fun Teams(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(all = 16.dp)
+            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
     ) {
-        Text(
-            text = "Daftar Tim",
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .padding(bottom = 16.dp)
-                .align(Alignment.Start)
-        )
         LazyColumn(
             userScrollEnabled = true,
-            modifier = Modifier.padding(top = 8.dp)
         ) {
             viewModel.getTeam()
             if (teams != null) {

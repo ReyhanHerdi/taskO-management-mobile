@@ -50,31 +50,21 @@ fun Home(
             .padding(
                 start = 16.dp,
                 end = 16.dp,
-                top = 8.dp,
                 bottom = 8.dp
             )
             .verticalScroll(rememberScrollState())
     ) {
-        Row(
-            modifier = Modifier
-                .padding(bottom = 20.dp)
+        Column(
+            modifier = Modifier.padding(bottom = 20.dp)
         ) {
-            Column {
-                Text(
-                    text = "Selamat pagi,",
-                    style = MaterialTheme.typography.bodyMedium
-                    )
-                Text(
-                    text = user,
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.Bold
-                    )
-            }
-            Spacer(modifier = Modifier.weight(1f))
-            Icon(
-                imageVector = Icons.Outlined.Notifications,
-                contentDescription = "notifications",
-                modifier = Modifier.align(Alignment.CenterVertically)
+            Text(
+                text = "Selamat pagi,",
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = user,
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Bold
             )
         }
         Card(
