@@ -41,6 +41,9 @@ fun TeamDetail(
     val team by viewModel.team.collectAsState()
     val projects by viewModel.project.collectAsState()
     val projectSize = if (projects != null) projects.size else 0
+
+    val nameTeam = if (team != null) team?.nameTeam else "Nama Tim"
+    val descriptionTeam = if (team != null) team?.description else "-"
     
     Column(
         modifier = Modifier
@@ -48,7 +51,7 @@ fun TeamDetail(
             .padding(16.dp)
     ) {
         Text(
-            text = "${team?.nameTeam}",
+            text = "$nameTeam",
             style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -66,23 +69,37 @@ fun TeamDetail(
             modifier = Modifier.padding(top = 20.dp)
         )
         Text(
-            text = "${team?.description}",
+            text = "$descriptionTeam",
             style = MaterialTheme.typography.bodyMedium
         )
-        Text(
-            text = "Proyek",
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(top = 16.dp)
-        )
+        Row {
+            Text(
+                text = "Proyek",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Button(onClick = { /*TODO*/ }) {
+                Icon(
+                    imageVector = Icons.Filled.Add,
+                    contentDescription = "tambah pryoek",
+                    modifier = Modifier.padding(end = 8.dp)
+                )
+                Text(
+                    text = "Buat",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+        }
         LazyColumn(
             userScrollEnabled = true,
             modifier = Modifier.padding(top = 8.dp)
         ) {
-            projects.forEach { project ->
-                item {
-                    if (project != null) {
-                        CustomProjectsList(projects = project)
+            if (projects != null) {
+                projects.forEach { project ->
+                    item {
+                        project?.let { CustomProjectsList(projects = it) }
                     }
                 }
             }
@@ -95,5 +112,5 @@ fun TeamDetail(
 //@Composable
 //fun TeamDetailPreview(
 //) {
-//    TeamDetail(teamId)
+//    TeamDetail(1, koinViewModel())
 //}
