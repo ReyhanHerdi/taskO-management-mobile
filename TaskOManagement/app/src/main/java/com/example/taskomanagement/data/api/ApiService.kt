@@ -3,6 +3,7 @@ package com.example.taskomanagement.data.api
 import com.example.taskomanagement.data.response.LoginResponse
 import com.example.taskomanagement.data.response.ProjectDetailResponse
 import com.example.taskomanagement.data.response.ProjectResponse
+import com.example.taskomanagement.data.response.ProjectWithTaskResponse
 import com.example.taskomanagement.data.response.TaskExecutorResponse
 import com.example.taskomanagement.data.response.TaskResponse
 import com.example.taskomanagement.data.response.TeamMemberResponse
@@ -47,7 +48,7 @@ interface ApiService {
     @GET("api/projects-team/{id}")
     suspend fun getProjects(
         @Path("id") id: Int
-    ): ProjectResponse
+    ): ProjectWithTaskResponse
 
     @GET("api/tasks")
     suspend fun getTasks(): TaskResponse
@@ -79,6 +80,11 @@ interface ApiService {
 
     @GET("api/tasks-project/{id}")
     suspend fun getTaskByProjectId(
+        @Path("id") id: Int
+    ): TaskResponse
+
+    @GET("api/tasks-done-project/{id}")
+    suspend fun getTaskDoneDByProjectId(
         @Path("id") id: Int
     ): TaskResponse
 }

@@ -2,7 +2,7 @@ package com.example.taskomanagement.data.response
 
 import com.google.gson.annotations.SerializedName
 
-data class ProjectResponse(
+data class ProjectWithTaskResponse(
 
 	@field:SerializedName("data")
 	val data: List<ProjectDataItem>,
@@ -14,7 +14,10 @@ data class ProjectResponse(
 	val status: Boolean
 )
 
-data class ProjectDataItem(
+data class DataItem(
+
+	@field:SerializedName("task")
+	val task: List<TaskDataItem>,
 
 	@field:SerializedName("name_project")
 	val nameProject: String,
@@ -29,7 +32,7 @@ data class ProjectDataItem(
 	val due: String,
 
 	@field:SerializedName("description")
-	val description: String? = null,
+	val description: Any,
 
 	@field:SerializedName("created_at")
 	val createdAt: String,
@@ -41,8 +44,32 @@ data class ProjectDataItem(
 	val idProject: Int,
 
 	@field:SerializedName("status")
-	val status: String,
+	val status: String
+)
 
-	@field:SerializedName("task")
-	val task: List<TaskDataItem>,
+data class TaskItem(
+
+	@field:SerializedName("name_task")
+	val nameTask: String,
+
+	@field:SerializedName("updated_at")
+	val updatedAt: String,
+
+	@field:SerializedName("project_id")
+	val projectId: Int,
+
+	@field:SerializedName("due")
+	val due: String,
+
+	@field:SerializedName("description")
+	val description: String,
+
+	@field:SerializedName("created_at")
+	val createdAt: String,
+
+	@field:SerializedName("id_task")
+	val idTask: Int,
+
+	@field:SerializedName("status")
+	val status: String
 )

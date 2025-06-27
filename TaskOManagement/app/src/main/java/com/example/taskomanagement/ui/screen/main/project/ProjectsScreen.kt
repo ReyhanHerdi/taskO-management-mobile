@@ -49,12 +49,15 @@ fun Projects(
         ) {
             viewModel.getTeam()
             project.forEach { project ->
+                Log.d("PROJECKK", project.idProject.toString())
                 item {
                     CustomProjectsList(
                         projects = project,
                         onItemClick = { selectedItem ->
                             navController.navigate("ProjectDetailScreen/${selectedItem.idProject}")
-                        }
+                        },
+                        taskTotal = if (project.task != null) project.task.size else 0,
+                        taskComplete = if (project.task != null )project.task.filter { it.status == "done" }.size else 0
                     )
                 }
             }

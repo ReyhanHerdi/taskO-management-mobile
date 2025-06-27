@@ -1,5 +1,6 @@
 package com.example.taskomanagement.ui.cutom
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,7 +24,12 @@ import androidx.compose.ui.unit.dp
 import com.example.taskomanagement.data.response.ProjectDataItem
 
 @Composable
-fun CustomProjectsList(projects: ProjectDataItem, onItemClick: (ProjectDataItem) -> Unit) {
+fun CustomProjectsList(
+    projects: ProjectDataItem,
+    onItemClick: (ProjectDataItem) -> Unit,
+    taskTotal: Int,
+    taskComplete: Int
+) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -56,8 +62,11 @@ fun CustomProjectsList(projects: ProjectDataItem, onItemClick: (ProjectDataItem)
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(top = 4.dp, bottom = 16.dp)
             )
+            val projectsDone = if (projects.task != null) projects.task.filter { it.status == "done" }.size else 90
+            val projectsTotal = if (projects.task != null) projects.task.size else 90
+            Log.d("PROYEK PERCENTAGE", "$projectsDone / $projectsTotal")
             LinearProgressIndicator(
-                progress = { 60.toFloat() / 100 },
+                progress = { projectsDone.toFloat() / projectsTotal },
                 color = MaterialTheme.colorScheme.primary,
                 trackColor = MaterialTheme.colorScheme.primaryContainer,
                 modifier = Modifier

@@ -3,6 +3,7 @@ package com.example.taskomanagement.data.repository
 import com.example.taskomanagement.data.response.LoginResponse
 import com.example.taskomanagement.data.response.ProjectDetailResponse
 import com.example.taskomanagement.data.response.ProjectResponse
+import com.example.taskomanagement.data.response.ProjectWithTaskResponse
 import com.example.taskomanagement.data.response.TaskExecutorResponse
 import com.example.taskomanagement.data.response.TaskResponse
 import com.example.taskomanagement.data.response.TeamMemberResponse
@@ -31,7 +32,7 @@ interface MainRepository {
     suspend fun getUser(id: Int): UserResponse
     suspend fun getTeam(): TeamResponse
     suspend fun getUserTeams(id: Int): TeamOfUserResponse
-    suspend fun getProject(teamId: Int): ProjectResponse
+    suspend fun getProject(teamId: Int): ProjectWithTaskResponse
     suspend fun getTask(): TaskResponse
     suspend fun getTaskByExector(id: Int): TaskExecutorResponse
     suspend fun getTeamByUserId(id: Int): TeamMemberResponse
@@ -39,4 +40,5 @@ interface MainRepository {
     suspend fun getProjectsByTeamId(id: Int): ProjectResponse
     suspend fun getProjectById(id: Int): ProjectDetailResponse
     suspend fun getTasksByProjectId(id: Int): TaskResponse
+    suspend fun getTasksDoneByProjectId(id: Int): TaskResponse
 }
