@@ -21,6 +21,7 @@ import com.example.taskomanagement.ui.screen.main.home.Home
 import com.example.taskomanagement.ui.screen.main.message.Message
 import com.example.taskomanagement.ui.screen.main.profile.Profile
 import com.example.taskomanagement.ui.screen.main.project.Projects
+import com.example.taskomanagement.ui.screen.main.project.project_detail.ProjectDetail
 import com.example.taskomanagement.ui.screen.main.teams.Teams
 import com.example.taskomanagement.ui.screen.main.teams.team_detail.TeamDetail
 import com.example.taskomanagement.utils.Screen
@@ -62,7 +63,7 @@ fun Navigation(){
                 route = Screen.MainScreen.routes
             ) {
                 composable(Screen.HomeScreen.routes) { Home(navController) }
-                composable(Screen.ProjectsScreen.routes) { Projects() }
+                composable(Screen.ProjectsScreen.routes) { Projects(navController) }
                 composable(Screen.ProfileScreen.routes) { Profile(navController) }
                 composable(Screen.TeamsScreen.routes) { Teams(navController) }
                 composable(Screen.MessageScreen.routes) { Message() }
@@ -75,7 +76,18 @@ fun Navigation(){
             ) {
                 val teamId = navBackStackEntry?.arguments?.getInt("teamId")
                 if (teamId != null) {
-                    TeamDetail(teamId)
+                    TeamDetail(teamId, navController)
+                }
+            }
+            composable(
+                route = Screen.ProjectDetailScreen.routes,
+                arguments = listOf(navArgument("projectId") {
+                    type = NavType.IntType
+                })
+            ) {
+                val projectId = navBackStackEntry?.arguments?.getInt("projectId")
+                if (projectId != null) {
+                    ProjectDetail(projectId)
                 }
             }
 //        composable(route = Screen.TaskOAppScreen.routes) { TaskOApp() }

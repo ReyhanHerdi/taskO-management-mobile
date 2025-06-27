@@ -22,11 +22,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.taskomanagement.ui.cutom.CustomProjectsList
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun Projects(
+    navController: NavController,
     viewModel: ProjectViewModel = koinViewModel(),
 ) {
     val project by viewModel.project.collectAsState()
@@ -48,7 +50,12 @@ fun Projects(
             viewModel.getTeam()
             project.forEach { project ->
                 item {
-                    CustomProjectsList(projects = project)
+                    CustomProjectsList(
+                        projects = project,
+                        onItemClick = { selectedItem ->
+                            navController.navigate("ProjectDetailScreen/${selectedItem.idProject}")
+                        }
+                    )
                 }
             }
         }
@@ -68,8 +75,8 @@ fun Projects(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewProjects() {
-    Projects()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewProjects() {
+//    Projects()
+//}

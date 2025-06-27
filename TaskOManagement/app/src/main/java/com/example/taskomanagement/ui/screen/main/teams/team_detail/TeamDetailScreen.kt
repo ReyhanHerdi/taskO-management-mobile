@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.taskomanagement.ui.cutom.CustomProjectsList
 import com.example.taskomanagement.ui.cutom.CustomTeamsList
 import org.koin.androidx.compose.koinViewModel
@@ -34,6 +35,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun TeamDetail(
     teamId: Int,
+    navController: NavController,
     viewModel: TeamDetailViewModel = koinViewModel(),
 ) {
     viewModel.getTeam(teamId)
@@ -99,7 +101,14 @@ fun TeamDetail(
             if (projects != null) {
                 projects.forEach { project ->
                     item {
-                        project?.let { CustomProjectsList(projects = it) }
+                        project?.let {
+                            CustomProjectsList(
+                                projects = it,
+                                onItemClick = { selectedItem ->
+                                    navController.navigate("ProjectDetailScreen/${selectedItem.idProject}")
+                                }
+                            )
+                        }
                     }
                 }
             }
