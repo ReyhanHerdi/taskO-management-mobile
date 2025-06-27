@@ -49,7 +49,7 @@ fun ProjectDetail(
     ) {
         Text(
             text = "$projectName",
-            style = MaterialTheme.typography.headlineLarge,
+            style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
