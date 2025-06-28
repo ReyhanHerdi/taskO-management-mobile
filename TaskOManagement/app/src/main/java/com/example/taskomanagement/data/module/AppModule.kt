@@ -9,11 +9,11 @@ import com.example.taskomanagement.ui.screen.authentication.login.LoginViewModel
 import com.example.taskomanagement.ui.screen.authentication.register.RegisterViewModel
 import com.example.taskomanagement.ui.screen.main.home.HomeViewModel
 import com.example.taskomanagement.ui.screen.main.profile.ProfileViewModel
-import com.example.taskomanagement.ui.screen.main.project.ProjectViewModel
+import com.example.taskomanagement.ui.screen.main.project.project_list.ProjectViewModel
 import com.example.taskomanagement.ui.screen.main.project.project_detail.ProjectDetailViewModel
 import com.example.taskomanagement.ui.screen.main.task.TaskViewModel
 import com.example.taskomanagement.ui.screen.main.task.task_detail.TaskDetailViewModel
-import com.example.taskomanagement.ui.screen.main.teams.TeamViewModel
+import com.example.taskomanagement.ui.screen.main.teams.team_list.TeamViewModel
 import com.example.taskomanagement.ui.screen.main.teams.team_detail.TeamDetailViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

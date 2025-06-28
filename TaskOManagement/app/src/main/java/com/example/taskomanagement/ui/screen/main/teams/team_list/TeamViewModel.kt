@@ -1,11 +1,10 @@
-package com.example.taskomanagement.ui.screen.main.teams
+package com.example.taskomanagement.ui.screen.main.teams.team_list
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taskomanagement.data.repository.MainRepository
 import com.example.taskomanagement.data.response.TeamMemberDataItem
-import com.example.taskomanagement.data.response.TeamMemberItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

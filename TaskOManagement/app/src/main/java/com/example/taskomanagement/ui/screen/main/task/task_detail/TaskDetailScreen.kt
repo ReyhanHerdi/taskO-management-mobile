@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.FloatingActionButton
@@ -26,24 +25,30 @@ fun TaskDetail(
     taskId: Int,
     viewModel: TaskDetailViewModel = koinViewModel(),
 ) {
-    viewModel.getTaskById(taskId)
     val task by viewModel.task.collectAsState()
-    viewModel.getProjectById(task?.idTask ?: 0)
     val project by viewModel.project.collectAsState()
+
+    viewModel.getTaskById(taskId)
+    viewModel.getProjectById(task?.idTask ?: 0)
+
+    val nameTask = task?.nameTask ?: "Name Tugas"
+    val nameProject = project?.nameProject ?: "Nama Proyek"
+    val descriptionTask = task?.description ?: "Dekripsi tugas"
+    val dueDateTask = task?.due ?: "10 Juni 2003"
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
     ) {
         Text(
-            text = task?.nameTask ?: "Nama Tugas",
+            text = nameTask,
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
         )
         Text(
-            text = project?.nameProject ?: "Nama Proyek",
+            text = nameProject,
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.Normal,
             modifier = Modifier
@@ -56,7 +61,7 @@ fun TaskDetail(
             modifier = Modifier.padding(top = 20.dp)
         )
         Text(
-            text = task?.description ?: "Deskripsi tugas",
+            text = descriptionTask,
             style = MaterialTheme.typography.bodyMedium
         )
         Text(
@@ -66,7 +71,7 @@ fun TaskDetail(
             modifier = Modifier.padding(top = 16.dp)
         )
         Text(
-            text = task?.due ?: "10 Juni 2003",
+            text = dueDateTask,
             style = MaterialTheme.typography.bodyMedium
         )
         Spacer(modifier = Modifier.weight(1f))

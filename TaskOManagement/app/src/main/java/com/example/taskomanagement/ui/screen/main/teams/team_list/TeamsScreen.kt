@@ -1,7 +1,6 @@
-package com.example.taskomanagement.ui.screen.main.project
+package com.example.taskomanagement.ui.screen.main.teams.team_list
 
 import android.util.Log
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,42 +10,41 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.taskomanagement.ui.cutom.CustomProjectsList
+import com.example.taskomanagement.ui.cutom.CustomTeamsList
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun Projects(
+fun Teams(
     navController: NavController,
-    viewModel: ProjectViewModel = koinViewModel(),
+    viewModel: TeamViewModel = koinViewModel(),
 ) {
-    val project by viewModel.project.collectAsState()
+    val teams by viewModel.team.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
     ) {
-        LazyColumn {
+        LazyColumn(
+            userScrollEnabled = true,
+        ) {
             viewModel.getTeam()
-            project.forEach { project ->
-                item {
-                    CustomProjectsList(
-                        projects = project,
-                        onItemClick = { selectedItem ->
-                            navController.navigate("ProjectDetailScreen/${selectedItem.idProject}")
-                        }
-                    )
+            if (teams != null) {
+                teams.forEach { team ->
+                    item {
+                        CustomTeamsList(
+                            teamDataItem = team,
+                            onItemClick = { selectedItem ->
+                                navController.navigate("TeamDetailScreen/${selectedItem.teamId}")
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -68,6 +66,6 @@ fun Projects(
 
 //@Preview(showBackground = true)
 //@Composable
-//fun PreviewProjects() {
-//    Projects()
+//fun PreviewTeams() {
+//    Teams()
 //}

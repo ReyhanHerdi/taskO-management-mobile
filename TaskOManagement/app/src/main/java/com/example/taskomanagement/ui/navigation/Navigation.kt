@@ -3,22 +3,14 @@ package com.example.taskomanagement.ui.navigation
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -36,15 +28,14 @@ import com.example.taskomanagement.ui.screen.landingPage.LandingPage
 import com.example.taskomanagement.ui.screen.main.home.Home
 import com.example.taskomanagement.ui.screen.main.message.Message
 import com.example.taskomanagement.ui.screen.main.profile.Profile
-import com.example.taskomanagement.ui.screen.main.project.Projects
 import com.example.taskomanagement.ui.screen.main.project.project_detail.ProjectDetail
+import com.example.taskomanagement.ui.screen.main.project.project_list.Projects
 import com.example.taskomanagement.ui.screen.main.task.Task
 import com.example.taskomanagement.ui.screen.main.task.task_detail.TaskDetail
-import com.example.taskomanagement.ui.screen.main.teams.Teams
 import com.example.taskomanagement.ui.screen.main.teams.team_detail.TeamDetail
+import com.example.taskomanagement.ui.screen.main.teams.team_list.Teams
 import com.example.taskomanagement.utils.Screen
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Navigation(){
     val navController = rememberNavController()
