@@ -30,7 +30,7 @@ import com.example.taskomanagement.ui.screen.main.message.Message
 import com.example.taskomanagement.ui.screen.main.profile.Profile
 import com.example.taskomanagement.ui.screen.main.project.project_detail.ProjectDetail
 import com.example.taskomanagement.ui.screen.main.project.project_list.Projects
-import com.example.taskomanagement.ui.screen.main.task.Task
+import com.example.taskomanagement.ui.screen.main.task.task_list.Task
 import com.example.taskomanagement.ui.screen.main.task.task_detail.TaskDetail
 import com.example.taskomanagement.ui.screen.main.teams.team_detail.TeamDetail
 import com.example.taskomanagement.ui.screen.main.teams.team_list.Teams
@@ -108,7 +108,7 @@ fun Navigation(){
                 composable(Screen.TeamsScreen.routes) { Teams(navController) }
                 composable(Screen.MessageScreen.routes) { Message() }
             }
-            composable(Screen.TaskScreen.routes) { Task(navController)}
+            composable(Screen.TaskScreen.routes) { Task(navController) }
             composable(
                 route = Screen.TeamDetailScreem.routes,
                 arguments = listOf(navArgument("teamId") {
