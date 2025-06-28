@@ -1,7 +1,7 @@
 package com.example.taskomanagement.ui.screen.main.teams.team_list
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,35 +26,37 @@ fun Teams(
     viewModel: TeamViewModel = koinViewModel(),
 ) {
     val teams by viewModel.team.collectAsState()
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
-    ) {
-        LazyColumn(
-            userScrollEnabled = true,
+    Box {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
         ) {
-            viewModel.getTeam()
-            if (teams != null) {
-                teams.forEach { team ->
-                    item {
-                        CustomTeamsList(
-                            teamDataItem = team,
-                            onItemClick = { selectedItem ->
-                                navController.navigate("TeamDetailScreen/${selectedItem.teamId}")
-                            }
-                        )
+            LazyColumn(
+                userScrollEnabled = true,
+            ) {
+                viewModel.getTeam()
+                if (teams != null) {
+                    teams.forEach { team ->
+                        item {
+                            CustomTeamsList(
+                                teamDataItem = team,
+                                onItemClick = { selectedItem ->
+                                    navController.navigate("TeamDetailScreen/${selectedItem.teamId}")
+                                }
+                            )
+                        }
                     }
                 }
             }
         }
-        Spacer(modifier = Modifier.weight(1f))
         FloatingActionButton(
             onClick = {
                 navController.navigate(Screen.TeamInputScreen.routes)
             },
             modifier = Modifier
-                .align(Alignment.End)
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 16.dp, end = 16.dp)
         ) {
             Icon(
                 imageVector = Icons.Filled.Add,
