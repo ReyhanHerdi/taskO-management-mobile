@@ -15,6 +15,7 @@ import com.example.taskomanagement.ui.screen.main.task.task_list.TaskViewModel
 import com.example.taskomanagement.ui.screen.main.task.task_detail.TaskDetailViewModel
 import com.example.taskomanagement.ui.screen.main.teams.team_list.TeamViewModel
 import com.example.taskomanagement.ui.screen.main.teams.team_detail.TeamDetailViewModel
+import com.example.taskomanagement.ui.screen.main.teams.team_input.TeamInputViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.module.dsl.viewModel
@@ -51,4 +52,5 @@ val appModule = module {
     viewModel { ProjectDetailViewModel(get()) }
     viewModel { TaskViewModel(get()) }
     viewModel { TaskDetailViewModel(get()) }
+    viewModel { TeamInputViewModel(get()) }
 }

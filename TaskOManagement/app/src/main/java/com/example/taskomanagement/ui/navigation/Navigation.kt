@@ -33,6 +33,7 @@ import com.example.taskomanagement.ui.screen.main.project.project_list.Projects
 import com.example.taskomanagement.ui.screen.main.task.task_list.Task
 import com.example.taskomanagement.ui.screen.main.task.task_detail.TaskDetail
 import com.example.taskomanagement.ui.screen.main.teams.team_detail.TeamDetail
+import com.example.taskomanagement.ui.screen.main.teams.team_input.TeamInput
 import com.example.taskomanagement.ui.screen.main.teams.team_list.Teams
 import com.example.taskomanagement.utils.Screen
 
@@ -70,6 +71,7 @@ fun Navigation(){
                     Screen.ProjectDetailScreen.routes -> CustomTopAppBar(startIcon = Icons.Filled.ArrowBack, endIcon = Icons.Filled.Settings)
                     Screen.TaskScreen.routes -> CustomTopAppBar(title = "Daftar Tugas Saya", startIcon = Icons.Filled.ArrowBack)
                     Screen.TaskDetailScreen.routes -> CustomTopAppBar(startIcon = Icons.Filled.ArrowBack, endIcon = Icons.Filled.Settings)
+                    Screen.TeamInputScreen.routes -> CustomTopAppBar(title = "Buat Tim", startIcon = Icons.Filled.ArrowBack)
                 }
             }
         },
@@ -142,6 +144,7 @@ fun Navigation(){
                     TaskDetail(taskId)
                 }
             }
+            composable(route = Screen.TeamInputScreen.routes) { TeamInput() }
 //        composable(route = Screen.TaskOAppScreen.routes) { TaskOApp() }
         }
     }

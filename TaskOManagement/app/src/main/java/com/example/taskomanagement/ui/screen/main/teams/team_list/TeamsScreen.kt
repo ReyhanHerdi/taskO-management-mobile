@@ -1,6 +1,5 @@
 package com.example.taskomanagement.ui.screen.main.teams.team_list
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.taskomanagement.ui.cutom.CustomTeamsList
+import com.example.taskomanagement.utils.Screen
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -51,7 +51,7 @@ fun Teams(
         Spacer(modifier = Modifier.weight(1f))
         FloatingActionButton(
             onClick = {
-                Log.d("FAB", "clicked")
+                navController.navigate(Screen.TeamInputScreen.routes)
             },
             modifier = Modifier
                 .align(Alignment.End)
