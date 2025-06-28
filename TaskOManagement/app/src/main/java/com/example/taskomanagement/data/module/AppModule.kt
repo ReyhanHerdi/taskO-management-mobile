@@ -11,6 +11,7 @@ import com.example.taskomanagement.ui.screen.main.home.HomeViewModel
 import com.example.taskomanagement.ui.screen.main.profile.ProfileViewModel
 import com.example.taskomanagement.ui.screen.main.project.ProjectViewModel
 import com.example.taskomanagement.ui.screen.main.project.project_detail.ProjectDetailViewModel
+import com.example.taskomanagement.ui.screen.main.task.TaskViewModel
 import com.example.taskomanagement.ui.screen.main.teams.TeamViewModel
 import com.example.taskomanagement.ui.screen.main.teams.team_detail.TeamDetailViewModel
 import okhttp3.OkHttpClient
@@ -47,5 +48,6 @@ val appModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { TeamDetailViewModel(get()) }
     viewModel { ProjectDetailViewModel(get()) }
+    viewModel { TaskViewModel(get()) }
 
 }

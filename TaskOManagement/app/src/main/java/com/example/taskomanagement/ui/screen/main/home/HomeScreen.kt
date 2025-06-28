@@ -1,5 +1,6 @@
 package com.example.taskomanagement.ui.screen.main.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -204,7 +205,11 @@ fun Home(
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.align(Alignment.CenterVertically)
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .clickable {
+                        navController.navigate(Screen.TaskScreen.routes)
+                    }
             )
         }
         Column(

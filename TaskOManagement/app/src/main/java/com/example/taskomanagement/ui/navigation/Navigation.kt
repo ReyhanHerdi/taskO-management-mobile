@@ -38,6 +38,7 @@ import com.example.taskomanagement.ui.screen.main.message.Message
 import com.example.taskomanagement.ui.screen.main.profile.Profile
 import com.example.taskomanagement.ui.screen.main.project.Projects
 import com.example.taskomanagement.ui.screen.main.project.project_detail.ProjectDetail
+import com.example.taskomanagement.ui.screen.main.task.Task
 import com.example.taskomanagement.ui.screen.main.teams.Teams
 import com.example.taskomanagement.ui.screen.main.teams.team_detail.TeamDetail
 import com.example.taskomanagement.utils.Screen
@@ -75,7 +76,7 @@ fun Navigation(){
                         endIcon = Icons.Filled.Settings
                     )
                     Screen.ProjectDetailScreen.routes -> CustomTopAppBar(startIcon = Icons.Filled.ArrowBack, endIcon = Icons.Filled.Settings)
-
+                    Screen.TaskScreen.routes -> CustomTopAppBar(title = "Daftar Tugas Saya", startIcon = Icons.Filled.ArrowBack)
                 }
             }
         },
@@ -114,6 +115,7 @@ fun Navigation(){
                 composable(Screen.TeamsScreen.routes) { Teams(navController) }
                 composable(Screen.MessageScreen.routes) { Message() }
             }
+            composable(Screen.TaskScreen.routes) { Task()}
             composable(
                 route = Screen.TeamDetailScreem.routes,
                 arguments = listOf(navArgument("teamId") {
