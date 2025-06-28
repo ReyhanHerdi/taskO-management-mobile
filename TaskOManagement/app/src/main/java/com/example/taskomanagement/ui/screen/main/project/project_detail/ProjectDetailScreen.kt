@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.taskomanagement.ui.cutom.CustomProjectsList
 import com.example.taskomanagement.ui.cutom.CustomTasksList
 import org.koin.androidx.compose.koinViewModel
@@ -28,6 +29,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun ProjectDetail(
     projectId: Int,
+    navController: NavController,
     viewModel: ProjectDetailViewModel = koinViewModel(),
 ) {
     viewModel.getProjectDetail(projectId)
@@ -134,7 +136,12 @@ fun ProjectDetail(
             if (tasks != null) {
                 tasks.forEach { task ->
                     item {
-                        CustomTasksList(tasks = task)
+                        CustomTasksList(
+                            tasks = task,
+                            onItemClick = { selectedItem ->
+                                navController.navigate("TaskDetailScreen/${selectedItem.idTask}")
+                            }
+                        )
                     }
                 }
             }

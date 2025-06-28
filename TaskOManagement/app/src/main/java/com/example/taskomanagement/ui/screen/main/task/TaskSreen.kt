@@ -9,11 +9,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.taskomanagement.ui.cutom.CustomTasksList
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun Task(
+    navController: NavController,
     viewModel: TaskViewModel = koinViewModel(),
 ) {
     viewModel.getTaskByExecutor()
@@ -26,7 +28,12 @@ fun Task(
             if (task != null) {
                 task.forEach { tasks ->
                     item {
-                        CustomTasksList(tasks = tasks)
+                        CustomTasksList(
+                            tasks = tasks,
+                            onItemClick = { selectedItem ->
+                                navController.navigate("TaskDetailScreen/${selectedItem.idTask}")
+                            }
+                        )
                     }
                 }
             }
@@ -34,8 +41,8 @@ fun Task(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun TaskPreview() {
-    Task()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun TaskPreview() {
+//    Task()
+//}

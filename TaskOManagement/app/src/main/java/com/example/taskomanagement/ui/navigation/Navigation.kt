@@ -39,6 +39,7 @@ import com.example.taskomanagement.ui.screen.main.profile.Profile
 import com.example.taskomanagement.ui.screen.main.project.Projects
 import com.example.taskomanagement.ui.screen.main.project.project_detail.ProjectDetail
 import com.example.taskomanagement.ui.screen.main.task.Task
+import com.example.taskomanagement.ui.screen.main.task.task_detail.TaskDetail
 import com.example.taskomanagement.ui.screen.main.teams.Teams
 import com.example.taskomanagement.ui.screen.main.teams.team_detail.TeamDetail
 import com.example.taskomanagement.utils.Screen
@@ -77,6 +78,7 @@ fun Navigation(){
                     )
                     Screen.ProjectDetailScreen.routes -> CustomTopAppBar(startIcon = Icons.Filled.ArrowBack, endIcon = Icons.Filled.Settings)
                     Screen.TaskScreen.routes -> CustomTopAppBar(title = "Daftar Tugas Saya", startIcon = Icons.Filled.ArrowBack)
+                    Screen.TaskDetailScreen.routes -> CustomTopAppBar(startIcon = Icons.Filled.ArrowBack, endIcon = Icons.Filled.Settings)
                 }
             }
         },
@@ -115,7 +117,7 @@ fun Navigation(){
                 composable(Screen.TeamsScreen.routes) { Teams(navController) }
                 composable(Screen.MessageScreen.routes) { Message() }
             }
-            composable(Screen.TaskScreen.routes) { Task()}
+            composable(Screen.TaskScreen.routes) { Task(navController)}
             composable(
                 route = Screen.TeamDetailScreem.routes,
                 arguments = listOf(navArgument("teamId") {
@@ -135,7 +137,18 @@ fun Navigation(){
             ) {
                 val projectId = navBackStackEntry?.arguments?.getInt("projectId")
                 if (projectId != null) {
-                    ProjectDetail(projectId)
+                    ProjectDetail(projectId, navController)
+                }
+            }
+            composable(
+                route = Screen.TaskDetailScreen.routes,
+                arguments = listOf(navArgument("taskId") {
+                    type = NavType.IntType
+                })
+            ) {
+                val taskId = navBackStackEntry?.arguments?.getInt("taskId")
+                if (taskId != null) {
+                    TaskDetail(taskId)
                 }
             }
 //        composable(route = Screen.TaskOAppScreen.routes) { TaskOApp() }

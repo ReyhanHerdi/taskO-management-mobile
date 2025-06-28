@@ -1,5 +1,6 @@
 package com.example.taskomanagement.ui.cutom
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,7 +24,10 @@ import androidx.compose.ui.unit.dp
 import com.example.taskomanagement.data.response.TaskDataItem
 
 @Composable
-fun CustomTasksList(tasks: TaskDataItem) {
+fun CustomTasksList(
+    tasks: TaskDataItem,
+    onItemClick: (TaskDataItem) -> Unit,
+) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -32,6 +36,9 @@ fun CustomTasksList(tasks: TaskDataItem) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 8.dp)
+            .clickable {
+                onItemClick(tasks)
+            }
     ) {
         Row {
             Icon(

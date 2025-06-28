@@ -217,7 +217,12 @@ fun Home(
         ) {
             viewModel.getTask()
             task.forEach { item ->
-                CustomTasksList(tasks = item)
+                CustomTasksList(
+                    tasks = item,
+                    onItemClick = { selectedItem ->
+                        navController.navigate("TaskDetailScreen/${selectedItem.idTask}")
+                    }
+                )
             }
         }
     }
