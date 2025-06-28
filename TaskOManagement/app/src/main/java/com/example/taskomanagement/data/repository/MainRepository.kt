@@ -43,4 +43,9 @@ interface MainRepository {
     suspend fun getProjectById(id: Int): ProjectDetailResponse
     suspend fun getTasksByProjectId(id: Int): TaskResponse
     suspend fun getTasksDoneByProjectId(id: Int): TaskResponse
+    suspend fun postTeam(
+        userId: Int,
+        nameTeam: String,
+        descriptionTeam: String? = null
+    ): TeamResponse
 }

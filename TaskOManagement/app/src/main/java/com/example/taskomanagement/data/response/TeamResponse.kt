@@ -23,7 +23,7 @@ data class TeamDataItem(
 	val updatedAt: String,
 
 	@field:SerializedName("description")
-	val description: String,
+	val description: String? = null,
 
 	@field:SerializedName("created_at")
 	val createdAt: String,

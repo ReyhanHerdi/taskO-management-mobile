@@ -41,6 +41,14 @@ interface ApiService {
     @GET("api/teams")
     suspend fun getTeams(): TeamResponse
 
+    @FormUrlEncoded
+    @POST("api/teams")
+    suspend fun postTeam(
+        @Field("user_id") userId: Int,
+        @Field("name_team") nameTeam: String,
+        @Field("description") descriptionTeam: String? = null
+    ): TeamResponse
+
     @GET("api/user-teams/{id}")
     suspend fun getUserTeams(
         @Path("id") id: Int

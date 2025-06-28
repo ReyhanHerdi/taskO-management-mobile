@@ -144,7 +144,7 @@ fun Navigation(){
                     TaskDetail(taskId)
                 }
             }
-            composable(route = Screen.TeamInputScreen.routes) { TeamInput() }
+            composable(route = Screen.TeamInputScreen.routes) { TeamInput(navController) }
 //        composable(route = Screen.TaskOAppScreen.routes) { TaskOApp() }
         }
     }

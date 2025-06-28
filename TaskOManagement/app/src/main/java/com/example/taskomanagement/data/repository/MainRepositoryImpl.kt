@@ -47,4 +47,9 @@ class MainRepositoryImpl(
     override suspend fun getProjectById(id: Int): ProjectDetailResponse = apiService.getProjectById(id)
     override suspend fun getTasksByProjectId(id: Int): TaskResponse = apiService.getTaskByProjectId(id)
     override suspend fun getTasksDoneByProjectId(id: Int): TaskResponse = apiService.getTaskDoneDByProjectId(id)
+    override suspend fun postTeam(
+        userId: Int,
+        nameTeam: String,
+        descriptionTeam: String?,
+    ): TeamResponse = apiService.postTeam(userId, nameTeam, descriptionTeam)
 }

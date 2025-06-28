@@ -61,7 +61,7 @@ fun CustomTeamsList(teamDataItem: TeamMemberDataItem, onItemClick: (TeamMemberDa
                         modifier = Modifier.padding(bottom = 4.dp)
                     )
                     Text(
-                        text = it.description,
+                        text = it.description ?: "-",
                         style = MaterialTheme.typography.bodyMedium,
                     )
 
