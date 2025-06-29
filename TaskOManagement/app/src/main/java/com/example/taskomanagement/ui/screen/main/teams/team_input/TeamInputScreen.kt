@@ -100,7 +100,7 @@ fun TeamInput(
                 try {
                     viewModel.postTeam(teamName, teamDescription)
                 } finally {
-                    navController.navigate(Screen.TeamsScreen.routes)
+                    navController.popBackStack()
                 }
             },
         ) {

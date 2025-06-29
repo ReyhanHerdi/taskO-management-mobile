@@ -27,7 +27,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.taskomanagement.R
 import com.example.taskomanagement.utils.DatePickerModal
-import com.example.taskomanagement.utils.Screen
 import com.example.taskomanagement.utils.convertMillisToDate
 import org.koin.androidx.compose.koinViewModel
 
@@ -157,7 +156,7 @@ fun ProjectInput(
                         dueProject = projectDue
                     )
                 } finally {
-                    navController.navigate(Screen.ProjectsScreen.routes)
+                    navController.popBackStack()
                 }
             },
         ) {
