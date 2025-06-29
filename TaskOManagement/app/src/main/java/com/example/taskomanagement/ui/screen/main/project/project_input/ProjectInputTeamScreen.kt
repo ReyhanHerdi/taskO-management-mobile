@@ -29,7 +29,7 @@ fun ProjectInputChooseTeam(
                 item {
                     team.forEach { data ->
                         CustomTeamsList(teamDataItem = data) { selectedItem ->
-                            Log.d("SELECTED TEAM", selectedItem.teamId.toString())
+                            navController.navigate("ProjectInputScreen/${selectedItem.teamId}")
                         }
                     }
                 }

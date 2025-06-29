@@ -29,6 +29,7 @@ import com.example.taskomanagement.ui.screen.main.home.Home
 import com.example.taskomanagement.ui.screen.main.message.Message
 import com.example.taskomanagement.ui.screen.main.profile.Profile
 import com.example.taskomanagement.ui.screen.main.project.project_detail.ProjectDetail
+import com.example.taskomanagement.ui.screen.main.project.project_input.ProjectInput
 import com.example.taskomanagement.ui.screen.main.project.project_input.ProjectInputChooseTeam
 import com.example.taskomanagement.ui.screen.main.project.project_list.Projects
 import com.example.taskomanagement.ui.screen.main.task.task_detail.TaskDetail
@@ -74,6 +75,7 @@ fun Navigation(){
                     Screen.TaskDetailScreen.routes -> CustomTopAppBar(startIcon = Icons.Filled.ArrowBack, endIcon = Icons.Filled.Settings)
                     Screen.TeamInputScreen.routes -> CustomTopAppBar(title = "Buat Tim", startIcon = Icons.Filled.ArrowBack)
                     Screen.ProjectChooseTeamScreen.routes -> CustomTopAppBar(title = "Pilih Tim", startIcon = Icons.Filled.ArrowBack)
+                    Screen.ProjectInputScreen.routes -> CustomTopAppBar(title = "Buat Proyek", startIcon = Icons.Filled.ArrowBack)
                 }
             }
         },
@@ -148,6 +150,17 @@ fun Navigation(){
             }
             composable(route = Screen.TeamInputScreen.routes) { TeamInput(navController) }
             composable(route = Screen.ProjectChooseTeamScreen.routes) { ProjectInputChooseTeam(navController) }
+            composable(
+                route = Screen.ProjectInputScreen.routes,
+                arguments = listOf(navArgument("teamId") {
+                    type = NavType.IntType
+                })
+            ) {
+                val teamId = navBackStackEntry?.arguments?.getInt("teamId")
+                if (teamId != null) {
+                    ProjectInput(teamId = teamId)
+                }
+            }
 //        composable(route = Screen.TaskOAppScreen.routes) { TaskOApp() }
         }
     }
