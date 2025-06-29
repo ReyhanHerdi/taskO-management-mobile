@@ -24,14 +24,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.taskomanagement.R
 import com.example.taskomanagement.utils.DatePickerModal
+import com.example.taskomanagement.utils.Screen
 import com.example.taskomanagement.utils.convertMillisToDate
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ProjectInput(
     teamId: Int,
+    navController: NavController,
     viewModel: ProjectInputViewModel = koinViewModel(),
 ) {
     var projectName by remember { mutableStateOf("") }
@@ -146,7 +149,16 @@ fun ProjectInput(
                 .fillMaxWidth()
                 .padding(top = 8.dp),
             onClick = {
-
+                try {
+                    viewModel.postProject(
+                        teamId = teamId,
+                        nameProject = projectName,
+                        descriptionProject = projectdescription,
+                        dueProject = projectDue
+                    )
+                } finally {
+                    navController.navigate(Screen.ProjectsScreen.routes)
+                }
             },
         ) {
             Text(

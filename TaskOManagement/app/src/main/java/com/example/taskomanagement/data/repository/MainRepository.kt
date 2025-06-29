@@ -48,4 +48,11 @@ interface MainRepository {
         nameTeam: String,
         descriptionTeam: String? = null
     ): TeamResponse
+    suspend fun postProject(
+        teamId: Int,
+        userId: Int,
+        nameProject: String,
+        descriptionProject: String? = null,
+        dueProject: String
+    ): ProjectResponse
 }

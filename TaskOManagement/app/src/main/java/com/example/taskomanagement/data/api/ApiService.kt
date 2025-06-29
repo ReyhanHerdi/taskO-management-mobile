@@ -92,6 +92,16 @@ interface ApiService {
         @Path("id") id: Int
     ): ProjectDetailResponse
 
+    @FormUrlEncoded
+    @POST("api/projects")
+    suspend fun postProject(
+        @Field("team_id") teamId: Int,
+        @Field("user_id") userId: Int,
+        @Field("name_project") nameProject: String,
+        @Field("description") descriptionProject: String? = null,
+        @Field("due") dueProject: String
+    ): ProjectResponse
+
     @GET("api/tasks-project/{id}")
     suspend fun getTaskByProjectId(
         @Path("id") id: Int

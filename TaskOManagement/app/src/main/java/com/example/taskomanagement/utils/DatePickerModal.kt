@@ -45,6 +45,6 @@ fun DatePickerModal(
 }
 
 fun convertMillisToDate(millis: Long?): String {
-    val formatter = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault())
+    val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     return formatter.format(Date(millis ?: 1055178000000L))
 }
