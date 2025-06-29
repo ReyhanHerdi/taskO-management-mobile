@@ -61,7 +61,7 @@ fun CustomHistoryTasksList(tasks: TaskDataItem) {
                     modifier = Modifier.padding(vertical = 4.dp)
                 )
                 Text(
-                    text = tasks.due,
+                    text = tasks.dueDate,
                     style = MaterialTheme.typography.bodySmall,
                 )
             }

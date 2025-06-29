@@ -33,6 +33,7 @@ import com.example.taskomanagement.ui.screen.main.project.project_input.ProjectI
 import com.example.taskomanagement.ui.screen.main.project.project_input.ProjectInputChooseTeam
 import com.example.taskomanagement.ui.screen.main.project.project_list.Projects
 import com.example.taskomanagement.ui.screen.main.task.task_detail.TaskDetail
+import com.example.taskomanagement.ui.screen.main.task.task_input.TaskInput
 import com.example.taskomanagement.ui.screen.main.task.task_list.Task
 import com.example.taskomanagement.ui.screen.main.teams.team_detail.TeamDetail
 import com.example.taskomanagement.ui.screen.main.teams.team_input.TeamInput
@@ -76,6 +77,7 @@ fun Navigation(){
                     Screen.TeamInputScreen.routes -> CustomTopAppBar(title = "Buat Tim", startIcon = Icons.Filled.ArrowBack)
                     Screen.ProjectChooseTeamScreen.routes -> CustomTopAppBar(title = "Pilih Tim", startIcon = Icons.Filled.ArrowBack)
                     Screen.ProjectInputScreen.routes -> CustomTopAppBar(title = "Buat Proyek", startIcon = Icons.Filled.ArrowBack)
+                    Screen.TaskInputScreen.routes -> CustomTopAppBar(title = "Buat Tugas", startIcon = Icons.Filled.ArrowBack)
                 }
             }
         },
@@ -159,6 +161,17 @@ fun Navigation(){
                 val teamId = navBackStackEntry?.arguments?.getInt("teamId")
                 if (teamId != null) {
                     ProjectInput(teamId = teamId, navController)
+                }
+            }
+            composable(
+                route = Screen.TaskInputScreen.routes,
+                arguments = listOf(navArgument("projectId") {
+                    type = NavType.IntType
+                })
+            ) {
+                val projectId = navBackStackEntry?.arguments?.getInt("projectId")
+                if (projectId != null){
+                    TaskInput(projectId = projectId, navController = navController)
                 }
             }
 //        composable(route = Screen.TaskOAppScreen.routes) { TaskOApp() }

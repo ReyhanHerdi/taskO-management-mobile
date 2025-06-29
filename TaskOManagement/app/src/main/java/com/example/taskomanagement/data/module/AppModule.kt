@@ -14,6 +14,7 @@ import com.example.taskomanagement.ui.screen.main.project.project_detail.Project
 import com.example.taskomanagement.ui.screen.main.project.project_input.ProjectInputViewModel
 import com.example.taskomanagement.ui.screen.main.task.task_list.TaskViewModel
 import com.example.taskomanagement.ui.screen.main.task.task_detail.TaskDetailViewModel
+import com.example.taskomanagement.ui.screen.main.task.task_input.TaskInputViewModel
 import com.example.taskomanagement.ui.screen.main.teams.team_list.TeamViewModel
 import com.example.taskomanagement.ui.screen.main.teams.team_detail.TeamDetailViewModel
 import com.example.taskomanagement.ui.screen.main.teams.team_input.TeamInputViewModel
@@ -55,4 +56,5 @@ val appModule = module {
     viewModel { TaskDetailViewModel(get()) }
     viewModel { TeamInputViewModel(get()) }
     viewModel { ProjectInputViewModel(get()) }
+    viewModel { TaskInputViewModel(get()) }
 }

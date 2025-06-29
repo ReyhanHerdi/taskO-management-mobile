@@ -25,8 +25,11 @@ data class TaskDataItem(
 	@field:SerializedName("project_id")
 	val projectId: Int,
 
-	@field:SerializedName("due")
-	val due: String,
+	@field:SerializedName("due_date")
+	val dueDate: String,
+
+	@field:SerializedName("due_time")
+	val dueTime: String,
 
 	@field:SerializedName("description")
 	val description: String,

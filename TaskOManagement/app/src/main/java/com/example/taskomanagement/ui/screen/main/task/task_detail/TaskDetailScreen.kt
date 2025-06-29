@@ -34,7 +34,7 @@ fun TaskDetail(
     val nameTask = task?.nameTask ?: "Name Tugas"
     val nameProject = project?.nameProject ?: "Nama Proyek"
     val descriptionTask = task?.description ?: "Dekripsi tugas"
-    val dueDateTask = task?.due ?: "10 Juni 2003"
+    val dueDateTask = task?.dueDate ?: "10 Juni 2003"
     Column(
         modifier = Modifier
             .fillMaxSize()

@@ -117,10 +117,12 @@ fun ProjectDetail(
                 modifier = Modifier.padding(top = 16.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = {
+                navController.navigate("TaskInputScreen/$projectId")
+            }) {
                 Icon(
                     imageVector = Icons.Filled.Add,
-                    contentDescription = "tambah pryoek",
+                    contentDescription = "tambah tugas",
                     modifier = Modifier.padding(end = 8.dp)
                 )
                 Text(
