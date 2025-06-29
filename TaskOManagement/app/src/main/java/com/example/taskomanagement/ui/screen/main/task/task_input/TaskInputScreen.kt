@@ -197,21 +197,22 @@ fun TaskInput(
                 disabledContentColor = MaterialTheme.colorScheme.primaryContainer,
             ),
             elevation = ButtonDefaults.buttonElevation(3.dp),
-            enabled = taskName.isNotEmpty() && taskDueTime.isNotEmpty(),
+            enabled = taskName.isNotEmpty() && taskDueDate.isNotEmpty() && taskDueTime.isNotEmpty(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 8.dp),
             onClick = {
-//                try {
-//                    viewModel.postProject(
-//                        teamId = teamId,
-//                        nameProject = projectName,
-//                        descriptionProject = projectdescription,
-//                        dueProject = projectDue
-//                    )
-//                } finally {
-//                    navController.popBackStack()
-//                }
+                try {
+                    viewModel.postTask(
+                        projectId = projectId,
+                        nameTask = taskName,
+                        descriptionTask = taskDescription,
+                        dueDateTask = taskDueDate,
+                        dueTimeTask = taskDueTime
+                    )
+                } finally {
+                    navController.popBackStack()
+                }
             },
         ) {
             Text(

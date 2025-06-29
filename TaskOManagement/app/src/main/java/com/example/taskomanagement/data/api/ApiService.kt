@@ -72,6 +72,16 @@ interface ApiService {
         @Path("id") id: Int
     ): TaskExecutorResponse
 
+    @FormUrlEncoded
+    @POST("api/tasks")
+    suspend fun postTask(
+        @Field("project_id") projectId: Int,
+        @Field("name_task") nameTask: String,
+        @Field("description") descriptionTask: String? = null,
+        @Field("due_date") dueDateTask: String,
+        @Field("due_time") dueTimeTask: String
+    ): TaskResponse
+
     @GET("api/user-teams/{id}")
     suspend fun getTeamsByUserId(
         @Path("id") id: Int

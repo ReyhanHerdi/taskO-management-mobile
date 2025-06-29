@@ -55,4 +55,11 @@ interface MainRepository {
         descriptionProject: String? = null,
         dueProject: String
     ): ProjectResponse
+    suspend fun postTask(
+        projectId: Int,
+        nameTask: String,
+        descriptionTask: String? = null,
+        dueDateTask: String,
+        dueTimeTask: String
+    ): TaskResponse
 }
