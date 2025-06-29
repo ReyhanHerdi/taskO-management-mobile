@@ -65,13 +65,11 @@ fun CustomTasksList(
                     color = Color.Black
                 )
                 Text(
-                    text = tasks.projectId.toString(),
+                    text = tasks.dueDate,
                     style = MaterialTheme.typography.bodySmall,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(vertical = 4.dp)
                 )
                 Text(
-                    text = tasks.dueDate,
+                    text = tasks.dueTime,
                     style = MaterialTheme.typography.bodySmall,
                 )
             }

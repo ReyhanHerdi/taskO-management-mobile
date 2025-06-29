@@ -1,6 +1,5 @@
 package com.example.taskomanagement.ui.cutom
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,7 +8,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -49,11 +50,29 @@ fun CustomProjectsList(
                     color = Color.Black,
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                Icon(
-                    imageVector = Icons.Filled.Notifications,
-                    contentDescription = "notifikasi proyek",
-                    tint = MaterialTheme.colorScheme.primary
-                )
+                when(projects.status) {
+                    "pending" -> {
+                        Icon(
+                            imageVector = Icons.Filled.Warning,
+                            contentDescription = "notifikasi proyek",
+                            tint = Color.Red
+                        )
+                    }
+                    "ongoing" -> {
+                        Icon(
+                            imageVector = Icons.Filled.PlayArrow,
+                            contentDescription = "notifikasi proyek",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                    "done" -> {
+                        Icon(
+                            imageVector = Icons.Filled.Done,
+                            contentDescription = "notifikasi proyek",
+                            tint = Color.Blue
+                        )
+                    }
+                }
             }
             Text(
                 text = projects.description ?: "-",
