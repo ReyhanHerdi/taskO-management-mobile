@@ -29,9 +29,10 @@ import com.example.taskomanagement.ui.screen.main.home.Home
 import com.example.taskomanagement.ui.screen.main.message.Message
 import com.example.taskomanagement.ui.screen.main.profile.Profile
 import com.example.taskomanagement.ui.screen.main.project.project_detail.ProjectDetail
+import com.example.taskomanagement.ui.screen.main.project.project_input.ProjectInputChooseTeam
 import com.example.taskomanagement.ui.screen.main.project.project_list.Projects
-import com.example.taskomanagement.ui.screen.main.task.task_list.Task
 import com.example.taskomanagement.ui.screen.main.task.task_detail.TaskDetail
+import com.example.taskomanagement.ui.screen.main.task.task_list.Task
 import com.example.taskomanagement.ui.screen.main.teams.team_detail.TeamDetail
 import com.example.taskomanagement.ui.screen.main.teams.team_input.TeamInput
 import com.example.taskomanagement.ui.screen.main.teams.team_list.Teams
@@ -72,6 +73,7 @@ fun Navigation(){
                     Screen.TaskScreen.routes -> CustomTopAppBar(title = "Daftar Tugas Saya", startIcon = Icons.Filled.ArrowBack)
                     Screen.TaskDetailScreen.routes -> CustomTopAppBar(startIcon = Icons.Filled.ArrowBack, endIcon = Icons.Filled.Settings)
                     Screen.TeamInputScreen.routes -> CustomTopAppBar(title = "Buat Tim", startIcon = Icons.Filled.ArrowBack)
+                    Screen.ProjectChooseTeamScreen.routes -> CustomTopAppBar(title = "Pilih Tim", startIcon = Icons.Filled.ArrowBack)
                 }
             }
         },
@@ -145,6 +147,7 @@ fun Navigation(){
                 }
             }
             composable(route = Screen.TeamInputScreen.routes) { TeamInput(navController) }
+            composable(route = Screen.ProjectChooseTeamScreen.routes) { ProjectInputChooseTeam(navController) }
 //        composable(route = Screen.TaskOAppScreen.routes) { TaskOApp() }
         }
     }

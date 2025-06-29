@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.taskomanagement.ui.cutom.CustomProjectsList
+import com.example.taskomanagement.utils.Screen
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -47,7 +48,7 @@ fun Projects(
         Spacer(modifier = Modifier.weight(1f))
         FloatingActionButton(
             onClick = {
-                Log.d("FAB", "clicked")
+                navController.navigate(Screen.ProjectChooseTeamScreen.routes)
             },
             modifier = Modifier
                 .align(Alignment.End)

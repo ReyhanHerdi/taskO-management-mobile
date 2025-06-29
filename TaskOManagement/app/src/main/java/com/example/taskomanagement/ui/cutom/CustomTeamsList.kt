@@ -24,7 +24,10 @@ import androidx.compose.ui.unit.dp
 import com.example.taskomanagement.data.response.TeamMemberDataItem
 
 @Composable
-fun CustomTeamsList(teamDataItem: TeamMemberDataItem, onItemClick: (TeamMemberDataItem) -> Unit) {
+fun CustomTeamsList(
+    teamDataItem: TeamMemberDataItem,
+    onItemClick: (TeamMemberDataItem) -> Unit,
+) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -40,14 +43,14 @@ fun CustomTeamsList(teamDataItem: TeamMemberDataItem, onItemClick: (TeamMemberDa
                     .fillMaxWidth()
                     .padding(all = 16.dp)
             ) {
-                Icon(
-                    imageVector = Icons.Filled.Notifications,
-                    contentDescription = it.nameTeam,
-                    tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                        .size(35.dp)
-                )
+//                Icon(
+//                    imageVector = Icons.Filled.Notifications,
+//                    contentDescription = it.nameTeam,
+//                    tint = MaterialTheme.colorScheme.primary,
+//                    modifier = Modifier
+//                        .align(Alignment.CenterVertically)
+//                        .size(35.dp)
+//                )
                 Column(
                     modifier = Modifier
                         .padding(start = 16.dp)
@@ -70,7 +73,8 @@ fun CustomTeamsList(teamDataItem: TeamMemberDataItem, onItemClick: (TeamMemberDa
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                     contentDescription = "Lihat tim",
-                    modifier = Modifier.align(Alignment.CenterVertically)
+                    modifier = Modifier.align(Alignment.CenterVertically),
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         }
