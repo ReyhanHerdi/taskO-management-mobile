@@ -58,7 +58,7 @@ fun Navigation(){
         Screen.LandingPageScreen.routes,
         Screen.AuthenticationScreen.routes
     )
-    val sharedViewModel: TeamSharedViewModel = koinViewModel()
+    val sharedViewModel: NavigationSharedViewModel = koinViewModel()
 
     Scaffold(
         topBar = {

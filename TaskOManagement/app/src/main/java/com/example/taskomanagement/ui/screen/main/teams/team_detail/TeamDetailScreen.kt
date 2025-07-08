@@ -21,14 +21,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.taskomanagement.ui.cutom.CustomProjectsList
-import com.example.taskomanagement.ui.navigation.TeamSharedViewModel
+import com.example.taskomanagement.ui.navigation.NavigationSharedViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun TeamDetail(
     teamId: Int,
     navController: NavController,
-    sharedViewModel: TeamSharedViewModel,
+    sharedViewModel: NavigationSharedViewModel,
     viewModel: TeamDetailViewModel = koinViewModel(),
 ) {
     viewModel.getTeam(teamId)

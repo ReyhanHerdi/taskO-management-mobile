@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
-class TeamSharedViewModel : ViewModel() {
+class NavigationSharedViewModel : ViewModel() {
     var teamId by mutableStateOf<Int?>(null)
 
     fun setTeamId(id: Int) {

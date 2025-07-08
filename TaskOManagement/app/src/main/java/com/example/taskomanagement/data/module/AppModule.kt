@@ -5,7 +5,7 @@ import com.example.taskomanagement.data.api.ApiService
 import com.example.taskomanagement.data.datastore.AuthDataStore
 import com.example.taskomanagement.data.repository.MainRepository
 import com.example.taskomanagement.data.repository.MainRepositoryImpl
-import com.example.taskomanagement.ui.navigation.TeamSharedViewModel
+import com.example.taskomanagement.ui.navigation.NavigationSharedViewModel
 import com.example.taskomanagement.ui.screen.authentication.login.LoginViewModel
 import com.example.taskomanagement.ui.screen.authentication.register.RegisterViewModel
 import com.example.taskomanagement.ui.screen.main.home.HomeViewModel
@@ -60,5 +60,5 @@ val appModule = module {
     viewModel { ProjectInputViewModel(get()) }
     viewModel { TaskInputViewModel(get()) }
     viewModel { MemberViewModel(get()) }
-    viewModel { TeamSharedViewModel() }
+    viewModel { NavigationSharedViewModel() }
 }
