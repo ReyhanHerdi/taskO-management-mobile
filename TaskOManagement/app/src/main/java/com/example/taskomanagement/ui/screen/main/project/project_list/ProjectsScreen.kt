@@ -1,8 +1,7 @@
 package com.example.taskomanagement.ui.screen.main.project.project_list
 
-import android.util.Log
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -27,31 +26,33 @@ fun Projects(
     viewModel: ProjectViewModel = koinViewModel(),
 ) {
     val project by viewModel.project.collectAsState()
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
-    ) {
-        LazyColumn {
-            viewModel.getTeam()
-            project.forEach { project ->
-                item {
-                    CustomProjectsList(
-                        projects = project,
-                        onItemClick = { selectedItem ->
-                            navController.navigate("ProjectDetailScreen/${selectedItem.idProject}")
-                        }
-                    )
+    Box {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+        ) {
+            LazyColumn {
+                viewModel.getTeam()
+                project.forEach { project ->
+                    item {
+                        CustomProjectsList(
+                            projects = project,
+                            onItemClick = { selectedItem ->
+                                navController.navigate("ProjectDetailScreen/${selectedItem.idProject}")
+                            }
+                        )
+                    }
                 }
             }
         }
-        Spacer(modifier = Modifier.weight(1f))
         FloatingActionButton(
             onClick = {
                 navController.navigate(Screen.ProjectChooseTeamScreen.routes)
             },
             modifier = Modifier
-                .align(Alignment.End)
+                .align(Alignment.BottomEnd)
+                .padding(end = 16.dp, bottom = 16.dp)
         ) {
             Icon(
                 imageVector = Icons.Filled.Add,
