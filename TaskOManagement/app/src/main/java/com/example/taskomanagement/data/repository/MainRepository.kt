@@ -1,5 +1,6 @@
 package com.example.taskomanagement.data.repository
 
+import com.example.taskomanagement.data.response.ExecutorByTaskIdResponse
 import com.example.taskomanagement.data.response.LoginResponse
 import com.example.taskomanagement.data.response.MembersOfTeamResponse
 import com.example.taskomanagement.data.response.ProjectDetailResponse
@@ -9,10 +10,8 @@ import com.example.taskomanagement.data.response.TaskDetailResponse
 import com.example.taskomanagement.data.response.TaskExecutorResponse
 import com.example.taskomanagement.data.response.TaskResponse
 import com.example.taskomanagement.data.response.TeamMemberResponse
-import com.example.taskomanagement.data.response.TeamOfUserResponse
 import com.example.taskomanagement.data.response.TeamResponse
 import com.example.taskomanagement.data.response.UserResponse
-import okhttp3.internal.concurrent.Task
 
 interface MainRepository {
     // Auth
@@ -38,6 +37,7 @@ interface MainRepository {
     suspend fun getTask(): TaskResponse
     suspend fun getTaskById(id: Int): TaskDetailResponse
     suspend fun getTaskByExector(id: Int): TaskExecutorResponse
+    suspend fun getExecutorByTaskId(id: Int): ExecutorByTaskIdResponse
     suspend fun getTeamByUserId(id: Int): TeamMemberResponse
     suspend fun getTeamByTeamId(id: Int): TeamResponse
     suspend fun getProjectsByTeamId(id: Int): ProjectResponse

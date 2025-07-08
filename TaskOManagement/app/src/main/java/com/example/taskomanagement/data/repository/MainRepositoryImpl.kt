@@ -2,6 +2,7 @@ package com.example.taskomanagement.data.repository
 
 import com.example.taskomanagement.data.api.ApiService
 import com.example.taskomanagement.data.datastore.AuthDataStore
+import com.example.taskomanagement.data.response.ExecutorByTaskIdResponse
 import com.example.taskomanagement.data.response.LoginResponse
 import com.example.taskomanagement.data.response.MembersOfTeamResponse
 import com.example.taskomanagement.data.response.ProjectDetailResponse
@@ -11,7 +12,6 @@ import com.example.taskomanagement.data.response.TaskDetailResponse
 import com.example.taskomanagement.data.response.TaskExecutorResponse
 import com.example.taskomanagement.data.response.TaskResponse
 import com.example.taskomanagement.data.response.TeamMemberResponse
-import com.example.taskomanagement.data.response.TeamOfUserResponse
 import com.example.taskomanagement.data.response.TeamResponse
 import com.example.taskomanagement.data.response.UserResponse
 
@@ -42,6 +42,7 @@ class MainRepositoryImpl(
     override suspend fun getTask(): TaskResponse = apiService.getTasks()
     override suspend fun getTaskById(id: Int): TaskDetailResponse = apiService.getTaskById(id)
     override suspend fun getTaskByExector(id: Int): TaskExecutorResponse = apiService.getTaskByExecutor(id)
+    override suspend fun getExecutorByTaskId(id: Int): ExecutorByTaskIdResponse = apiService.getExecutorByTaskId(id)
     override suspend fun getTeamByUserId(id: Int): TeamMemberResponse = apiService.getTeamsByUserId(id)
     override suspend fun getTeamByTeamId(id: Int): TeamResponse = apiService.getTeamById(id)
     override suspend fun getProjectsByTeamId(id: Int): ProjectResponse = apiService.getProjectsByTeamId(id)

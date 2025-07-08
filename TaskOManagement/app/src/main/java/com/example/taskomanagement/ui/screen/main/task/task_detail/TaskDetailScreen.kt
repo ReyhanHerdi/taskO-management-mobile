@@ -1,10 +1,13 @@
 package com.example.taskomanagement.ui.screen.main.task.task_detail
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -27,14 +30,17 @@ fun TaskDetail(
 ) {
     val task by viewModel.task.collectAsState()
     val project by viewModel.project.collectAsState()
+    val executor by viewModel.executor.collectAsState()
 
     viewModel.getTaskById(taskId)
     viewModel.getProjectById(task?.idTask ?: 0)
+    viewModel.getExecutorByTaskId(taskId)
 
     val nameTask = task?.nameTask ?: "Name Tugas"
     val nameProject = project?.nameProject ?: "Nama Proyek"
     val descriptionTask = task?.description ?: "Dekripsi tugas"
     val dueDateTask = task?.dueDate ?: "10 Juni 2003"
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -55,16 +61,6 @@ fun TaskDetail(
                 .align(Alignment.CenterHorizontally)
         )
         Text(
-            text = "Deskripsi",
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(top = 20.dp)
-        )
-        Text(
-            text = descriptionTask,
-            style = MaterialTheme.typography.bodyMedium
-        )
-        Text(
             text = "Tenggat Waktu",
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
@@ -72,6 +68,46 @@ fun TaskDetail(
         )
         Text(
             text = dueDateTask,
+            style = MaterialTheme.typography.bodyMedium
+        )
+        Text(
+            text = "Penanggung Jawab",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(top = 20.dp)
+        )
+        LazyRow {
+            executor?.forEach { task ->
+                task.user.forEach { taskExecutor ->
+                    item {
+                        Row(
+                            modifier = Modifier.padding(end = 8.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.AccountCircle,
+                                contentDescription = "Foto profil penanggung jawab",
+                                modifier = Modifier
+                                    .padding(end = 4.dp)
+                                    .align(Alignment.CenterVertically)
+                            )
+                            Text(
+                                text = taskExecutor.name,
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier.align(Alignment.CenterVertically)
+                            )
+                        }
+                    }
+                }
+            }
+        }
+        Text(
+            text = "Deskripsi",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(top = 20.dp)
+        )
+        Text(
+            text = descriptionTask,
             style = MaterialTheme.typography.bodyMedium
         )
         Spacer(modifier = Modifier.weight(1f))
