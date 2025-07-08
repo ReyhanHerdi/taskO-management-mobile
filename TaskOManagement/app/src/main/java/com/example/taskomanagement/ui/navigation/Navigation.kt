@@ -3,7 +3,7 @@ package com.example.taskomanagement.ui.navigation
 import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Scaffold
@@ -12,7 +12,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -72,7 +71,7 @@ fun Navigation(){
                     Screen.TeamsScreen.routes -> CustomTopAppBar(title = "Daftar Tim")
                     Screen.ProfileScreen.routes -> CustomTopAppBar(title = "Akun Saya", endIcon = Icons.Filled.Settings)
                     Screen.TeamDetailScreem.routes -> CustomTopAppBar(
-                        startIcon = Icons.Filled.ArrowBack,
+                        startIcon = Icons.AutoMirrored.Filled.ArrowBack,
                         endIcon2 = ImageVector.vectorResource(id = R.drawable.baseline_groups_24),
                         endIcon = Icons.Filled.Settings,
                         onClick2 = {
@@ -81,13 +80,14 @@ fun Navigation(){
                             } ?: Log.d("CLICK", "no respond")
                         }
                     )
-                    Screen.ProjectDetailScreen.routes -> CustomTopAppBar(startIcon = Icons.Filled.ArrowBack, endIcon = Icons.Filled.Settings)
-                    Screen.TaskScreen.routes -> CustomTopAppBar(title = "Daftar Tugas Saya", startIcon = Icons.Filled.ArrowBack)
-                    Screen.TaskDetailScreen.routes -> CustomTopAppBar(startIcon = Icons.Filled.ArrowBack, endIcon = Icons.Filled.Settings)
-                    Screen.TeamInputScreen.routes -> CustomTopAppBar(title = "Buat Tim", startIcon = Icons.Filled.ArrowBack)
-                    Screen.ProjectChooseTeamScreen.routes -> CustomTopAppBar(title = "Pilih Tim", startIcon = Icons.Filled.ArrowBack)
-                    Screen.ProjectInputScreen.routes -> CustomTopAppBar(title = "Buat Proyek", startIcon = Icons.Filled.ArrowBack)
-                    Screen.TaskInputScreen.routes -> CustomTopAppBar(title = "Buat Tugas", startIcon = Icons.Filled.ArrowBack)
+                    Screen.ProjectDetailScreen.routes -> CustomTopAppBar(startIcon = Icons.AutoMirrored.Filled.ArrowBack, endIcon = Icons.Filled.Settings)
+                    Screen.TaskScreen.routes -> CustomTopAppBar(title = "Daftar Tugas Saya", startIcon = Icons.AutoMirrored.Filled.ArrowBack)
+                    Screen.TaskDetailScreen.routes -> CustomTopAppBar(startIcon = Icons.AutoMirrored.Filled.ArrowBack, endIcon = Icons.Filled.Settings)
+                    Screen.TeamInputScreen.routes -> CustomTopAppBar(title = "Buat Tim", startIcon = Icons.AutoMirrored.Filled.ArrowBack)
+                    Screen.ProjectChooseTeamScreen.routes -> CustomTopAppBar(title = "Pilih Tim", startIcon = Icons.AutoMirrored.Filled.ArrowBack)
+                    Screen.ProjectInputScreen.routes -> CustomTopAppBar(title = "Buat Proyek", startIcon = Icons.AutoMirrored.Filled.ArrowBack)
+                    Screen.TaskInputScreen.routes -> CustomTopAppBar(title = "Buat Tugas", startIcon = Icons.AutoMirrored.Filled.ArrowBack)
+                    Screen.MembersScreen.routes -> CustomTopAppBar(title = "Daftar Anggota", startIcon = Icons.AutoMirrored.Filled.ArrowBack)
                 }
             }
         },

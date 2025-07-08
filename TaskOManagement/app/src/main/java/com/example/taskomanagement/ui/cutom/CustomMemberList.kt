@@ -1,6 +1,5 @@
 package com.example.taskomanagement.ui.cutom
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,9 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taskomanagement.data.response.MemberItem
 import com.example.taskomanagement.data.response.MemberOfTeamDataItem
-import com.example.taskomanagement.data.response.UserItem
 
 @Composable
 fun CustomMemberList(
@@ -45,19 +42,22 @@ fun CustomMemberList(
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .padding(end = 8.dp)
-                    .size(width = 50.dp, height = 50.dp)
+                    .size(width = 70.dp, height = 70.dp)
             )
-            Column {
+            Column(
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+            ) {
                 Text(
                     text = "${member?.user?.get(0)?.name}",
                     style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.SemiBold,
                     color = Color.Black,
                     modifier = Modifier.padding(bottom = 4.dp)
                 )
                 Text(
-                    text = member?.role ?: "Member",
-                    style = MaterialTheme.typography.titleSmall,
+                    text = if (member?.role == "leader") "Ketua" else "Anggota",
+                    style = MaterialTheme.typography.bodyMedium,
                     color = Color.Black,
                     modifier = Modifier.padding(bottom = 4.dp)
                 )
