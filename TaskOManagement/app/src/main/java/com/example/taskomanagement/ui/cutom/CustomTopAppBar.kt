@@ -4,7 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -16,16 +16,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomTopAppBar(
     title: String? = null,
-    startIcon: ImageVector? = null,
+    showBackIcon: Boolean,
     endIcon: ImageVector? = null,
     endIcon2: ImageVector? = null,
     onClick1: Unit? = null,
     onClick2: (() -> Unit)? = null,
+    navController: NavController? = null
 ) {
     TopAppBar(
         title = {
@@ -38,11 +40,15 @@ fun CustomTopAppBar(
             }
         },
         navigationIcon = {
-            if (startIcon != null) {
+            if (showBackIcon) {
                 Icon(
-                    imageVector = Icons.Filled.ArrowBack,
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Kembali",
-                    modifier = Modifier.padding(start = 16.dp)
+                    modifier = Modifier
+                        .padding(start = 16.dp)
+                        .clickable {
+                            navController?.popBackStack()
+                        }
                 )
             }
         },

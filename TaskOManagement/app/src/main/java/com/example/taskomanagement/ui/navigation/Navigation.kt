@@ -3,7 +3,6 @@ package com.example.taskomanagement.ui.navigation
 import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Scaffold
@@ -65,29 +64,30 @@ fun Navigation(){
         topBar = {
             if (currentRoute !in nonTopAppBarRoutes) {
                 when(currentRoute) {
-                    Screen.HomeScreen.routes -> CustomTopAppBar(endIcon = Icons.Outlined.Notifications)
-                    Screen.ProjectsScreen.routes -> CustomTopAppBar(title = "Daftar Proyek")
-                    Screen.MessageScreen.routes -> CustomTopAppBar(title = "Daftar Pesan")
-                    Screen.TeamsScreen.routes -> CustomTopAppBar(title = "Daftar Tim")
-                    Screen.ProfileScreen.routes -> CustomTopAppBar(title = "Akun Saya", endIcon = Icons.Filled.Settings)
+                    Screen.HomeScreen.routes -> CustomTopAppBar(showBackIcon = false, endIcon = Icons.Outlined.Notifications)
+                    Screen.ProjectsScreen.routes -> CustomTopAppBar(title = "Daftar Proyek", showBackIcon = false)
+                    Screen.MessageScreen.routes -> CustomTopAppBar(title = "Daftar Pesan", showBackIcon = false)
+                    Screen.TeamsScreen.routes -> CustomTopAppBar(title = "Daftar Tim", showBackIcon = false)
+                    Screen.ProfileScreen.routes -> CustomTopAppBar(title = "Akun Saya", showBackIcon = false, endIcon = Icons.Filled.Settings)
                     Screen.TeamDetailScreem.routes -> CustomTopAppBar(
-                        startIcon = Icons.AutoMirrored.Filled.ArrowBack,
+                        showBackIcon = true,
                         endIcon2 = ImageVector.vectorResource(id = R.drawable.baseline_groups_24),
                         endIcon = Icons.Filled.Settings,
                         onClick2 = {
                             sharedViewModel.teamId?.let { id ->
                                 navController.navigate("MembersScreen/$id")
                             } ?: Log.d("CLICK", "no respond")
-                        }
+                        },
+                        navController = navController
                     )
-                    Screen.ProjectDetailScreen.routes -> CustomTopAppBar(startIcon = Icons.AutoMirrored.Filled.ArrowBack, endIcon = Icons.Filled.Settings)
-                    Screen.TaskScreen.routes -> CustomTopAppBar(title = "Daftar Tugas Saya", startIcon = Icons.AutoMirrored.Filled.ArrowBack)
-                    Screen.TaskDetailScreen.routes -> CustomTopAppBar(startIcon = Icons.AutoMirrored.Filled.ArrowBack, endIcon = Icons.Filled.Settings)
-                    Screen.TeamInputScreen.routes -> CustomTopAppBar(title = "Buat Tim", startIcon = Icons.AutoMirrored.Filled.ArrowBack)
-                    Screen.ProjectChooseTeamScreen.routes -> CustomTopAppBar(title = "Pilih Tim", startIcon = Icons.AutoMirrored.Filled.ArrowBack)
-                    Screen.ProjectInputScreen.routes -> CustomTopAppBar(title = "Buat Proyek", startIcon = Icons.AutoMirrored.Filled.ArrowBack)
-                    Screen.TaskInputScreen.routes -> CustomTopAppBar(title = "Buat Tugas", startIcon = Icons.AutoMirrored.Filled.ArrowBack)
-                    Screen.MembersScreen.routes -> CustomTopAppBar(title = "Daftar Anggota", startIcon = Icons.AutoMirrored.Filled.ArrowBack)
+                    Screen.ProjectDetailScreen.routes -> CustomTopAppBar(showBackIcon = true, endIcon = Icons.Filled.Settings, navController = navController)
+                    Screen.TaskScreen.routes -> CustomTopAppBar(title = "Daftar Tugas Saya", showBackIcon = true, navController = navController)
+                    Screen.TaskDetailScreen.routes -> CustomTopAppBar(endIcon = Icons.Filled.Settings, showBackIcon = true, navController = navController)
+                    Screen.TeamInputScreen.routes -> CustomTopAppBar(title = "Buat Tim", showBackIcon = true, navController = navController)
+                    Screen.ProjectChooseTeamScreen.routes -> CustomTopAppBar(title = "Pilih Tim", showBackIcon = true, navController = navController)
+                    Screen.ProjectInputScreen.routes -> CustomTopAppBar(title = "Buat Proyek", showBackIcon = true, navController = navController)
+                    Screen.TaskInputScreen.routes -> CustomTopAppBar(title = "Buat Tugas", showBackIcon = true, navController = navController)
+                    Screen.MembersScreen.routes -> CustomTopAppBar(title = "Daftar Anggota", showBackIcon = true, navController = navController)
                 }
             }
         },
