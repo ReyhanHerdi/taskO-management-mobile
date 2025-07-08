@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil3.compose.AsyncImage
 import com.example.taskomanagement.ui.cutom.CustomHistoryTasksList
 import com.example.taskomanagement.utils.Screen
 import org.koin.androidx.compose.koinViewModel
@@ -77,12 +78,21 @@ fun Profile(
                     .fillMaxWidth()
                     .padding(all = 16.dp)
             ) {
-                Icon(
-                    imageVector = Icons.Filled.AccountCircle,
-                    contentDescription = "User's picture",
-                    modifier = Modifier
-                        .size(width = 70.dp, height = 70.dp)
-                )
+                if (user.photoUrl == null) {
+                    Icon(
+                        imageVector = Icons.Filled.AccountCircle,
+                        contentDescription = "Foto profil",
+                        modifier = Modifier
+                            .size(width = 70.dp, height = 70.dp)
+                    )
+                } else {
+                    AsyncImage(
+                        model = user.photoUrl,
+                        contentDescription = "Foto profil",
+                        modifier = Modifier
+                            .size(width = 70.dp, height = 70.dp)
+                    )
+                }
                 Column(
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
