@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Done
@@ -18,9 +20,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -83,13 +87,26 @@ fun TaskDetail(
                         Row(
                             modifier = Modifier.padding(end = 8.dp)
                         ) {
-                            Icon(
-                                imageVector = Icons.Default.AccountCircle,
-                                contentDescription = "Foto profil penanggung jawab",
-                                modifier = Modifier
-                                    .padding(end = 4.dp)
-                                    .align(Alignment.CenterVertically)
-                            )
+                            if (taskExecutor.photoUrl == null) {
+                                Icon(
+                                    imageVector = Icons.Default.AccountCircle,
+                                    contentDescription = "Foto profil penanggung jawab",
+                                    modifier = Modifier
+                                        .padding(end = 4.dp)
+                                        .size(width = 20.dp, height = 20.dp)
+                                        .align(Alignment.CenterVertically)
+                                )
+                            } else {
+                                AsyncImage(
+                                    model = taskExecutor.photoUrl,
+                                    contentDescription = "Foro profil penanggung jawab",
+                                    modifier = Modifier
+                                        .padding(end = 4.dp)
+                                        .size(width = 20.dp, height = 20.dp)
+                                        .align(Alignment.CenterVertically)
+                                        .clip(RoundedCornerShape(10.dp))
+                                )
+                            }
                             Text(
                                 text = taskExecutor.name,
                                 style = MaterialTheme.typography.bodyMedium,

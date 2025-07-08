@@ -69,7 +69,7 @@ fun Navigation(){
                     Screen.MessageScreen.routes -> CustomTopAppBar(title = "Daftar Pesan", showBackIcon = false)
                     Screen.TeamsScreen.routes -> CustomTopAppBar(title = "Daftar Tim", showBackIcon = false)
                     Screen.ProfileScreen.routes -> CustomTopAppBar(title = "Akun Saya", showBackIcon = false, endIcon = Icons.Filled.Settings)
-                    Screen.TeamDetailScreem.routes -> CustomTopAppBar(
+                    Screen.TeamDetailScreen.routes -> CustomTopAppBar(
                         showBackIcon = true,
                         endIcon2 = ImageVector.vectorResource(id = R.drawable.baseline_groups_24),
                         endIcon = Icons.Filled.Settings,
@@ -127,13 +127,13 @@ fun Navigation(){
                 composable(Screen.MessageScreen.routes) { Message() }
             }
             composable(Screen.TaskScreen.routes) { Task(navController) }
-            val teamId = navBackStackEntry?.arguments?.getInt("teamId")
             composable(
-                route = Screen.TeamDetailScreem.routes,
+                route = Screen.TeamDetailScreen.routes,
                 arguments = listOf(navArgument("teamId") {
                     type = NavType.IntType
                 })
             ) {
+                val teamId = navBackStackEntry?.arguments?.getInt("teamId")
                 if (teamId != null) {
                     TeamDetail(teamId, navController, sharedViewModel)
                 }
@@ -144,6 +144,7 @@ fun Navigation(){
                     type = NavType.IntType
                 })
             ) {
+                val teamId = navBackStackEntry?.arguments?.getInt("teamId")
                 if (teamId != null) {
                     Member(teamId)
                 }
@@ -178,6 +179,7 @@ fun Navigation(){
                     type = NavType.IntType
                 })
             ) {
+                val teamId = navBackStackEntry?.arguments?.getInt("teamId")
                 if (teamId != null) {
                     ProjectInput(teamId = teamId, navController)
                 }

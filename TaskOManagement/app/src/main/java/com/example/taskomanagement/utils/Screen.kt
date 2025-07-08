@@ -12,7 +12,7 @@ sealed class Screen(val routes: String) {
     data object ProfileScreen: Screen("ProfileScreen")
     data object MainScreen: Screen("MainScreen")
     data object AuthenticationScreen: Screen("AuthenticationScreen")
-    data object TeamDetailScreem: Screen("TeamDetailScreen/{teamId}")
+    data object TeamDetailScreen: Screen("TeamDetailScreen/{teamId}")
     data object ProjectDetailScreen: Screen("ProjectDetailScreen/{projectId}")
     data object TaskScreen: Screen("TaskScreen")
     data object TaskDetailScreen: Screen("TaskDetailScreen/{taskId}")

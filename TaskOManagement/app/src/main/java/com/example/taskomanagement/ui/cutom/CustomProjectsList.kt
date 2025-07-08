@@ -81,8 +81,9 @@ fun CustomProjectsList(
             )
             val projectsDone = if (projects.task != null) projects.task.filter { it.status == "done" }.size else 90
             val projectsTotal = if (projects.task != null) projects.task.size else 90
+            val projectPercentage = projectsDone.toFloat() / projectsTotal.toFloat()
             LinearProgressIndicator(
-                progress = { projectsDone.toFloat() / projectsTotal },
+                progress = { if (projectPercentage.isNaN()) 0f else projectPercentage },
                 color = MaterialTheme.colorScheme.primary,
                 trackColor = MaterialTheme.colorScheme.primaryContainer,
                 modifier = Modifier

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.Card
@@ -15,10 +16,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.example.taskomanagement.data.response.MemberOfTeamDataItem
 
 @Composable
@@ -36,14 +39,26 @@ fun CustomMemberList(
 //            .clickable { onItemClick(projects) }
     ) {
         Row {
-            Icon(
-                imageVector = Icons.Default.AccountCircle,
-                contentDescription = "Foto profil",
-                modifier = Modifier
-                    .align(Alignment.CenterVertically)
-                    .padding(end = 8.dp)
-                    .size(width = 70.dp, height = 70.dp)
-            )
+            if (member?.user?.get(0)?.photoUrl == null) {
+                Icon(
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = "Foto profil",
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .padding(8.dp)
+                        .size(width = 50.dp, height = 50.dp)
+                )
+            } else {
+                AsyncImage(
+                    model = member.user.get(0).photoUrl,
+                    contentDescription = "Foto profil",
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .padding(8.dp)
+                        .size(width = 50.dp, height = 50.dp)
+                        .clip(RoundedCornerShape(50.dp))
+                )
+            }
             Column(
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
