@@ -3,6 +3,7 @@ package com.example.taskomanagement.data.repository
 import com.example.taskomanagement.data.api.ApiService
 import com.example.taskomanagement.data.datastore.AuthDataStore
 import com.example.taskomanagement.data.response.LoginResponse
+import com.example.taskomanagement.data.response.MembersOfTeamResponse
 import com.example.taskomanagement.data.response.ProjectDetailResponse
 import com.example.taskomanagement.data.response.ProjectResponse
 import com.example.taskomanagement.data.response.ProjectWithTaskResponse
@@ -36,7 +37,7 @@ class MainRepositoryImpl(
     override suspend fun getUserId(): Int = authDataStore.getUserId()
     override suspend fun getUser(id: Int): UserResponse = apiService.getUser(id)
     override suspend fun getTeam(): TeamResponse = apiService.getTeams()
-    override suspend fun getUserTeams(id: Int): TeamOfUserResponse = apiService.getUserTeams(id)
+    override suspend fun getTeamMemberByTeamId(id: Int): MembersOfTeamResponse = apiService.getTeamWithMemberByTeamId(id)
     override suspend fun getProject(teamId: Int): ProjectWithTaskResponse = apiService.getProjects(teamId)
     override suspend fun getTask(): TaskResponse = apiService.getTasks()
     override suspend fun getTaskById(id: Int): TaskDetailResponse = apiService.getTaskById(id)

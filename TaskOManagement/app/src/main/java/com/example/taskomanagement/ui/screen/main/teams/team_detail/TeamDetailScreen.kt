@@ -21,12 +21,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.taskomanagement.ui.cutom.CustomProjectsList
+import com.example.taskomanagement.ui.navigation.TeamSharedViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun TeamDetail(
     teamId: Int,
     navController: NavController,
+    sharedViewModel: TeamSharedViewModel,
     viewModel: TeamDetailViewModel = koinViewModel(),
 ) {
     viewModel.getTeam(teamId)
@@ -37,6 +39,8 @@ fun TeamDetail(
 
     val nameTeam = team?.nameTeam ?: "Nama Tim"
     val descriptionTeam = team?.description ?: "-"
+
+    sharedViewModel.setTeamId(teamId)
     
     Column(
         modifier = Modifier

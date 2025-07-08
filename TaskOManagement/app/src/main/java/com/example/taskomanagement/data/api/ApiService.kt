@@ -1,6 +1,7 @@
 package com.example.taskomanagement.data.api
 
 import com.example.taskomanagement.data.response.LoginResponse
+import com.example.taskomanagement.data.response.MembersOfTeamResponse
 import com.example.taskomanagement.data.response.ProjectDetailResponse
 import com.example.taskomanagement.data.response.ProjectResponse
 import com.example.taskomanagement.data.response.ProjectWithTaskResponse
@@ -49,11 +50,6 @@ interface ApiService {
         @Field("description") descriptionTeam: String? = null
     ): TeamResponse
 
-    @GET("api/user-teams/{id}")
-    suspend fun getUserTeams(
-        @Path("id") id: Int
-    ): TeamOfUserResponse
-
     @GET("api/projects-team/{id}")
     suspend fun getProjects(
         @Path("id") id: Int
@@ -86,6 +82,11 @@ interface ApiService {
     suspend fun getTeamsByUserId(
         @Path("id") id: Int
     ): TeamMemberResponse
+
+    @GET("api/team-members/{id}")
+    suspend fun getTeamWithMemberByTeamId(
+        @Path("id") id: Int
+    ): MembersOfTeamResponse
 
     @GET("api/team/{id}")
     suspend fun getTeamById(

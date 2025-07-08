@@ -20,4 +20,5 @@ sealed class Screen(val routes: String) {
     data object ProjectChooseTeamScreen: Screen("ProjectChooseTeamScreen")
     data object ProjectInputScreen: Screen("ProjectInputScreen/{teamId}")
     data object TaskInputScreen: Screen("TaskInputScreen/{projectId}")
+    data object MembersScreen: Screen("MembersScreen/{teamId}")
 }

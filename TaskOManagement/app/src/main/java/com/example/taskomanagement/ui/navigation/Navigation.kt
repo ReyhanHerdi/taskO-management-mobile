@@ -1,5 +1,6 @@
 package com.example.taskomanagement.ui.navigation
 
+import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -11,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -26,6 +28,7 @@ import com.example.taskomanagement.ui.screen.authentication.login.Login
 import com.example.taskomanagement.ui.screen.authentication.register.Register
 import com.example.taskomanagement.ui.screen.landingPage.LandingPage
 import com.example.taskomanagement.ui.screen.main.home.Home
+import com.example.taskomanagement.ui.screen.main.member.Member
 import com.example.taskomanagement.ui.screen.main.message.Message
 import com.example.taskomanagement.ui.screen.main.profile.Profile
 import com.example.taskomanagement.ui.screen.main.project.project_detail.ProjectDetail
@@ -39,6 +42,7 @@ import com.example.taskomanagement.ui.screen.main.teams.team_detail.TeamDetail
 import com.example.taskomanagement.ui.screen.main.teams.team_input.TeamInput
 import com.example.taskomanagement.ui.screen.main.teams.team_list.Teams
 import com.example.taskomanagement.utils.Screen
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun Navigation(){
@@ -56,6 +60,7 @@ fun Navigation(){
         Screen.LandingPageScreen.routes,
         Screen.AuthenticationScreen.routes
     )
+    val sharedViewModel: TeamSharedViewModel = koinViewModel()
 
     Scaffold(
         topBar = {
@@ -69,7 +74,12 @@ fun Navigation(){
                     Screen.TeamDetailScreem.routes -> CustomTopAppBar(
                         startIcon = Icons.Filled.ArrowBack,
                         endIcon2 = ImageVector.vectorResource(id = R.drawable.baseline_groups_24),
-                        endIcon = Icons.Filled.Settings
+                        endIcon = Icons.Filled.Settings,
+                        onClick2 = {
+                            sharedViewModel.teamId?.let { id ->
+                                navController.navigate("MembersScreen/$id")
+                            } ?: Log.d("CLICK", "no respond")
+                        }
                     )
                     Screen.ProjectDetailScreen.routes -> CustomTopAppBar(startIcon = Icons.Filled.ArrowBack, endIcon = Icons.Filled.Settings)
                     Screen.TaskScreen.routes -> CustomTopAppBar(title = "Daftar Tugas Saya", startIcon = Icons.Filled.ArrowBack)
@@ -117,15 +127,25 @@ fun Navigation(){
                 composable(Screen.MessageScreen.routes) { Message() }
             }
             composable(Screen.TaskScreen.routes) { Task(navController) }
+            val teamId = navBackStackEntry?.arguments?.getInt("teamId")
             composable(
                 route = Screen.TeamDetailScreem.routes,
                 arguments = listOf(navArgument("teamId") {
                     type = NavType.IntType
                 })
             ) {
-                val teamId = navBackStackEntry?.arguments?.getInt("teamId")
                 if (teamId != null) {
-                    TeamDetail(teamId, navController)
+                    TeamDetail(teamId, navController, sharedViewModel)
+                }
+            }
+            composable(
+                route = Screen.MembersScreen.routes,
+                arguments = listOf(navArgument("teamId") {
+                    type = NavType.IntType
+                })
+            ) {
+                if (teamId != null) {
+                    Member(teamId)
                 }
             }
             composable(
@@ -158,7 +178,6 @@ fun Navigation(){
                     type = NavType.IntType
                 })
             ) {
-                val teamId = navBackStackEntry?.arguments?.getInt("teamId")
                 if (teamId != null) {
                     ProjectInput(teamId = teamId, navController)
                 }
