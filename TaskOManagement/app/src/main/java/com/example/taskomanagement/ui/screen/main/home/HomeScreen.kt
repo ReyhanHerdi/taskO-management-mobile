@@ -1,5 +1,6 @@
 package com.example.taskomanagement.ui.screen.main.home
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,16 +9,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,8 +30,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.taskomanagement.ui.cutom.CustomTasksList
 import com.example.taskomanagement.utils.Screen
+import com.example.taskomanagement.utils.currentDate
+import com.example.taskomanagement.utils.monthPicker
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
+import java.util.Date
 
 @Composable
 fun Home(
@@ -45,6 +45,23 @@ fun Home(
     val user by viewModel.user.collectAsState()
     val task by viewModel.task.collectAsState()
     viewModel.getUser()
+    viewModel.getTask()
+    var taskName: String? = null
+    var taskDate: Date? = null
+    var taskId: Int? = null
+    if (!task.isNullOrEmpty()) {
+        task?.forEach { exec ->
+            exec.task
+                .filter { it.status != "done" }
+                .sortedBy { it.dueDate }
+                .forEach {
+                    taskDate = currentDate(it.dueDate, it.dueTime)
+                    taskName = it.nameTask
+                    taskId = it.idTask
+                }
+        }
+    }
+    Log.d("PARSE", taskDate.toString())
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -53,21 +70,17 @@ fun Home(
                 end = 16.dp,
                 bottom = 8.dp
             )
-            .verticalScroll(rememberScrollState())
     ) {
-        Column(
+        Text(
+            text = "Selamat pagi,",
+            style = MaterialTheme.typography.bodyMedium
+        )
+        Text(
+            text = user,
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 20.dp)
-        ) {
-            Text(
-                text = "Selamat pagi,",
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Text(
-                text = user,
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold
-            )
-        }
+        )
         Card(
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.primary,
@@ -96,14 +109,17 @@ fun Home(
                         style = MaterialTheme.typography.titleMedium
                     )
                     Text(
-                        text = "Mendapat Pacar",
+                        text = taskName ?: "Tugas Terdekat",
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(top = 4.dp, bottom = 8.dp)
                     )
                     Button(
-                        onClick = {},
+                        onClick = {
+                            navController.navigate("TaskDetailScreen/$taskId")
+                        },
+                        enabled = taskId != null,
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.secondaryContainer
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
                         )
                     ) {
                         Text(
@@ -129,7 +145,7 @@ fun Home(
                             .fillMaxSize()
                     ) {
                         Text(
-                            text = "14",
+                            text = taskDate?.date?.toString() ?: "DD" ,
                             style = MaterialTheme.typography.displayLarge,
                             modifier = Modifier
                                 .align(Alignment.CenterHorizontally)
@@ -137,7 +153,7 @@ fun Home(
                             )
                         Spacer(modifier = Modifier.weight(1f))
                         Text(
-                            text = "Februari",
+                            text = monthPicker(taskDate?.month ?: 0),
                             style = MaterialTheme.typography.bodyMedium,
                             modifier = Modifier
                                 .align(Alignment.CenterHorizontally)
@@ -212,17 +228,23 @@ fun Home(
                     }
             )
         }
-        Column(
-            modifier = Modifier.padding(top = 8.dp)
-        ) {
-            viewModel.getTask()
-            task.forEach { item ->
-                CustomTasksList(
-                    tasks = item,
-                    onItemClick = { selectedItem ->
-                        navController.navigate("TaskDetailScreen/${selectedItem.idTask}")
+        LazyColumn {
+            task?.forEach { itemExec ->
+                itemExec.task
+                    .filter { it.status != "done" }
+                    .sortedBy { it.dueDate }
+                    .forEach { itemTask ->
+                        if (itemTask != null) {
+                            item {
+                                CustomTasksList(
+                                    tasks = itemTask,
+                                    onItemClick = { selectedItem ->
+                                        navController.navigate("TaskDetailScreen/${selectedItem.idTask}")
+                                    }
+                                )
+                            }
+                        }
                     }
-                )
             }
         }
     }
