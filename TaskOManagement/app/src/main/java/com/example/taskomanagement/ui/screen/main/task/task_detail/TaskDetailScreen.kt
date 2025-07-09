@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.example.taskomanagement.utils.formatDate
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -43,7 +44,8 @@ fun TaskDetail(
     val nameTask = task?.nameTask ?: "Name Tugas"
     val nameProject = project?.nameProject ?: "Nama Proyek"
     val descriptionTask = task?.description ?: "Dekripsi tugas"
-    val dueDateTask = task?.dueDate ?: "10 Juni 2003"
+    val dueDateTask = task?.dueDate ?: "2003-06-10"
+    val dueTimeTask = task?.dueTime ?: "00.00.00"
 
     Column(
         modifier = Modifier
@@ -71,7 +73,7 @@ fun TaskDetail(
             modifier = Modifier.padding(top = 16.dp)
         )
         Text(
-            text = dueDateTask,
+            text = "${formatDate(dueDateTask)} | $dueTimeTask",
             style = MaterialTheme.typography.bodyMedium
         )
         Text(
