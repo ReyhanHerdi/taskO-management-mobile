@@ -8,6 +8,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -26,7 +27,9 @@ fun Member(
     viewModel: MemberViewModel = koinViewModel(),
 ) {
     val member by viewModel.member.collectAsState()
-    viewModel.getMember(teamId)
+    LaunchedEffect(key1 = Unit) {
+        viewModel.getMember(teamId)
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()

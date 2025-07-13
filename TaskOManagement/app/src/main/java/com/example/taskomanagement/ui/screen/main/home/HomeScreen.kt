@@ -44,8 +44,12 @@ fun Home(
     AuthCheck(navController = navController, viewModel = viewModel)
     val user by viewModel.user.collectAsState()
     val task by viewModel.task.collectAsState()
-    viewModel.getUser()
-    viewModel.getTask()
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.getUser()
+        viewModel.getTask()
+    }
+
     var taskName: String? = null
     var taskDate: Date? = null
     var taskId: Int? = null
@@ -61,7 +65,6 @@ fun Home(
                 }
         }
     }
-    Log.d("PARSE", taskDate.toString())
     Column(
         modifier = Modifier
             .fillMaxSize()

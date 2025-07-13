@@ -11,6 +11,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -27,6 +28,9 @@ fun Projects(
     viewModel: ProjectViewModel = koinViewModel(),
 ) {
     val project by viewModel.project.collectAsState()
+    LaunchedEffect(key1 = Unit) {
+        viewModel.getTeam()
+    }
     Box {
         Column(
             modifier = Modifier
@@ -34,7 +38,6 @@ fun Projects(
                 .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
         ) {
             LazyColumn {
-                viewModel.getTeam()
                 project.forEach { project ->
                     item {
                         CustomProjectsList(

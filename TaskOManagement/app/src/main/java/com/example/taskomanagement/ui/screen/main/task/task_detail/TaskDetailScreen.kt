@@ -16,6 +16,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -37,9 +38,11 @@ fun TaskDetail(
     val project by viewModel.project.collectAsState()
     val executor by viewModel.executor.collectAsState()
 
-    viewModel.getTaskById(taskId)
-    viewModel.getProjectById(task?.idTask ?: 0)
-    viewModel.getExecutorByTaskId(taskId)
+    LaunchedEffect(key1 = Unit) {
+        viewModel.getTaskById(taskId)
+        viewModel.getProjectById(task?.idTask ?: 0)
+        viewModel.getExecutorByTaskId(taskId)
+    }
 
     val nameTask = task?.nameTask ?: "Name Tugas"
     val nameProject = project?.nameProject ?: "Nama Proyek"

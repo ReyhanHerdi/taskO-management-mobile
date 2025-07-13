@@ -60,9 +60,9 @@ fun Profile(
             navController.popBackStack()
             navController.navigate(Screen.AuthenticationScreen.routes)
         }
+        viewModel.getUser()
+        viewModel.getTeam()
     }
-    viewModel.getUser()
-    viewModel.getTeam()
     Column(
         modifier = Modifier
             .fillMaxSize()

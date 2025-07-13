@@ -14,6 +14,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -34,16 +35,19 @@ fun ProjectDetail(
 ) {
     viewModel.getProjectDetail(projectId)
     val project by viewModel.project.collectAsState()
-    val projectName = if (project != null) project?.nameProject else "Nama proyek"
-    val idTeam = if (project != null) project?.teamId else 0
-    if (idTeam != null) {
-        viewModel.getTeamDetail(idTeam)
-    }
     val team by viewModel.team.collectAsState()
-    val nameTeam = if (team != null) team?.nameTeam else "Nama tim"
-    viewModel.getTasks(projectId)
     val tasks by viewModel.task.collectAsState()
+    val idTeam = if (project != null) project?.teamId else 0
+    LaunchedEffect(key1 = Unit) {
+        viewModel.getTasks(projectId)
+        if (idTeam != null) {
+            viewModel.getTeamDetail(idTeam)
+        }
+    }
+    val projectName = if (project != null) project?.nameProject else "Nama proyek"
+    val nameTeam = if (team != null) team?.nameTeam else "Nama tim"
     val taskSize = if (tasks != null) tasks.size else 0
+
     Column(
         modifier = Modifier
             .fillMaxSize()

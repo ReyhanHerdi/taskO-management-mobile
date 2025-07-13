@@ -11,6 +11,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -27,6 +28,11 @@ fun Teams(
     viewModel: TeamViewModel = koinViewModel(),
 ) {
     val teams by viewModel.team.collectAsState()
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.getTeam()
+    }
+
     Box {
         Column(
             modifier = Modifier
@@ -36,7 +42,6 @@ fun Teams(
             LazyColumn(
                 userScrollEnabled = true,
             ) {
-                viewModel.getTeam()
                 if (teams != null) {
                     teams.forEach { team ->
                         item {
