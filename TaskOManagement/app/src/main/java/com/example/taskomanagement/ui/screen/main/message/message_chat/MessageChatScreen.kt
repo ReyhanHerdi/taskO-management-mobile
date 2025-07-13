@@ -41,7 +41,6 @@ fun Chat(
     viewModel: MessageViewModel = koinViewModel(),
 ) {
     var text by remember { mutableStateOf("") }
-    val textList = remember { mutableStateListOf<String>() }
 
     viewModel.setMemberId(memberId)
 
@@ -62,11 +61,22 @@ fun Chat(
                 .weight(1f)
                 .fillMaxWidth()
         ) {
-            items(viewModel.messages) { message ->
-                TextCard(
-                    text = message.message ?: "",
-                    datetime = message.currentDate ?: 0L
-                )
+            items(viewModel.messages.reversed()) { message ->
+                Row {
+                    if (message.senderId != memberId) {
+                        Spacer(modifier = Modifier.weight(1f))
+                        TextSendCard(
+                            text = message.message ?: "",
+                            datetime = message.currentDate ?: 0L
+                        )
+                    } else {
+                        TextReceiveCard(
+                            text = message.message ?: "",
+                            datetime = message.currentDate ?: 0L
+                        )
+                    }
+
+                }
             }
         }
         Row(
@@ -113,7 +123,7 @@ fun Chat(
 }
 
 @Composable
-fun TextCard(text: String, datetime: Long) {
+fun TextSendCard(text: String, datetime: Long) {
     val timestamp = convertMillisToTime(datetime)
     Card(
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
@@ -133,7 +143,36 @@ fun TextCard(text: String, datetime: Long) {
             Text(
                 text = timestamp,
                 style = MaterialTheme.typography.bodySmall,
-                color = Color.White
+                color = Color.White,
+                modifier = Modifier.align(Alignment.End)
+            )
+        }
+    }
+}
+
+@Composable
+fun TextReceiveCard(text: String, datetime: Long) {
+    val timestamp = convertMillisToTime(datetime)
+    Card(
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary),
+        shape = RoundedCornerShape(14.dp),
+        modifier = Modifier
+            .padding(top = 4.dp, bottom = 4.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(8.dp)
+        ) {
+            Text(
+                text = text,
+                style = MaterialTheme.typography.bodyMedium,
+                color = Color.Black,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            Text(
+                text = timestamp,
+                style = MaterialTheme.typography.bodySmall,
+                color = Color.Black,
+                modifier = Modifier.align(Alignment.End)
             )
         }
     }

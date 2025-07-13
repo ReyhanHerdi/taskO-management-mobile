@@ -33,9 +33,8 @@ class MessageViewModel(private val repository: MainRepository) : ViewModel() {
     fun setMemberId(id: Int) {
         memberId = id
     }
-    private suspend fun refChild(): String = "${memberId}_${getUserId()}"
+    private suspend fun refChild(): String = if ((memberId ?: 0) < getUserId())"${memberId}_${getUserId()}" else "${getUserId()}_${memberId}"
     private suspend fun messageRef(): DatabaseReference = db.reference.child(refChild())
-    private suspend fun myRef(): DatabaseReference = db.getReference(refChild())
 
     fun sendMessage(
         text: String
