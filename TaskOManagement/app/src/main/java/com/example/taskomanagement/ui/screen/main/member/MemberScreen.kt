@@ -20,7 +20,6 @@ import androidx.navigation.NavController
 import com.example.taskomanagement.R
 import com.example.taskomanagement.ui.cutom.CustomMemberList
 import com.example.taskomanagement.ui.navigation.NavigationSharedViewModel
-import com.example.taskomanagement.utils.Screen
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -31,8 +30,11 @@ fun Member(
     viewModel: MemberViewModel = koinViewModel(),
 ) {
     val member by viewModel.member.collectAsState()
+    val user by viewModel.user.collectAsState()
+
     LaunchedEffect(key1 = Unit) {
         viewModel.getMember(teamId)
+        viewModel.getUser()
     }
     Box(
         modifier = Modifier
@@ -48,7 +50,8 @@ fun Member(
                             onItemClick = {
                                 sharedViewModel.setUerName(it?.user?.get(0)?.name ?: "Kosong")
                                 navController.navigate("ChatScreen/${it?.userId}")
-                            }
+                            },
+                            userId = user.idUser ?: 0
                         )
                     }
                 }

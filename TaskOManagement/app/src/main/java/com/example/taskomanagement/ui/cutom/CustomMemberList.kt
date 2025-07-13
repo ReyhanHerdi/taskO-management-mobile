@@ -29,7 +29,8 @@ import com.example.taskomanagement.data.response.MemberOfTeamDataItem
 @Composable
 fun CustomMemberList(
     member: MemberOfTeamDataItem? = null,
-    onItemClick: () -> Unit
+    onItemClick: () -> Unit,
+    userId: Int
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -39,7 +40,7 @@ fun CustomMemberList(
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 8.dp)
-            .clickable { onItemClick() }
+            .clickable(enabled = member?.userId != userId) { onItemClick() }
     ) {
         Row {
             if (member?.user?.get(0)?.photoUrl == null) {
@@ -81,14 +82,16 @@ fun CustomMemberList(
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.Send,
-                contentDescription = "Kirim pesan",
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier
-                    .align(Alignment.CenterVertically)
-                    .padding(end = 8.dp)
-            )
+            if (member?.userId != userId) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.Send,
+                    contentDescription = "Kirim pesan",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .padding(end = 8.dp)
+                )
+            }
         }
     }
 }
