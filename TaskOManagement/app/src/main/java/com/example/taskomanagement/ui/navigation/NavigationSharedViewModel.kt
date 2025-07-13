@@ -1,5 +1,6 @@
 package com.example.taskomanagement.ui.navigation
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -14,6 +15,8 @@ class NavigationSharedViewModel : ViewModel() {
     }
 
     fun setUerName(name: String) {
+        Log.d("Name", name)
         userName = name
+        Log.d("USER NAME", userName ?: "kosong")
     }
 }

@@ -27,8 +27,8 @@ import org.koin.androidx.compose.koinViewModel
 fun Member(
     teamId: Int,
     navController: NavController,
+    sharedViewModel: NavigationSharedViewModel,
     viewModel: MemberViewModel = koinViewModel(),
-    sharedViewModel: NavigationSharedViewModel = koinViewModel(),
 ) {
     val member by viewModel.member.collectAsState()
     LaunchedEffect(key1 = Unit) {

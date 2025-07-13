@@ -3,10 +3,8 @@ package com.example.taskomanagement.ui.navigation
 import android.util.Log
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Notifications
@@ -65,7 +63,6 @@ fun Navigation(){
         Screen.AuthenticationScreen.routes
     )
     val sharedViewModel: NavigationSharedViewModel = koinViewModel()
-
     Scaffold(
         topBar = {
             if (currentRoute !in nonTopAppBarRoutes) {
@@ -158,7 +155,7 @@ fun Navigation(){
             ) {
                 val teamId = navBackStackEntry?.arguments?.getInt("teamId")
                 if (teamId != null) {
-                    Member(teamId, navController)
+                    Member(teamId, navController, sharedViewModel)
                 }
             }
             composable(
