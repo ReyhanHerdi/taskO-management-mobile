@@ -47,7 +47,7 @@ fun Member(
                             member = it,
                             onItemClick = {
                                 sharedViewModel.setUerName(it?.user?.get(0)?.name ?: "Kosong")
-                                navController.navigate(Screen.ChatScreen.routes)
+                                navController.navigate("ChatScreen/${it?.userId}")
                             }
                         )
                     }

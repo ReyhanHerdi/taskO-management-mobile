@@ -21,5 +21,5 @@ sealed class Screen(val routes: String) {
     data object ProjectInputScreen: Screen("ProjectInputScreen/{teamId}")
     data object TaskInputScreen: Screen("TaskInputScreen/{projectId}")
     data object MembersScreen: Screen("MembersScreen/{teamId}")
-    data object ChatScreen: Screen("ChatScreen")
+    data object ChatScreen: Screen("ChatScreen/{memberId}")
 }

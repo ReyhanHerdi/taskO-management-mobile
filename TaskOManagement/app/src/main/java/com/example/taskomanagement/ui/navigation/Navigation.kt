@@ -204,7 +204,17 @@ fun Navigation(){
                     TaskInput(projectId = projectId, navController = navController)
                 }
             }
-            composable(route = Screen.ChatScreen.routes) { Chat() }
+            composable(
+                route = Screen.ChatScreen.routes,
+                arguments = listOf(navArgument("memberId") {
+                    type = NavType.IntType
+                })
+            ) {
+                val memberId = navBackStackEntry?.arguments?.getInt("memberId")
+                if (memberId != null) {
+                    Chat(memberId)
+                }
+            }
 //        composable(route = Screen.TaskOAppScreen.routes) { TaskOApp() }
         }
     }

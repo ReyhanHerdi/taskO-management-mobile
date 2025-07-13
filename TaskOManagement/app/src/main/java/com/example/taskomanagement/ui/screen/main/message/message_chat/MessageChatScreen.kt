@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
@@ -15,11 +16,13 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -29,11 +32,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.taskomanagement.utils.convertMillisToTime
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun Chat() {
+fun Chat(
+    memberId: Int,
+    viewModel: MessageViewModel = koinViewModel(),
+) {
     var text by remember { mutableStateOf("") }
     val textList = remember { mutableStateListOf<String>() }
+
+    viewModel.setMemberId(memberId)
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.observeMessage()
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -47,10 +62,11 @@ fun Chat() {
                 .weight(1f)
                 .fillMaxWidth()
         ) {
-            for (message in textList.reversed()) {
-                item {
-                    TextCard(message)
-                }
+            items(viewModel.messages) { message ->
+                TextCard(
+                    text = message.message ?: "",
+                    datetime = message.currentDate ?: 0L
+                )
             }
         }
         Row(
@@ -73,14 +89,20 @@ fun Chat() {
                 shape = RoundedCornerShape(20.dp),
             )
             Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = {
-                textList.add(text)
-                text = ""
-            }) {
+            IconButton(
+                onClick = {
+                    viewModel.sendMessage(text = text)
+                    text = ""
+                },
+                enabled = text != "",
+                colors = IconButtonDefaults.iconButtonColors(
+                    contentColor = MaterialTheme.colorScheme.primary,
+                    disabledContentColor = MaterialTheme.colorScheme.secondary
+                )
+            ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.Send,
                     contentDescription = "Kirim pesan",
-                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
                         .size(30.dp)
@@ -91,7 +113,8 @@ fun Chat() {
 }
 
 @Composable
-fun TextCard(text: String) {
+fun TextCard(text: String, datetime: Long) {
+    val timestamp = convertMillisToTime(datetime)
     Card(
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
         shape = RoundedCornerShape(14.dp),
@@ -108,7 +131,7 @@ fun TextCard(text: String) {
                 modifier = Modifier.padding(bottom = 4.dp)
             )
             Text(
-                text = "Ini waktu",
+                text = timestamp,
                 style = MaterialTheme.typography.bodySmall,
                 color = Color.White
             )
