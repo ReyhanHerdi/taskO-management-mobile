@@ -27,7 +27,8 @@ import com.example.taskomanagement.ui.screen.authentication.register.Register
 import com.example.taskomanagement.ui.screen.landingPage.LandingPage
 import com.example.taskomanagement.ui.screen.main.home.Home
 import com.example.taskomanagement.ui.screen.main.member.Member
-import com.example.taskomanagement.ui.screen.main.message.Message
+import com.example.taskomanagement.ui.screen.main.message.message_chat.Chat
+import com.example.taskomanagement.ui.screen.main.message.message_list.Message
 import com.example.taskomanagement.ui.screen.main.profile.Profile
 import com.example.taskomanagement.ui.screen.main.project.project_detail.ProjectDetail
 import com.example.taskomanagement.ui.screen.main.project.project_input.ProjectInput
@@ -146,7 +147,7 @@ fun Navigation(){
             ) {
                 val teamId = navBackStackEntry?.arguments?.getInt("teamId")
                 if (teamId != null) {
-                    Member(teamId)
+                    Member(teamId, navController)
                 }
             }
             composable(
@@ -195,6 +196,7 @@ fun Navigation(){
                     TaskInput(projectId = projectId, navController = navController)
                 }
             }
+            composable(route = Screen.ChatScreen.routes) { Chat() }
 //        composable(route = Screen.TaskOAppScreen.routes) { TaskOApp() }
         }
     }

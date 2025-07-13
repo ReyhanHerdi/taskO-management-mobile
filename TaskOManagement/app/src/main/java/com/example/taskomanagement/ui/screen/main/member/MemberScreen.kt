@@ -13,17 +13,19 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.taskomanagement.R
 import com.example.taskomanagement.ui.cutom.CustomMemberList
+import com.example.taskomanagement.utils.Screen
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun Member(
     teamId: Int,
+    navController: NavController,
     viewModel: MemberViewModel = koinViewModel(),
 ) {
     val member by viewModel.member.collectAsState()
@@ -39,7 +41,10 @@ fun Member(
             if (member != null) {
                 member.forEach {
                     item {
-                        CustomMemberList(it)
+                        CustomMemberList(
+                            member = it,
+                            onItemClick = { navController.navigate(Screen.ChatScreen.routes) }
+                        )
                     }
                 }
             }

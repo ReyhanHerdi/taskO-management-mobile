@@ -217,6 +217,7 @@ fun Register(
                 coroutineScope.launch {
                     try {
                         if (viewModel.register(name, email, password).status) {
+                            viewModel.firebaseAuth(email, password)
                             navController.navigate(Screen.RegisterSuccessScreen.routes)
                         } else {
                             Log.d("REGISTER HAS FAILED", "Email sudah terpakai")

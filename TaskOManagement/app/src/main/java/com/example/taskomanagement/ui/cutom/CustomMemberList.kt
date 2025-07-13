@@ -1,12 +1,15 @@
 package com.example.taskomanagement.ui.cutom
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -19,14 +22,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.example.taskomanagement.data.response.MemberOfTeamDataItem
 
 @Composable
 fun CustomMemberList(
-    member: MemberOfTeamDataItem? = null
+    member: MemberOfTeamDataItem? = null,
+    onItemClick: () -> Unit
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -36,7 +39,7 @@ fun CustomMemberList(
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 8.dp)
-//            .clickable { onItemClick(projects) }
+            .clickable { onItemClick() }
     ) {
         Row {
             if (member?.user?.get(0)?.photoUrl == null) {
@@ -77,12 +80,21 @@ fun CustomMemberList(
                     modifier = Modifier.padding(bottom = 4.dp)
                 )
             }
+            Spacer(modifier = Modifier.weight(1f))
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.Send,
+                contentDescription = "Kirim pesan",
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .padding(end = 8.dp)
+            )
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun CustomMemberListPreview() {
-    CustomMemberList()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun CustomMemberListPreview() {
+//    CustomMemberList()
+//}
