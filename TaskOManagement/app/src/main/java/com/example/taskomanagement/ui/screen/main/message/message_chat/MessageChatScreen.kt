@@ -37,14 +37,15 @@ fun Chat() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
     ) {
         LazyColumn(
-            contentPadding = PaddingValues(bottom = 8.dp, top = 8.dp),
+            contentPadding = PaddingValues(bottom = 8.dp),
             userScrollEnabled = true,
             reverseLayout = true,
             modifier = Modifier
                 .weight(1f)
+                .fillMaxWidth()
         ) {
             for (message in textList.reversed()) {
                 item {

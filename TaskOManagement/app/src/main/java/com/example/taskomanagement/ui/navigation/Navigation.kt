@@ -1,7 +1,12 @@
 package com.example.taskomanagement.ui.navigation
 
 import android.util.Log
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Notifications
@@ -89,6 +94,10 @@ fun Navigation(){
                     Screen.ProjectInputScreen.routes -> CustomTopAppBar(title = "Buat Proyek", showBackIcon = true, navController = navController)
                     Screen.TaskInputScreen.routes -> CustomTopAppBar(title = "Buat Tugas", showBackIcon = true, navController = navController)
                     Screen.MembersScreen.routes -> CustomTopAppBar(title = "Daftar Anggota", showBackIcon = true, navController = navController)
+                    Screen.ChatScreen.routes -> CustomTopAppBar(
+                        title = sharedViewModel.userName,
+                        showBackIcon = true
+                    )
                 }
             }
         },
@@ -106,7 +115,9 @@ fun Navigation(){
         NavHost(
             navController = navController,
             startDestination = Screen.LandingPageScreen.routes,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier
+                .padding(innerPadding)
+                .padding(WindowInsets.navigationBars.asPaddingValues())
         ) {
             composable(route = Screen.LandingPageScreen.routes) { LandingPage(navController) }
             navigation(

@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.taskomanagement.R
 import com.example.taskomanagement.ui.cutom.CustomMemberList
+import com.example.taskomanagement.ui.navigation.NavigationSharedViewModel
 import com.example.taskomanagement.utils.Screen
 import org.koin.androidx.compose.koinViewModel
 
@@ -27,6 +28,7 @@ fun Member(
     teamId: Int,
     navController: NavController,
     viewModel: MemberViewModel = koinViewModel(),
+    sharedViewModel: NavigationSharedViewModel = koinViewModel(),
 ) {
     val member by viewModel.member.collectAsState()
     LaunchedEffect(key1 = Unit) {
@@ -43,7 +45,10 @@ fun Member(
                     item {
                         CustomMemberList(
                             member = it,
-                            onItemClick = { navController.navigate(Screen.ChatScreen.routes) }
+                            onItemClick = {
+                                sharedViewModel.setUerName(it?.user?.get(0)?.name ?: "Kosong")
+                                navController.navigate(Screen.ChatScreen.routes)
+                            }
                         )
                     }
                 }
