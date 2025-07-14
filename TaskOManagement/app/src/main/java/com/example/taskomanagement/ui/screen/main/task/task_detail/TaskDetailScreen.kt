@@ -62,18 +62,18 @@ fun TaskDetail(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
         )
-        Text(
-            text = nameProject,
-            style = MaterialTheme.typography.titleSmall,
-            fontWeight = FontWeight.Normal,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-        )
+//        Text(
+//            text = nameProject,
+//            style = MaterialTheme.typography.titleSmall,
+//            fontWeight = FontWeight.Normal,
+//            modifier = Modifier
+//                .align(Alignment.CenterHorizontally)
+//        )
         Text(
             text = "Tenggat Waktu",
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(top = 16.dp)
+            modifier = Modifier.padding(top = 20.dp)
         )
         Text(
             text = "${formatDate(dueDateTask)} | $dueTimeTask",
@@ -85,6 +85,12 @@ fun TaskDetail(
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(top = 20.dp)
         )
+        if (executor.isNullOrEmpty()) {
+            Text(
+                text = "Belum ada penanggung jawab",
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
         LazyRow {
             executor?.forEach { task ->
                 task.user.forEach { taskExecutor ->
