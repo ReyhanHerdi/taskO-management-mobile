@@ -73,4 +73,8 @@ interface MainRepository {
         text: String,
         time: Long
     ): UserResponse
+    suspend fun inputMember(
+        teamId: Int,
+        email: String
+    ): MembersOfTeamResponse
 }

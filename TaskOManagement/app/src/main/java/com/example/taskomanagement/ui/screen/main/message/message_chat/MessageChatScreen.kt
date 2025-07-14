@@ -1,6 +1,5 @@
 package com.example.taskomanagement.ui.screen.main.message.message_chat
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -25,8 +24,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableLongStateOf
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -35,7 +32,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.taskomanagement.utils.convertMillisToTime
-import com.example.taskomanagement.utils.currentDateTime
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -65,7 +61,6 @@ fun Chat(
                 .fillMaxWidth()
         ) {
             items(viewModel.messages.reversed()) { message ->
-                Log.d("MESG", message.toString())
                 Row {
                     if (message.senderId != memberId) {
                         Spacer(modifier = Modifier.weight(1f))

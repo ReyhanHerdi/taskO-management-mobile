@@ -1,4 +1,4 @@
-package com.example.taskomanagement.ui.screen.main.member
+package com.example.taskomanagement.ui.screen.main.member.member_list
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

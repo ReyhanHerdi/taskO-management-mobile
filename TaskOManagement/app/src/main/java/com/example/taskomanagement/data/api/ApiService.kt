@@ -144,4 +144,12 @@ interface ApiService {
         @Field("text") text: String,
         @Field("datetime") time: Long
     ): UserResponse
+
+    @FormUrlEncoded
+    @POST("api/member-store/{id}")
+    suspend fun inputMember(
+        @Path("id") id: Int,
+        @Field("team_id") teamId: Int,
+        @Field("email") email: String
+    ): MembersOfTeamResponse
 }

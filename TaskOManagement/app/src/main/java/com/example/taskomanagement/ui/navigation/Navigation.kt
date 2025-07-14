@@ -29,7 +29,8 @@ import com.example.taskomanagement.ui.screen.authentication.login.Login
 import com.example.taskomanagement.ui.screen.authentication.register.Register
 import com.example.taskomanagement.ui.screen.landingPage.LandingPage
 import com.example.taskomanagement.ui.screen.main.home.Home
-import com.example.taskomanagement.ui.screen.main.member.Member
+import com.example.taskomanagement.ui.screen.main.member.member_input.MemberInput
+import com.example.taskomanagement.ui.screen.main.member.member_list.Member
 import com.example.taskomanagement.ui.screen.main.message.message_chat.Chat
 import com.example.taskomanagement.ui.screen.main.message.message_list.Message
 import com.example.taskomanagement.ui.screen.main.profile.Profile
@@ -95,6 +96,7 @@ fun Navigation(){
                         title = sharedViewModel.userName,
                         showBackIcon = true
                     )
+                    Screen.MemberInputScreen.routes -> CustomTopAppBar(showBackIcon = true, title = "Tambah Anggota", navController = navController)
                 }
             }
         },
@@ -213,6 +215,17 @@ fun Navigation(){
                 val memberId = navBackStackEntry?.arguments?.getInt("memberId")
                 if (memberId != null) {
                     Chat(memberId)
+                }
+            }
+            composable(
+                route = Screen.MemberInputScreen.routes,
+                arguments = listOf(navArgument("teamId") {
+                    type = NavType.IntType
+                })
+            ) {
+                val teamId = navBackStackEntry?.arguments?.getInt("teamId")
+                if (teamId != null) {
+                    MemberInput(teamId = teamId, navController = navController)
                 }
             }
 //        composable(route = Screen.TaskOAppScreen.routes) { TaskOApp() }

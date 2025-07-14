@@ -1,4 +1,4 @@
-package com.example.taskomanagement.ui.screen.main.member
+package com.example.taskomanagement.ui.screen.main.member.member_list
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -59,7 +59,9 @@ fun Member(
         }
         FloatingActionButton(
             containerColor = MaterialTheme.colorScheme.primary,
-            onClick = { /*TODO*/ },
+            onClick = {
+                navController.navigate("MemberInputScreen/$teamId")
+            },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(end = 16.dp, bottom = 16.dp)

@@ -81,4 +81,9 @@ class MainRepositoryImpl(
         text: String,
         time: Long,
     ): UserResponse = apiService.sendMessage(userId, memberId, text, time)
+
+    override suspend fun inputMember(
+        teamId: Int,
+        email: String,
+    ): MembersOfTeamResponse = apiService.inputMember(teamId, teamId, email)
 }
