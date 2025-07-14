@@ -36,6 +36,6 @@ fun convertMillisToDate(millis: Long?): String {
 }
 
 fun convertMillisToTime(millis: Long?): String {
-    val formatter = SimpleDateFormat("hh:mm", Locale.getDefault())
+    val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
     return formatter.format(Date(millis ?: 1055178000000L))
 }

@@ -63,4 +63,14 @@ interface MainRepository {
         dueDateTask: String,
         dueTimeTask: String
     ): TaskResponse
+    suspend fun updateFcmToken(
+        userId: Int,
+        token: String
+    ): UserResponse
+    suspend fun sendMessage(
+        userId: Int,
+        memberId: Int,
+        text: String,
+        time: Long
+    ): UserResponse
 }

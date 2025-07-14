@@ -16,6 +16,7 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ApiService {
@@ -127,4 +128,20 @@ interface ApiService {
     suspend fun getTaskDoneDByProjectId(
         @Path("id") id: Int
     ): TaskResponse
+
+    @FormUrlEncoded
+    @PUT("api/fcm-token/{id}")
+    suspend fun updateFCMToken(
+        @Path("id") id: Int,
+        @Field("fcm_token") token: String
+    ): UserResponse
+
+    @FormUrlEncoded
+    @POST("api/message")
+    suspend fun sendMessage(
+        @Field("sender_id") userId: Int,
+        @Field("receiver_id") memberId: Int,
+        @Field("text") text: String,
+        @Field("datetime") time: Long
+    ): UserResponse
 }

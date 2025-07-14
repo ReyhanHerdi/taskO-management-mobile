@@ -37,19 +37,25 @@ class MessageViewModel(private val repository: MainRepository) : ViewModel() {
     private suspend fun messageRef(): DatabaseReference = db.reference.child(refChild())
 
     fun sendMessage(
-        text: String
+        text: String,
     ) {
         viewModelScope.launch {
             getUser()
             try {
-                val message = Message(
-                    senderId = getUserId(),
-                    userName = user.value.name ?: "Tanpa nama",
-                    email = user.value.email ?: "Tanpa email",
-                    message = text,
-                    currentDate = currentDateTime().time
+                repository.sendMessage(
+                    userId = getUserId(),
+                    memberId = memberId ?: 0,
+                    text = text,
+                    time = currentDateTime().time
                 )
-                messageRef().push().setValue(message)
+//                val message = Message(
+//                    senderId = getUserId(),
+//                    userName = user.value.name ?: "Tanpa nama",
+//                    email = user.value.email ?: "Tanpa email",
+//                    message = text,
+//                    currentDate = currentDateTime().time
+//                )
+//                messageRef().push().setValue(message)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

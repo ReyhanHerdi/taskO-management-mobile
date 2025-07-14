@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taskomanagement.data.repository.MainRepository
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -41,8 +42,28 @@ class LoginViewModel(private val repository: MainRepository): ViewModel() {
             } catch (e: Exception) {
                 Log.d("LOGIN HAS FAILED", "${e.message}")
             } finally {
-                Log.d("USER ID", "uid: ${getUserId()}")
+                putFcmToken()
             }
+        }
+    }
+    private fun updateFcmToken(
+        token: String
+    ) {
+        viewModelScope.launch {
+            try {
+                repository.updateFcmToken(
+                    getUserId(),
+                    token
+                )
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+    private fun putFcmToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            val token = task.result
+            updateFcmToken(token)
         }
     }
 }
