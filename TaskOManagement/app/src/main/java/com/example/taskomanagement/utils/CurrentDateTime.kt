@@ -6,7 +6,6 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-
 fun currentDate(taskDate: String, taskTime: String): Date {
     val taskDateTime = "$taskDate $taskTime"
     Log.d("DATE TIME", taskDateTime)
@@ -38,4 +37,16 @@ fun convertMillisToDate(millis: Long?): String {
 fun convertMillisToTime(millis: Long?): String {
     val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
     return formatter.format(Date(millis ?: 1055178000000L))
+}
+
+fun setGreetingBasedOnCurrentTime(): String {
+    val currentDate = Calendar.getInstance()
+    val currentHours = currentDate.time.hours
+    val greeting = when(currentHours) {
+        in 4..11 -> "pagi"
+        in 12 .. 14 -> "siang"
+        in 15..17 -> "sore"
+        else -> "malam"
+    }
+    return greeting
 }

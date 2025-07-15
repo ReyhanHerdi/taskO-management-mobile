@@ -31,6 +31,7 @@ import com.example.taskomanagement.ui.cutom.CustomTasksList
 import com.example.taskomanagement.utils.Screen
 import com.example.taskomanagement.utils.currentDate
 import com.example.taskomanagement.utils.monthPicker
+import com.example.taskomanagement.utils.setGreetingBasedOnCurrentTime
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import java.util.Date
@@ -64,6 +65,7 @@ fun Home(
                 }
         }
     }
+    val greeting = setGreetingBasedOnCurrentTime()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -74,7 +76,7 @@ fun Home(
             )
     ) {
         Text(
-            text = "Selamat pagi,",
+            text = "Selamat $greeting,",
             style = MaterialTheme.typography.bodyMedium
         )
         Text(
