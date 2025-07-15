@@ -1,6 +1,5 @@
 package com.example.taskomanagement.ui.screen.main.home
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -112,25 +111,26 @@ fun Home(
                         style = MaterialTheme.typography.titleMedium
                     )
                     Text(
-                        text = taskName ?: "Tugas Terdekat",
+                        text = taskName ?: "Tidak ada tugas",
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(top = 4.dp, bottom = 8.dp)
                     )
-                    Button(
-                        onClick = {
-                            navController.navigate("TaskDetailScreen/$taskId")
-                        },
-                        enabled = taskId != null,
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                        )
-                    ) {
-                        Text(
-                            text = "Lihat",
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color.Black,
-                            style = MaterialTheme.typography.labelSmall
-                        )
+                    if (task != null) {
+                        Button(
+                            onClick = {
+                                navController.navigate("TaskDetailScreen/$taskId")
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                            )
+                        ) {
+                            Text(
+                                text = "Lihat",
+                                fontWeight = FontWeight.SemiBold,
+                                color = Color.Black,
+                                style = MaterialTheme.typography.labelSmall
+                            )
+                        }
                     }
                 }
                 Spacer(modifier = Modifier.weight(1f))
@@ -148,7 +148,7 @@ fun Home(
                             .fillMaxSize()
                     ) {
                         Text(
-                            text = taskDate?.date?.toString() ?: "DD" ,
+                            text = taskDate?.date?.toString() ?: "XX" ,
                             style = MaterialTheme.typography.displayLarge,
                             modifier = Modifier
                                 .align(Alignment.CenterHorizontally)
@@ -166,51 +166,10 @@ fun Home(
                 }
             }
         }
-        Card(
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.secondaryContainer,
-            ),
-            shape = MaterialTheme.shapes.extraLarge,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 20.dp, bottom = 20.dp)
-        ) {
-            Row(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(
-                        start = 16.dp,
-                        end = 16.dp,
-                        top = 8.dp,
-                        bottom = 8.dp,
-                    )
-            ) {
-                Text(
-                    text = "Target Hari Ini",
-                    fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.align(Alignment.CenterVertically)
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                Button(
-                    onClick = {
-
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary
-                    )
-                ) {
-                    Text(
-                        text = "Periksa",
-                        fontWeight = FontWeight.SemiBold,
-                        color = Color.White,
-                        style = MaterialTheme.typography.labelSmall
-                    )
-                }
-            }
-        }
         Row(
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(top = 20.dp)
         ) {
             Text(
                 text = "Daftar Tugas",
@@ -252,14 +211,6 @@ fun Home(
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun HomePreview(modifier: Modifier = Modifier) {
-//    TaskOManagementTheme {
-//        Home()
-//    }
-//}
 
 @Composable
 private fun AuthCheck(

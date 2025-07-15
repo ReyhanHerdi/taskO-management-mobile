@@ -14,7 +14,7 @@ fun monthPicker(number: Int) : String {
         9 -> "Oktober"
         10 -> "November"
         11 -> "Desember"
-        else -> "Tidak ditentukan"
+        else -> "Santai"
     }
     return theMonth
 }
