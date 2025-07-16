@@ -98,7 +98,7 @@ fun Navigation(){
                         showBackIcon = true
                     )
                     Screen.MemberInputScreen.routes -> CustomTopAppBar(showBackIcon = true, title = "Tambah Anggota", navController = navController)
-                    Screen.HistoryTaskListScreen.routes -> CustomTopAppBar(showBackIcon = true, title = "Riwayat Tugas")
+                    Screen.HistoryTaskListScreen.routes -> CustomTopAppBar(showBackIcon = true, title = "Riwayat Tugas", navController = navController)
                 }
             }
         },

@@ -57,12 +57,12 @@ fun CustomHistoryTasksList(tasks: TaskDataItem) {
                 Text(
                     text = tasks.nameTask,
                     style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold,
                     color = Color.Black
                 )
                 Text(
                     text = formatDate(tasks.dueDate),
                     style = MaterialTheme.typography.bodySmall,
-                    fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(vertical = 4.dp)
                 )
                 Text(

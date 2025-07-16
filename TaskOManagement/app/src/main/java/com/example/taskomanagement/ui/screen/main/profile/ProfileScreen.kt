@@ -1,5 +1,7 @@
 package com.example.taskomanagement.ui.screen.main.profile
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,10 +34,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
+import com.example.taskomanagement.aboutApplication
+import com.example.taskomanagement.contactPerson
 import com.example.taskomanagement.ui.cutom.CustomHistoryTasksList
 import com.example.taskomanagement.utils.Screen
 import org.koin.androidx.compose.koinViewModel
@@ -54,6 +59,8 @@ fun Profile(
     val taskSize = if (task != null) task?.size else 0
     val teamSize = if (team != null) team.size else 0
     val projectSize = if (project != null) project.size else 0
+
+    val context = LocalContext.current
 
     LaunchedEffect(key1 = authStatus) {
         if (!authStatus) {
@@ -277,6 +284,10 @@ fun Profile(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 8.dp)
+                        .clickable {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(aboutApplication))
+                            context.startActivity(intent)
+                        }
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Info,
@@ -301,6 +312,10 @@ fun Profile(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 8.dp)
+                        .clickable {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(contactPerson))
+                            context.startActivity(intent)
+                        }
                 ) {
                     Icon(
                         imageVector = Icons.Filled.MailOutline,
