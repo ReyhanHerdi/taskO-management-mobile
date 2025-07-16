@@ -38,7 +38,9 @@ fun Projects(
                 .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
         ) {
             LazyColumn {
-                project.forEach { project ->
+                project
+                    .sortedBy { it.createdAt }
+                    .forEach { project ->
                     item {
                         CustomProjectsList(
                             projects = project,

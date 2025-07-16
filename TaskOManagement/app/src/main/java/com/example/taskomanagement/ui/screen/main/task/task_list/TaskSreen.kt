@@ -30,14 +30,16 @@ fun Task(
                 .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
         ) {
             if (task != null) {
-                task.forEach { tasks ->
-                    item {
-                        CustomTasksList(
-                            tasks = tasks,
-                            onItemClick = { selectedItem ->
-                                navController.navigate("TaskDetailScreen/${selectedItem.idTask}")
+                task.forEach { exec ->
+                    exec.task
+                        .filter { it.status != "done" }
+                        .sortedBy { it.createdAt }
+                        .forEach { tasks ->
+                        item {
+                            CustomTasksList(tasks = tasks) {
+                                navController.navigate("TaskDetailScreen/${tasks.idTask}")
                             }
-                        )
+                        }
                     }
                 }
             }

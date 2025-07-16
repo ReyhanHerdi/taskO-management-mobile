@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.taskomanagement.data.response.TaskDataItem
+import com.example.taskomanagement.utils.formatDate
 
 @Composable
 fun CustomTasksList(
@@ -65,7 +66,7 @@ fun CustomTasksList(
                     color = Color.Black
                 )
                 Text(
-                    text = tasks.dueDate,
+                    text = formatDate(tasks.dueDate),
                     style = MaterialTheme.typography.bodySmall,
                 )
                 Text(

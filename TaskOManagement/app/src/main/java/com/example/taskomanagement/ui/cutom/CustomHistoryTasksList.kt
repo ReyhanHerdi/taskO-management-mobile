@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.taskomanagement.data.response.TaskByExecutorDataItem
 import com.example.taskomanagement.data.response.TaskDataItem
 
 @Composable
@@ -39,7 +40,12 @@ fun CustomHistoryTasksList(tasks: TaskDataItem) {
             Icon(
                 imageVector = Icons.Filled.DateRange,
                 contentDescription = "ongoing",
-                tint = Color.Blue,
+                tint = when (tasks.status) {
+                    "ongoing" -> MaterialTheme.colorScheme.primary
+                    "done" -> Color.Blue
+                    "pending" -> Color.Red
+                    else -> Color.White
+                },
                 modifier = Modifier
                     .size(width = 50.dp, height = 50.dp)
                     .align(Alignment.CenterVertically)

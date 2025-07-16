@@ -51,7 +51,7 @@ fun Profile(
     val team by viewModel.team.collectAsState()
     val project by viewModel.project.collectAsState()
 
-    val taskSize = if (task != null) task.size else 0
+    val taskSize = if (task != null) task?.size else 0
     val teamSize = if (team != null) team.size else 0
     val projectSize = if (project != null) project.size else 0
 
@@ -62,6 +62,7 @@ fun Profile(
         }
         viewModel.getUser()
         viewModel.getTeam()
+        viewModel.getTask()
     }
     Column(
         modifier = Modifier
@@ -239,12 +240,14 @@ fun Profile(
                     modifier = Modifier
                         .padding(top = 8.dp)
                 ) {
-                    viewModel.getTask()
-                    task.forEach { task -> 
-                        item {
-                            if (task != null) {
-                                CustomHistoryTasksList(tasks = task)
-                            }
+                    task?.forEach { exec ->
+                        exec.task
+                            .filter { it.status == "done" }
+                            .sortedBy { it.updatedAt }
+                            .forEach { tasks ->
+                                item {
+                                    CustomHistoryTasksList(tasks = tasks)
+                                }
                         }
                     }
                 }

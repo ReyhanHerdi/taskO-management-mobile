@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taskomanagement.data.repository.MainRepository
 import com.example.taskomanagement.data.response.ProjectDataItem
+import com.example.taskomanagement.data.response.TaskByExecutorDataItem
 import com.example.taskomanagement.data.response.TaskDataItem
 import com.example.taskomanagement.data.response.TeamDataItem
 import com.example.taskomanagement.data.response.TeamMemberDataItem
@@ -23,7 +24,7 @@ class ProfileViewModel(private val repository: MainRepository): ViewModel() {
     private val _user =  MutableStateFlow(UserDataItem())
     val user = _user.asStateFlow()
 
-    private val _task = MutableStateFlow<List<TaskDataItem?>>(emptyList())
+    private val _task = MutableStateFlow<List<TaskByExecutorDataItem>?>(emptyList())
     val task = _task.asStateFlow()
 
     private val _team = MutableStateFlow<List<TeamMemberDataItem?>>(emptyList())
@@ -46,7 +47,9 @@ class ProfileViewModel(private val repository: MainRepository): ViewModel() {
             try {
                 val uid = repository.getUserId()
                 val userData = repository.getUser(uid)
-                _user.value = userData.data!!
+                if (userData.data != null) {
+                    _user.value = userData.data
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             } finally {
@@ -59,11 +62,8 @@ class ProfileViewModel(private val repository: MainRepository): ViewModel() {
         viewModelScope.launch {
             try {
                 val uid = repository.getUserId()
-                val taskData = repository.getTaskByExector(uid).data
-                taskData.forEach {
-                    val userTask = it.task
-                    _task.value = userTask
-                }
+                val taskData = repository.getTaskByExector(uid)
+                _task.value = taskData.data
             } catch (e: Exception) {
                 e.printStackTrace()
             }
