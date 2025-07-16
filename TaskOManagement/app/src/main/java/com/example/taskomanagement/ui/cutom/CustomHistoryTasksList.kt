@@ -20,8 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.taskomanagement.data.response.TaskByExecutorDataItem
 import com.example.taskomanagement.data.response.TaskDataItem
+import com.example.taskomanagement.utils.formatDate
 
 @Composable
 fun CustomHistoryTasksList(tasks: TaskDataItem) {
@@ -34,7 +34,7 @@ fun CustomHistoryTasksList(tasks: TaskDataItem) {
         ),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(end = 8.dp)
+            .padding(8.dp)
     ) {
         Row {
             Icon(
@@ -57,17 +57,16 @@ fun CustomHistoryTasksList(tasks: TaskDataItem) {
                 Text(
                     text = tasks.nameTask,
                     style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.Bold,
                     color = Color.Black
                 )
                 Text(
-                    text = tasks.projectId.toString(),
+                    text = formatDate(tasks.dueDate),
                     style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(vertical = 4.dp)
                 )
                 Text(
-                    text = tasks.dueDate,
+                    text = tasks.dueTime,
                     style = MaterialTheme.typography.bodySmall,
                 )
             }

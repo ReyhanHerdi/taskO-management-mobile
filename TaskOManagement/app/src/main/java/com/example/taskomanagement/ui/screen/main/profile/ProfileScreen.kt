@@ -232,13 +232,16 @@ fun Profile(
                     Spacer(modifier = Modifier.weight(1f))
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                        contentDescription = "Lihat riwayat tugas"
+                        contentDescription = "Lihat riwayat tugas",
+                        modifier = Modifier
+                            .clickable {
+                                navController.navigate(Screen.HistoryTaskListScreen.routes)
+                            }
                     )
                 }
                 LazyRow(
                     userScrollEnabled = true,
                     modifier = Modifier
-                        .padding(top = 8.dp)
                 ) {
                     task?.forEach { exec ->
                         exec.task
