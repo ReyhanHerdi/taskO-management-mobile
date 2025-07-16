@@ -52,4 +52,19 @@ class TaskDetailViewModel(private val repository: MainRepository) : ViewModel() 
             }
         }
     }
+
+    fun setTaskDone(
+        taskId: Int,
+    ) {
+        viewModelScope.launch {
+            try {
+                repository.updateTask(
+                    taskId,
+                    status = "done"
+                )
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 }

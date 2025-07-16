@@ -1,5 +1,6 @@
 package com.example.taskomanagement.ui.screen.main.task.task_detail
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -140,8 +141,14 @@ fun TaskDetail(
         )
         Spacer(modifier = Modifier.weight(1f))
         FloatingActionButton(
-            onClick = { /*TODO*/ },
-            modifier = Modifier.align(Alignment.End)
+            onClick = {
+                if (task?.status != "done") {
+                    viewModel.setTaskDone(taskId)
+                }
+            },
+            containerColor = if (task?.status == "done") MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary,
+            modifier = Modifier
+                .align(Alignment.End)
         ) {
             Icon(
                 imageVector = Icons.Default.Done,
