@@ -27,12 +27,15 @@ class ProjectDetailViewModel(private val repository: MainRepository) : ViewModel
     val dataResult: State<Result<String>?> = _dataResult
 
     fun getProjectDetail(id: Int) {
+        _dataResult.value = Result.Loading
         viewModelScope.launch {
             try {
                 val projectData = repository.getProjectById(id)
                 _project.value = projectData.data
+                _dataResult.value = Result.Success("Get data success")
             } catch (e: Exception) {
                 e.printStackTrace()
+                _dataResult.value = Result.Error("Get data fail")
             }
         }
     }

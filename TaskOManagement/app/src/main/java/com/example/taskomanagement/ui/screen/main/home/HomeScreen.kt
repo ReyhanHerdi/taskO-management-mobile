@@ -118,9 +118,10 @@ fun Home(
                     Text(
                         text = taskName ?: "Tidak ada tugas",
                         style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(top = 4.dp, bottom = 8.dp)
+                        modifier = Modifier
+                            .padding(top = 4.dp, bottom = 8.dp)
                     )
-                    if (task != null) {
+                    if (taskId != null) {
                         Button(
                             onClick = {
                                 navController.navigate("TaskDetailScreen/$taskId")
@@ -160,13 +161,15 @@ fun Home(
                                 .padding(top = 16.dp)
                             )
                         Spacer(modifier = Modifier.weight(1f))
-                        Text(
-                            text = monthPicker(taskDate?.month ?: 0),
-                            style = MaterialTheme.typography.bodyMedium,
-                            modifier = Modifier
-                                .align(Alignment.CenterHorizontally)
-                                .padding(bottom = 16.dp)
-                        )
+                        if (taskDate != null) {
+                            Text(
+                                text = monthPicker(taskDate?.month ?: 12),
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier
+                                    .align(Alignment.CenterHorizontally)
+                                    .padding(bottom = 16.dp)
+                            )
+                        }
                     }
                 }
             }

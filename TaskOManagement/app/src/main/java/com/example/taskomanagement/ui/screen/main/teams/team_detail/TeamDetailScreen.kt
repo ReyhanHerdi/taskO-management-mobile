@@ -25,6 +25,7 @@ import androidx.navigation.NavController
 import com.example.taskomanagement.data.model.Result
 import com.example.taskomanagement.ui.cutom.CustomProjectsList
 import com.example.taskomanagement.ui.navigation.NavigationSharedViewModel
+import com.example.taskomanagement.utils.ShowCircularLoading
 import com.example.taskomanagement.utils.ShowLinearLoading
 import org.koin.androidx.compose.koinViewModel
 
@@ -104,12 +105,6 @@ fun TeamDetail(
                 )
             }
         }
-        when (loadingResult) {
-            is Result.Loading -> ShowLinearLoading(isLoading = true)
-            is Result.Success -> ShowLinearLoading(isLoading = false)
-            is Result.Error -> ShowLinearLoading(isLoading = false)
-            null -> { /* DO NOTHING */ }
-        }
         Spacer(modifier = Modifier.height(8.dp))
         LazyColumn(
             userScrollEnabled = true,
@@ -128,7 +123,12 @@ fun TeamDetail(
                 }
             }
         }
-
+    }
+    when (loadingResult) {
+        is Result.Loading -> ShowCircularLoading(isLoading = true)
+        is Result.Success -> ShowCircularLoading(isLoading = false)
+        is Result.Error -> ShowCircularLoading(isLoading = false)
+        null -> { /* DO NOTHING */ }
     }
 }
 

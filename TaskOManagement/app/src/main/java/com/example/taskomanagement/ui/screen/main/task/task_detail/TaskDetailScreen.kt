@@ -1,6 +1,5 @@
 package com.example.taskomanagement.ui.screen.main.task.task_detail
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -26,18 +26,23 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil3.compose.AsyncImage
+import com.example.taskomanagement.data.model.Result
+import com.example.taskomanagement.utils.ShowCircularLoading
 import com.example.taskomanagement.utils.formatDate
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun TaskDetail(
     taskId: Int,
+    navController: NavController,
     viewModel: TaskDetailViewModel = koinViewModel(),
 ) {
     val task by viewModel.task.collectAsState()
     val project by viewModel.project.collectAsState()
     val executor by viewModel.executor.collectAsState()
+    val loadingResult = viewModel.dataResult.value
 
     LaunchedEffect(key1 = Unit) {
         viewModel.getTaskById(taskId)
@@ -143,7 +148,14 @@ fun TaskDetail(
         FloatingActionButton(
             onClick = {
                 if (task?.status != "done") {
-                    viewModel.setTaskDone(taskId)
+                    var taskStatus = ""
+                    when (task?.status) {
+                        "pending" -> taskStatus = "ongoing"
+                        "ongoing" -> taskStatus = "done"
+                        else -> { /* DO NOTHING */ }
+                    }
+                    viewModel.setTaskDone(taskId, taskStatus)
+                    navController.popBackStack()
                 }
             },
             containerColor = if (task?.status == "done") MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary,
@@ -151,17 +163,23 @@ fun TaskDetail(
                 .align(Alignment.End)
         ) {
             Icon(
-                imageVector = Icons.Default.Done,
+                imageVector = if (task?.status == "pending") Icons.Default.PlayArrow else Icons.Default.Done,
                 contentDescription = "Tandai tugas selesai"
             )
         }
     }
+    when (loadingResult) {
+        is Result.Loading -> ShowCircularLoading(isLoading = true)
+        is Result.Success -> ShowCircularLoading(isLoading = false)
+        is Result.Error -> ShowCircularLoading(isLoading = false)
+        null -> { /* DO NOTHING */ }
+    }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun TaskDetailPreview() {
-    TaskDetail(
-        taskId =  0
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun TaskDetailPreview() {
+//    TaskDetail(
+//        taskId =  0
+//    )
+//}

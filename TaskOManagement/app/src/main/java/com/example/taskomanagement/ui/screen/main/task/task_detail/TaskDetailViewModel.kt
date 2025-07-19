@@ -1,7 +1,10 @@
 package com.example.taskomanagement.ui.screen.main.task.task_detail
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.taskomanagement.data.model.Result
 import com.example.taskomanagement.data.repository.MainRepository
 import com.example.taskomanagement.data.response.ExecutorByTaskIdDataItem
 import com.example.taskomanagement.data.response.ProjectDetailData
@@ -20,13 +23,19 @@ class TaskDetailViewModel(private val repository: MainRepository) : ViewModel() 
     private val _executor = MutableStateFlow<List<ExecutorByTaskIdDataItem>?>(emptyList())
     val executor = _executor.asStateFlow()
 
+    private val _dataResult = mutableStateOf<Result<String>?>(null)
+    val dataResult: State<Result<String>?> = _dataResult
+
     fun getTaskById(id: Int) {
+        _dataResult.value = Result.Loading
         viewModelScope.launch {
             try {
                 val taskData = repository.getTaskById(id)
                 _task.value = taskData.data
+                _dataResult.value = Result.Success("Get data success")
             } catch (e: Exception) {
                 e.printStackTrace()
+                _dataResult.value = Result.Error("Get data fail")
             }
         }
     }
@@ -55,12 +64,13 @@ class TaskDetailViewModel(private val repository: MainRepository) : ViewModel() 
 
     fun setTaskDone(
         taskId: Int,
+        status: String
     ) {
         viewModelScope.launch {
             try {
                 repository.updateTask(
                     taskId,
-                    status = "done"
+                    status = status
                 )
             } catch (e: Exception) {
                 e.printStackTrace()

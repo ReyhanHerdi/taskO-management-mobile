@@ -181,7 +181,7 @@ fun Navigation(){
             ) {
                 val taskId = navBackStackEntry?.arguments?.getInt("taskId")
                 if (taskId != null) {
-                    TaskDetail(taskId)
+                    TaskDetail(taskId, navController)
                 }
             }
             composable(route = Screen.TeamInputScreen.routes) { TeamInput(navController) }
