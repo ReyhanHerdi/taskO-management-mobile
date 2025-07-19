@@ -41,8 +41,10 @@ import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.example.taskomanagement.aboutApplication
 import com.example.taskomanagement.contactPerson
+import com.example.taskomanagement.data.model.Result
 import com.example.taskomanagement.ui.cutom.CustomHistoryTasksList
 import com.example.taskomanagement.utils.Screen
+import com.example.taskomanagement.utils.ShowCircularLoading
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -55,6 +57,7 @@ fun Profile(
     val task by viewModel.task.collectAsState()
     val team by viewModel.team.collectAsState()
     val project by viewModel.project.collectAsState()
+    val loadingResult = viewModel.dataResult.value
 
     val taskSize = if (task != null) task?.size else 0
     val teamSize = if (team != null) team.size else 0
@@ -372,6 +375,12 @@ fun Profile(
                 )
             }
         }
+    }
+    when(loadingResult) {
+        is Result.Loading -> ShowCircularLoading(isLoading = true)
+        is Result.Success -> ShowCircularLoading(isLoading = false)
+        is Result.Error -> ShowCircularLoading(isLoading = false)
+        null -> { /* DO NOTHING */ }
     }
 }
 

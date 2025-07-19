@@ -27,8 +27,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.taskomanagement.data.model.Result
 import com.example.taskomanagement.ui.cutom.CustomTasksList
 import com.example.taskomanagement.utils.Screen
+import com.example.taskomanagement.utils.ShowCircularLoading
 import com.example.taskomanagement.utils.currentDate
 import com.example.taskomanagement.utils.monthPicker
 import com.example.taskomanagement.utils.setGreetingBasedOnCurrentTime
@@ -44,6 +46,7 @@ fun Home(
     AuthCheck(navController = navController, viewModel = viewModel)
     val user by viewModel.user.collectAsState()
     val task by viewModel.task.collectAsState()
+    val loadingResult = viewModel.dataResult.value
 
     LaunchedEffect(key1 = Unit) {
         viewModel.getUser()
@@ -211,6 +214,12 @@ fun Home(
                     }
             }
         }
+    }
+    when(loadingResult) {
+        is Result.Loading -> ShowCircularLoading(isLoading = true)
+        is Result.Success -> ShowCircularLoading(isLoading = false)
+        is Result.Error -> ShowCircularLoading(isLoading = false)
+        null -> { /* DO NOTHING */ }
     }
 }
 

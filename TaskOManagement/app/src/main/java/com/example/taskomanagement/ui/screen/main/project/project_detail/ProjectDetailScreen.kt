@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -27,8 +28,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.taskomanagement.data.model.Result
 import com.example.taskomanagement.ui.cutom.CustomProjectsList
 import com.example.taskomanagement.ui.cutom.CustomTasksList
+import com.example.taskomanagement.utils.ShowLinearLoading
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -42,13 +45,11 @@ fun ProjectDetail(
     val tasks by viewModel.task.collectAsState()
     var idTeam by remember { mutableIntStateOf(0) }
     var nameTeam by remember { mutableStateOf("") }
+    val loadingResult = viewModel.dataResult.value
 
     LaunchedEffect(key1 = Unit) {
         viewModel.getTasks(projectId)
         viewModel.getProjectDetail(projectId)
-//        viewModel.getTeamDetail(idTeam)
-//        idTeam = project?.teamId ?: 0
-//        nameTeam = team?.nameTeam ?: ""
     }
     val projectName = if (project != null) project?.nameProject else "Nama proyek"
     val taskSize = if (tasks != null) tasks.size else 0
@@ -68,17 +69,6 @@ fun ProjectDetail(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Spacer(modifier = Modifier.weight(1f))
-//            Text(
-//                text = nameTeam,
-//                style = MaterialTheme.typography.titleSmall,
-//                fontWeight = FontWeight.Normal,
-//                modifier = Modifier.align(Alignment.CenterVertically)
-//            )
-//            Text(
-//                text = "|",
-//                style = MaterialTheme.typography.titleMedium,
-//                modifier = Modifier.padding(horizontal = 8.dp)
-//            )
             Text(
                 text = "$taskSize Tugas",
                 style = MaterialTheme.typography.titleSmall,
@@ -140,9 +130,16 @@ fun ProjectDetail(
                 )
             }
         }
+        Spacer(modifier = Modifier.height(8.dp))
+        when (loadingResult) {
+            is Result.Loading -> ShowLinearLoading(isLoading = true)
+            is Result.Success -> ShowLinearLoading(isLoading = false)
+            is Result.Error -> ShowLinearLoading(isLoading = false)
+            null -> { /* DO NOTHING */ }
+        }
         LazyColumn(
             userScrollEnabled = true,
-            modifier = Modifier.padding(top = 8.dp)
+            modifier = Modifier
         ) {
             if (tasks != null) {
                 tasks.forEach { task ->

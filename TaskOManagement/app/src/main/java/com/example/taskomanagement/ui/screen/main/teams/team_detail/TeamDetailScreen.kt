@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -21,8 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.taskomanagement.data.model.Result
 import com.example.taskomanagement.ui.cutom.CustomProjectsList
 import com.example.taskomanagement.ui.navigation.NavigationSharedViewModel
+import com.example.taskomanagement.utils.ShowLinearLoading
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -34,6 +37,7 @@ fun TeamDetail(
 ) {
     val team by viewModel.team.collectAsState()
     val projects by viewModel.project.collectAsState()
+    val loadingResult = viewModel.dataResult.value
 
     LaunchedEffect(key1 = Unit) {
         viewModel.getTeam(teamId)
@@ -100,9 +104,15 @@ fun TeamDetail(
                 )
             }
         }
+        when (loadingResult) {
+            is Result.Loading -> ShowLinearLoading(isLoading = true)
+            is Result.Success -> ShowLinearLoading(isLoading = false)
+            is Result.Error -> ShowLinearLoading(isLoading = false)
+            null -> { /* DO NOTHING */ }
+        }
+        Spacer(modifier = Modifier.height(8.dp))
         LazyColumn(
             userScrollEnabled = true,
-            modifier = Modifier.padding(top = 8.dp)
         ) {
             projects?.forEach { project ->
                 item {

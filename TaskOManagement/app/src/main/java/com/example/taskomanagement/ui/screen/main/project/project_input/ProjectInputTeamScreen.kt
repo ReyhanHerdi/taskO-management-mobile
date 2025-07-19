@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.taskomanagement.ui.cutom.CustomTeamsList
+import com.example.taskomanagement.utils.Screen
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -29,7 +30,9 @@ fun ProjectInputChooseTeam(
                 item {
                     team.forEach { data ->
                         CustomTeamsList(teamDataItem = data) { selectedItem ->
-                            navController.navigate("ProjectInputScreen/${selectedItem.teamId}")
+                            navController.navigate("ProjectInputScreen/${selectedItem.teamId}") {
+                                popUpTo(Screen.ProjectChooseTeamScreen.routes)
+                            }
                         }
                     }
                 }

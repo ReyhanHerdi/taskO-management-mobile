@@ -1,8 +1,11 @@
 package com.example.taskomanagement.ui.screen.main.project.project_list
 
 import android.util.Log
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.taskomanagement.data.model.Result
 import com.example.taskomanagement.data.repository.MainRepository
 import com.example.taskomanagement.data.response.ProjectDataItem
 import com.example.taskomanagement.data.response.TeamMemberDataItem
@@ -19,6 +22,9 @@ class ProjectViewModel(private val repository: MainRepository): ViewModel() {
     private val _team = MutableStateFlow<List<TeamMemberDataItem>>(emptyList())
     val team = _team.asStateFlow()
 
+    private val _dataResult = mutableStateOf<Result<String>?>(null)
+    val dataResult: State<Result<String>?> = _dataResult
+
     fun getTeam() {
         viewModelScope.launch {
             try {
@@ -34,6 +40,7 @@ class ProjectViewModel(private val repository: MainRepository): ViewModel() {
 
     private fun getProject(teamId: Int) {
         viewModelScope.launch {
+            _dataResult.value = Result.Loading
             try {
                 val projectData = repository.getProject(teamId)
                 val data = _project.value.toMutableList()
@@ -45,10 +52,10 @@ class ProjectViewModel(private val repository: MainRepository): ViewModel() {
                     }
                 }
                 _project.value = data
+                _dataResult.value = Result.Success("Get data success")
             } catch (e: Exception) {
+                _dataResult.value = Result.Error("Get data fail")
                 e.printStackTrace()
-            } finally {
-                Log.d("PROJECTS", project.value.toString())
             }
         }
     }

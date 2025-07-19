@@ -18,8 +18,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.taskomanagement.data.model.Result
 import com.example.taskomanagement.ui.cutom.CustomProjectsList
 import com.example.taskomanagement.utils.Screen
+import com.example.taskomanagement.utils.ShowLinearLoading
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -28,6 +30,7 @@ fun Projects(
     viewModel: ProjectViewModel = koinViewModel(),
 ) {
     val project by viewModel.project.collectAsState()
+    val loadingResult = viewModel.dataResult.value
     LaunchedEffect(key1 = Unit) {
         viewModel.getTeam()
     }
@@ -37,6 +40,12 @@ fun Projects(
                 .fillMaxSize()
                 .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
         ) {
+            when (loadingResult) {
+                is Result.Loading -> ShowLinearLoading(isLoading = true)
+                is Result.Success -> ShowLinearLoading(isLoading = false)
+                is Result.Error -> ShowLinearLoading(isLoading = false)
+                null -> { /* DO NOTHING */ }
+            }
             LazyColumn {
                 project
                     .sortedBy { it.createdAt }

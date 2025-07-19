@@ -47,11 +47,10 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.taskomanagement.R
-import com.example.taskomanagement.ui.screen.main.home.HomeViewModel
+import com.example.taskomanagement.data.model.Result
 import com.example.taskomanagement.utils.Screen
-import kotlinx.coroutines.CoroutineScope
+import com.example.taskomanagement.utils.ShowCircularLoading
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -65,7 +64,8 @@ fun Login(
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     val authStatus by viewModel.auth.collectAsState()
-    
+    val loginStatus = viewModel.loginResult.value
+
     LaunchedEffect(key1 = authStatus) {
         Log.d("AUTH CHECK", authStatus.toString())
         if (authStatus) {
@@ -73,7 +73,6 @@ fun Login(
             navController.navigate(Screen.MainScreen.routes)
         }
     }
-
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -197,6 +196,14 @@ fun Login(
             )
         }
         Spacer(modifier = Modifier.weight(1f))
+    }
+    when(loginStatus) {
+        is Result.Loading -> ShowCircularLoading(isLoading = true)
+        is Result.Success -> ShowCircularLoading(isLoading = false)
+        is Result.Error -> ShowCircularLoading(isLoading = false)
+        null -> {
+            // DO NOTHING
+        }
     }
     OnBackPressed()
 }
