@@ -85,4 +85,9 @@ interface MainRepository {
         teamId: Int,
         email: String
     ): MembersOfTeamResponse
+    suspend fun updateUser(
+        userId: Int,
+        userName: String,
+        userPhotoUrl: String? = null
+    ): UserResponse
 }

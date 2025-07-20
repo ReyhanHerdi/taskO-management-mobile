@@ -84,7 +84,10 @@ fun Profile(
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceContainer
             ),
-            elevation = CardDefaults.cardElevation(10.dp)
+            elevation = CardDefaults.cardElevation(10.dp),
+            onClick = {
+                navController.navigate(Screen.ProfileEditScreen.routes)
+            }
         ) {
             Row(
                 modifier = Modifier

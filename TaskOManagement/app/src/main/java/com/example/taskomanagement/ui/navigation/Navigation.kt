@@ -35,6 +35,7 @@ import com.example.taskomanagement.ui.screen.main.message.message_chat.Chat
 import com.example.taskomanagement.ui.screen.main.message.message_list.Message
 import com.example.taskomanagement.ui.screen.main.profile.Profile
 import com.example.taskomanagement.ui.screen.main.profile.history.History
+import com.example.taskomanagement.ui.screen.main.profile.profile_edit.ProfileEdit
 import com.example.taskomanagement.ui.screen.main.project.project_detail.ProjectDetail
 import com.example.taskomanagement.ui.screen.main.project.project_input.ProjectInput
 import com.example.taskomanagement.ui.screen.main.project.project_input.ProjectInputChooseTeam
@@ -99,6 +100,7 @@ fun Navigation(){
                     )
                     Screen.MemberInputScreen.routes -> CustomTopAppBar(showBackIcon = true, title = "Tambah Anggota", navController = navController)
                     Screen.HistoryTaskListScreen.routes -> CustomTopAppBar(showBackIcon = true, title = "Riwayat Tugas", navController = navController)
+                    Screen.ProfileEditScreen.routes -> CustomTopAppBar(showBackIcon = true, title = "Edit Profil", navController = navController)
                 }
             }
         },
@@ -231,6 +233,7 @@ fun Navigation(){
                 }
             }
             composable(route = Screen.HistoryTaskListScreen.routes) { History() }
+            composable(route = Screen.ProfileEditScreen.routes) { ProfileEdit() }
 //        composable(route = Screen.TaskOAppScreen.routes) { TaskOApp() }
         }
     }

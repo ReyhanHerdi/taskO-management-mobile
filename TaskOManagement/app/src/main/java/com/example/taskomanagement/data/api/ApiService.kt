@@ -26,6 +26,14 @@ interface ApiService {
     ) : UserResponse
 
     @FormUrlEncoded
+    @PUT("api/users/update/{id}")
+    suspend fun updateUser(
+        @Path("id") id: Int,
+        @Field("name") name: String,
+        @Field("photoUrl") photoUrl: String? = null
+    ) : UserResponse
+
+    @FormUrlEncoded
     @POST("api/login")
     suspend fun login(
         @Field("email") email: String,

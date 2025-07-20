@@ -95,4 +95,10 @@ class MainRepositoryImpl(
         teamId: Int,
         email: String,
     ): MembersOfTeamResponse = apiService.inputMember(teamId, teamId, email)
+
+    override suspend fun updateUser(
+        userId: Int,
+        userName: String,
+        userPhotoUrl: String?,
+    ): UserResponse = apiService.updateUser(userId, userName, userPhotoUrl)
 }
