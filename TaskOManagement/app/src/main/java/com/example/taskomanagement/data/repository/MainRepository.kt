@@ -62,6 +62,12 @@ interface MainRepository {
         descriptionProject: String? = null,
         dueProject: String
     ): ProjectResponse
+    suspend fun updateProject(
+        projectId: Int,
+        nameProject: String,
+        descriptionProject: String? = null,
+        dueProject: String,
+    ): ProjectResponse
     suspend fun postTask(
         projectId: Int,
         nameTask: String,

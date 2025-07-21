@@ -37,6 +37,7 @@ import com.example.taskomanagement.ui.screen.main.profile.Profile
 import com.example.taskomanagement.ui.screen.main.profile.history.History
 import com.example.taskomanagement.ui.screen.main.profile.profile_edit.ProfileEdit
 import com.example.taskomanagement.ui.screen.main.project.project_detail.ProjectDetail
+import com.example.taskomanagement.ui.screen.main.project.project_edit.ProjectEdit
 import com.example.taskomanagement.ui.screen.main.project.project_input.ProjectInput
 import com.example.taskomanagement.ui.screen.main.project.project_input.ProjectInputChooseTeam
 import com.example.taskomanagement.ui.screen.main.project.project_list.Projects
@@ -92,7 +93,16 @@ fun Navigation(){
                         },
                         navController = navController
                     )
-                    Screen.ProjectDetailScreen.routes -> CustomTopAppBar(showBackIcon = true, endIcon = Icons.Filled.Settings, navController = navController)
+                    Screen.ProjectDetailScreen.routes -> CustomTopAppBar(
+                        showBackIcon = true,
+                        endIcon = Icons.Default.Settings,
+                        onClick1 = {
+                            sharedViewModel.projectId?.let { id ->
+                                navController.navigate("ProjectEditScreen/$id")
+                            } ?: Log.d("CLICK", "no respond")
+                        },
+                        navController = navController
+                    )
                     Screen.TaskScreen.routes -> CustomTopAppBar(title = "Daftar Tugas Saya", showBackIcon = true, navController = navController)
                     Screen.TaskDetailScreen.routes -> CustomTopAppBar(endIcon = Icons.Filled.Settings, showBackIcon = true, navController = navController)
                     Screen.TeamInputScreen.routes -> CustomTopAppBar(title = "Buat Tim", showBackIcon = true, navController = navController)
@@ -108,6 +118,7 @@ fun Navigation(){
                     Screen.HistoryTaskListScreen.routes -> CustomTopAppBar(showBackIcon = true, title = "Riwayat Tugas", navController = navController)
                     Screen.ProfileEditScreen.routes -> CustomTopAppBar(showBackIcon = true, title = "Edit Profil", navController = navController)
                     Screen.TeamEditScreen.routes -> CustomTopAppBar(showBackIcon = true, title = "Edit Tim", navController = navController)
+                    Screen.ProjectEditScreen.routes -> CustomTopAppBar(showBackIcon = true, navController = navController)
                 }
             }
         },
@@ -190,7 +201,7 @@ fun Navigation(){
             ) {
                 val projectId = navBackStackEntry?.arguments?.getInt("projectId")
                 if (projectId != null) {
-                    ProjectDetail(projectId, navController)
+                    ProjectDetail(projectId, navController, sharedViewModel)
                 }
             }
             composable(
@@ -215,6 +226,17 @@ fun Navigation(){
                 val teamId = navBackStackEntry?.arguments?.getInt("teamId")
                 if (teamId != null) {
                     ProjectInput(teamId = teamId, navController)
+                }
+            }
+            composable(
+                route = Screen.ProjectEditScreen.routes,
+                arguments = listOf(navArgument("projectId") {
+                    type = NavType.IntType
+                })
+            ) {
+                val projectId = navBackStackEntry?.arguments?.getInt("projectId")
+                if (projectId != null) {
+                    ProjectEdit(projectId = projectId)
                 }
             }
             composable(

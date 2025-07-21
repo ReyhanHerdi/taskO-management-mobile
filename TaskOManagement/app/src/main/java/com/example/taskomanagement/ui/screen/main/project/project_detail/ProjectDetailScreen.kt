@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.taskomanagement.data.model.Result
 import com.example.taskomanagement.ui.cutom.CustomTasksList
+import com.example.taskomanagement.ui.navigation.NavigationSharedViewModel
 import com.example.taskomanagement.utils.ShowCircularLoading
 import org.koin.androidx.compose.koinViewModel
 
@@ -32,6 +33,7 @@ import org.koin.androidx.compose.koinViewModel
 fun ProjectDetail(
     projectId: Int,
     navController: NavController,
+    sharedViewModel: NavigationSharedViewModel,
     viewModel: ProjectDetailViewModel = koinViewModel(),
 ) {
     val project by viewModel.project.collectAsState()
@@ -45,6 +47,8 @@ fun ProjectDetail(
     val projectName = if (project != null) project?.nameProject else "Nama proyek"
     val projectDescription = if (project != null) project?.description else "Deskripsi proyek"
     val taskSize = if (tasks != null) tasks.size else 0
+
+    sharedViewModel.setProjectId(projectId)
 
     Column(
         modifier = Modifier

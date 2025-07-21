@@ -73,6 +73,13 @@ class MainRepositoryImpl(
         dueProject: String,
     ): ProjectResponse = apiService.postProject(teamId, userId, nameProject, descriptionProject, dueProject)
 
+    override suspend fun updateProject(
+        projectId: Int,
+        nameProject: String,
+        descriptionProject: String?,
+        dueProject: String,
+    ): ProjectResponse = apiService.updateProject(projectId, nameProject, descriptionProject, dueProject)
+
     override suspend fun postTask(
         projectId: Int,
         nameTask: String,

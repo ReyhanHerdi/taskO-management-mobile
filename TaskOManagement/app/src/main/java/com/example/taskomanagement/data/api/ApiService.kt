@@ -149,6 +149,15 @@ interface ApiService {
         @Field("due") dueProject: String
     ): ProjectResponse
 
+    @FormUrlEncoded
+    @PUT("api/projects/{id}")
+    suspend fun updateProject(
+        @Path("id") projectId: Int,
+        @Field("name_project") nameProject: String,
+        @Field("description") descriptionProject: String? = null,
+        @Field("due") dueProject: String,
+    ): ProjectResponse
+
     @GET("api/tasks-project/{id}")
     suspend fun getTaskByProjectId(
         @Path("id") id: Int

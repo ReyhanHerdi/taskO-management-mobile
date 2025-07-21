@@ -8,10 +8,20 @@ import androidx.lifecycle.ViewModel
 
 class NavigationSharedViewModel : ViewModel() {
     var teamId by mutableStateOf<Int?>(null)
+    var projectId by mutableStateOf<Int?>(null)
+    var taskId by mutableStateOf<Int?>(null)
     var userName by mutableStateOf<String?>(null)
 
     fun setTeamId(id: Int) {
         teamId = id
+    }
+
+    fun setProjectId(id: Int) {
+        projectId = id
+    }
+
+    fun setTaskId(id: Int) {
+        taskId = id
     }
 
     fun setUerName(name: String) {
