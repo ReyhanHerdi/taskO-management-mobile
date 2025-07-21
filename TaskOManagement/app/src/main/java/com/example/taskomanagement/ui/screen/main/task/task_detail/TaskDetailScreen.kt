@@ -29,6 +29,7 @@ import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.example.taskomanagement.data.model.Result
 import com.example.taskomanagement.imageBaseUrl
+import com.example.taskomanagement.ui.navigation.NavigationSharedViewModel
 import com.example.taskomanagement.utils.ShowCircularLoading
 import com.example.taskomanagement.utils.formatDate
 import org.koin.androidx.compose.koinViewModel
@@ -37,11 +38,14 @@ import org.koin.androidx.compose.koinViewModel
 fun TaskDetail(
     taskId: Int,
     navController: NavController,
+    sharedViewModel: NavigationSharedViewModel,
     viewModel: TaskDetailViewModel = koinViewModel(),
 ) {
     val task by viewModel.task.collectAsState()
     val executor by viewModel.executor.collectAsState()
     val loadingResult = viewModel.dataResult.value
+
+    sharedViewModel.setTaskId(taskId)
 
     LaunchedEffect(key1 = Unit) {
         viewModel.getTaskById(taskId)
@@ -145,7 +149,14 @@ fun TaskDetail(
                         "ongoing" -> taskStatus = "done"
                         else -> { /* DO NOTHING */ }
                     }
-                    viewModel.setTaskDone(taskId, taskStatus)
+                    viewModel.setTaskDone(
+                        taskId,
+                        task?.nameTask ?: "Nama kosong",
+                        task?.description ?: "Deskripsi kosong",
+                        task?.dueDate ?: "2010-10-10",
+                        task?.dueTime ?: "00:00:00",
+                        taskStatus
+                    )
                     navController.popBackStack()
                 }
             },

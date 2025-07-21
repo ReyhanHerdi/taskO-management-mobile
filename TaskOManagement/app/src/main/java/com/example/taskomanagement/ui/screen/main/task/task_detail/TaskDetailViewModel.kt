@@ -64,12 +64,20 @@ class TaskDetailViewModel(private val repository: MainRepository) : ViewModel() 
 
     fun setTaskDone(
         taskId: Int,
+        taskName: String,
+        taskDescription: String,
+        taskDueDate: String,
+        taskDueTime: String,
         status: String
     ) {
         viewModelScope.launch {
             try {
                 repository.updateTask(
                     taskId,
+                    taskName,
+                    taskDescription,
+                    taskDueDate,
+                    taskDueTime,
                     status = status
                 )
             } catch (e: Exception) {

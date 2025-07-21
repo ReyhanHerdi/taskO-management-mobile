@@ -42,6 +42,7 @@ import com.example.taskomanagement.ui.screen.main.project.project_input.ProjectI
 import com.example.taskomanagement.ui.screen.main.project.project_input.ProjectInputChooseTeam
 import com.example.taskomanagement.ui.screen.main.project.project_list.Projects
 import com.example.taskomanagement.ui.screen.main.task.task_detail.TaskDetail
+import com.example.taskomanagement.ui.screen.main.task.task_edit.TaskEdit
 import com.example.taskomanagement.ui.screen.main.task.task_input.TaskInput
 import com.example.taskomanagement.ui.screen.main.task.task_list.Task
 import com.example.taskomanagement.ui.screen.main.teams.team_detail.TeamDetail
@@ -104,7 +105,16 @@ fun Navigation(){
                         navController = navController
                     )
                     Screen.TaskScreen.routes -> CustomTopAppBar(title = "Daftar Tugas Saya", showBackIcon = true, navController = navController)
-                    Screen.TaskDetailScreen.routes -> CustomTopAppBar(endIcon = Icons.Filled.Settings, showBackIcon = true, navController = navController)
+                    Screen.TaskDetailScreen.routes -> CustomTopAppBar(
+                        endIcon = Icons.Filled.Settings,
+                        showBackIcon = true,
+                        onClick1 = {
+                            sharedViewModel.taskId?.let { id ->
+                                navController.navigate("TaskEditScreen/$id")
+                            } ?: Log.d("CLICK", "no respond")
+                        },
+                        navController = navController
+                    )
                     Screen.TeamInputScreen.routes -> CustomTopAppBar(title = "Buat Tim", showBackIcon = true, navController = navController)
                     Screen.ProjectChooseTeamScreen.routes -> CustomTopAppBar(title = "Pilih Tim", showBackIcon = true, navController = navController)
                     Screen.ProjectInputScreen.routes -> CustomTopAppBar(title = "Buat Proyek", showBackIcon = true, navController = navController)
@@ -212,7 +222,18 @@ fun Navigation(){
             ) {
                 val taskId = navBackStackEntry?.arguments?.getInt("taskId")
                 if (taskId != null) {
-                    TaskDetail(taskId, navController)
+                    TaskDetail(taskId, navController, sharedViewModel)
+                }
+            }
+            composable(
+                route = Screen.TaskEditScreen.routes,
+                arguments = listOf(navArgument("taskId") {
+                    type = NavType.IntType
+                })
+            ) {
+                val taskId = navBackStackEntry?.arguments?.getInt("taskId")
+                if (taskId != null) {
+                    TaskEdit(taskId)
                 }
             }
             composable(route = Screen.TeamInputScreen.routes) { TeamInput(navController) }
