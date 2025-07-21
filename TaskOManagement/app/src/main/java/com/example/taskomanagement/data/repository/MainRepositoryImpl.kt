@@ -58,6 +58,13 @@ class MainRepositoryImpl(
         nameTeam: String,
         descriptionTeam: String?,
     ): TeamResponse = apiService.postTeam(userId, nameTeam, descriptionTeam)
+
+    override suspend fun updateTeam(
+        teamId: Int,
+        nameTeam: String,
+        descriptionTeam: String?,
+    ): TeamResponse = apiService.updateTeam(teamId, nameTeam, descriptionTeam)
+
     override suspend fun postProject(
         teamId: Int,
         userId: Int,

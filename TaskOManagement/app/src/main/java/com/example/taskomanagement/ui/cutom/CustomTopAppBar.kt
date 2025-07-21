@@ -25,7 +25,7 @@ fun CustomTopAppBar(
     showBackIcon: Boolean,
     endIcon: ImageVector? = null,
     endIcon2: ImageVector? = null,
-    onClick1: Unit? = null,
+    onClick1: (() -> Unit)? = null,
     onClick2: (() -> Unit)? = null,
     navController: NavController? = null
 ) {
@@ -64,12 +64,22 @@ fun CustomTopAppBar(
                 )
             }
             if (endIcon != null) {
-                Icon(
-                    imageVector = endIcon,
-                    contentDescription = "Notifikasi",
-                    modifier = Modifier
-                        .padding(end = 16.dp)
-                )
+                if (onClick1 != null) {
+                    Icon(
+                        imageVector = endIcon,
+                        contentDescription = "Notifikasi",
+                        modifier = Modifier
+                            .padding(end = 16.dp)
+                            .clickable(onClick = onClick1)
+                    )
+                } else {
+                    Icon(
+                        imageVector = endIcon,
+                        contentDescription = "Notifikasi",
+                        modifier = Modifier
+                            .padding(end = 16.dp)
+                    )
+                }
             }
         },
         colors = TopAppBarDefaults

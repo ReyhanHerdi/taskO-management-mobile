@@ -62,6 +62,14 @@ interface ApiService {
         @Field("description") descriptionTeam: String? = null
     ): TeamResponse
 
+    @FormUrlEncoded
+    @PUT("api/teams/{id}")
+    suspend fun updateTeam(
+        @Path("id") teamId: Int,
+        @Field("name_team") nameTeam: String,
+        @Field("description") descriptionTeam: String? = null
+    ): TeamResponse
+
     @GET("api/projects-team/{id}")
     suspend fun getProjects(
         @Path("id") id: Int

@@ -26,7 +26,6 @@ import com.example.taskomanagement.data.model.Result
 import com.example.taskomanagement.ui.cutom.CustomProjectsList
 import com.example.taskomanagement.ui.navigation.NavigationSharedViewModel
 import com.example.taskomanagement.utils.ShowCircularLoading
-import com.example.taskomanagement.utils.ShowLinearLoading
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -83,12 +82,14 @@ fun TeamDetail(
             text = descriptionTeam,
             style = MaterialTheme.typography.bodyMedium
         )
-        Row {
+        Row(
+            modifier = Modifier.padding(top = 8.dp)
+        ) {
             Text(
                 text = "Proyek",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(top = 16.dp)
+                modifier = Modifier.align(Alignment.CenterVertically)
             )
             Spacer(modifier = Modifier.weight(1f))
             Button(onClick = {

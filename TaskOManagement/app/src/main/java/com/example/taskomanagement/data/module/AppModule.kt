@@ -22,6 +22,7 @@ import com.example.taskomanagement.ui.screen.main.task.task_detail.TaskDetailVie
 import com.example.taskomanagement.ui.screen.main.task.task_input.TaskInputViewModel
 import com.example.taskomanagement.ui.screen.main.teams.team_list.TeamViewModel
 import com.example.taskomanagement.ui.screen.main.teams.team_detail.TeamDetailViewModel
+import com.example.taskomanagement.ui.screen.main.teams.team_edit.TeamEditViewModel
 import com.example.taskomanagement.ui.screen.main.teams.team_input.TeamInputViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -67,4 +68,5 @@ val appModule = module {
     viewModel { MessageViewModel(get()) }
     viewModel { MemberInputViewModel(get()) }
     viewModel { ProfileEditViewModel(get()) }
+    viewModel { TeamEditViewModel(get()) }
 }

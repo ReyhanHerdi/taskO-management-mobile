@@ -44,6 +44,7 @@ import com.example.taskomanagement.ui.screen.main.task.task_detail.TaskDetail
 import com.example.taskomanagement.ui.screen.main.task.task_input.TaskInput
 import com.example.taskomanagement.ui.screen.main.task.task_list.Task
 import com.example.taskomanagement.ui.screen.main.teams.team_detail.TeamDetail
+import com.example.taskomanagement.ui.screen.main.teams.team_edit.TeamEdit
 import com.example.taskomanagement.ui.screen.main.teams.team_input.TeamInput
 import com.example.taskomanagement.ui.screen.main.teams.team_list.Teams
 import com.example.taskomanagement.utils.Screen
@@ -79,6 +80,11 @@ fun Navigation(){
                         showBackIcon = true,
                         endIcon2 = ImageVector.vectorResource(id = R.drawable.baseline_groups_24),
                         endIcon = Icons.Filled.Settings,
+                        onClick1 = {
+                            sharedViewModel.teamId?.let { id ->
+                                navController.navigate("TeamEditScreen/$id")
+                            } ?: Log.d("CLICK", "no respond")
+                        },
                         onClick2 = {
                             sharedViewModel.teamId?.let { id ->
                                 navController.navigate("MembersScreen/$id")
@@ -101,6 +107,7 @@ fun Navigation(){
                     Screen.MemberInputScreen.routes -> CustomTopAppBar(showBackIcon = true, title = "Tambah Anggota", navController = navController)
                     Screen.HistoryTaskListScreen.routes -> CustomTopAppBar(showBackIcon = true, title = "Riwayat Tugas", navController = navController)
                     Screen.ProfileEditScreen.routes -> CustomTopAppBar(showBackIcon = true, title = "Edit Profil", navController = navController)
+                    Screen.TeamEditScreen.routes -> CustomTopAppBar(showBackIcon = true, title = "Edit Tim", navController = navController)
                 }
             }
         },
@@ -162,6 +169,17 @@ fun Navigation(){
                 val teamId = navBackStackEntry?.arguments?.getInt("teamId")
                 if (teamId != null) {
                     Member(teamId, navController, sharedViewModel)
+                }
+            }
+            composable(
+                route = Screen.TeamEditScreen.routes,
+                arguments = listOf(navArgument("teamId") {
+                    type = NavType.IntType
+                })
+            ) {
+                val teamId = navBackStackEntry?.arguments?.getInt("teamId")
+                if (teamId != null) {
+                    TeamEdit(teamId)
                 }
             }
             composable(
