@@ -18,21 +18,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.taskomanagement.data.model.Result
-import com.example.taskomanagement.ui.cutom.CustomProjectsList
 import com.example.taskomanagement.ui.cutom.CustomTasksList
 import com.example.taskomanagement.utils.ShowCircularLoading
-import com.example.taskomanagement.utils.ShowLinearLoading
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -42,10 +35,7 @@ fun ProjectDetail(
     viewModel: ProjectDetailViewModel = koinViewModel(),
 ) {
     val project by viewModel.project.collectAsState()
-    val team by viewModel.team.collectAsState()
     val tasks by viewModel.task.collectAsState()
-    var idTeam by remember { mutableIntStateOf(0) }
-    var nameTeam by remember { mutableStateOf("") }
     val loadingResult = viewModel.dataResult.value
 
     LaunchedEffect(key1 = Unit) {
@@ -53,6 +43,7 @@ fun ProjectDetail(
         viewModel.getProjectDetail(projectId)
     }
     val projectName = if (project != null) project?.nameProject else "Nama proyek"
+    val projectDescription = if (project != null) project?.description else "Deskripsi proyek"
     val taskSize = if (tasks != null) tasks.size else 0
 
     Column(
@@ -85,7 +76,7 @@ fun ProjectDetail(
             modifier = Modifier.padding(top = 20.dp)
         )
         Text(
-            text = "Deskripsi",
+            text = projectDescription ?: "Deskripsi",
             style = MaterialTheme.typography.bodyMedium
         )
         Text(

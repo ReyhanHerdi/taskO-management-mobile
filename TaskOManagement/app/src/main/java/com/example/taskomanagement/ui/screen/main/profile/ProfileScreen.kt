@@ -42,6 +42,7 @@ import coil3.compose.AsyncImage
 import com.example.taskomanagement.aboutApplication
 import com.example.taskomanagement.contactPerson
 import com.example.taskomanagement.data.model.Result
+import com.example.taskomanagement.imageBaseUrl
 import com.example.taskomanagement.ui.cutom.CustomHistoryTasksList
 import com.example.taskomanagement.utils.Screen
 import com.example.taskomanagement.utils.ShowCircularLoading
@@ -103,7 +104,7 @@ fun Profile(
                     )
                 } else {
                     AsyncImage(
-                        model = user.photoUrl,
+                        model = "$imageBaseUrl/${user.photoUrl}",
                         contentDescription = "Foto profil",
                         modifier = Modifier
                             .size(width = 70.dp, height = 70.dp)

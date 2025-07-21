@@ -24,11 +24,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.example.taskomanagement.data.model.Result
+import com.example.taskomanagement.imageBaseUrl
 import com.example.taskomanagement.utils.ShowCircularLoading
 import com.example.taskomanagement.utils.formatDate
 import org.koin.androidx.compose.koinViewModel
@@ -40,7 +40,6 @@ fun TaskDetail(
     viewModel: TaskDetailViewModel = koinViewModel(),
 ) {
     val task by viewModel.task.collectAsState()
-    val project by viewModel.project.collectAsState()
     val executor by viewModel.executor.collectAsState()
     val loadingResult = viewModel.dataResult.value
 
@@ -51,7 +50,6 @@ fun TaskDetail(
     }
 
     val nameTask = task?.nameTask ?: "Name Tugas"
-    val nameProject = project?.nameProject ?: "Nama Proyek"
     val descriptionTask = task?.description ?: "Dekripsi tugas"
     val dueDateTask = task?.dueDate ?: "2003-06-10"
     val dueTimeTask = task?.dueTime ?: "00.00.00"
@@ -68,13 +66,6 @@ fun TaskDetail(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
         )
-//        Text(
-//            text = nameProject,
-//            style = MaterialTheme.typography.titleSmall,
-//            fontWeight = FontWeight.Normal,
-//            modifier = Modifier
-//                .align(Alignment.CenterHorizontally)
-//        )
         Text(
             text = "Tenggat Waktu",
             style = MaterialTheme.typography.titleMedium,
@@ -115,7 +106,7 @@ fun TaskDetail(
                                 )
                             } else {
                                 AsyncImage(
-                                    model = taskExecutor.photoUrl,
+                                    model = "$imageBaseUrl/${taskExecutor.photoUrl}",
                                     contentDescription = "Foro profil penanggung jawab",
                                     modifier = Modifier
                                         .padding(end = 4.dp)

@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.example.taskomanagement.data.response.MemberOfTeamDataItem
+import com.example.taskomanagement.imageBaseUrl
 
 @Composable
 fun CustomMemberList(
@@ -32,6 +33,7 @@ fun CustomMemberList(
     onItemClick: () -> Unit,
     userId: Int
 ) {
+    val photoUrl = member?.user?.get(0)?.photoUrl
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -43,7 +45,7 @@ fun CustomMemberList(
             .clickable(enabled = member?.userId != userId) { onItemClick() }
     ) {
         Row {
-            if (member?.user?.get(0)?.photoUrl == null) {
+            if (photoUrl == null) {
                 Icon(
                     imageVector = Icons.Default.AccountCircle,
                     contentDescription = "Foto profil",
@@ -54,7 +56,7 @@ fun CustomMemberList(
                 )
             } else {
                 AsyncImage(
-                    model = member.user.get(0).photoUrl,
+                    model = "$imageBaseUrl/$photoUrl",
                     contentDescription = "Foto profil",
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
