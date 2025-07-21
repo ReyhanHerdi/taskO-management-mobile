@@ -12,11 +12,14 @@ import com.example.taskomanagement.data.response.TaskResponse
 import com.example.taskomanagement.data.response.TeamMemberResponse
 import com.example.taskomanagement.data.response.TeamResponse
 import com.example.taskomanagement.data.response.UserResponse
+import okhttp3.MultipartBody
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface ApiService {
@@ -171,4 +174,12 @@ interface ApiService {
         @Field("team_id") teamId: Int,
         @Field("email") email: String
     ): MembersOfTeamResponse
+
+    @Multipart
+    @POST("api/user/image/{id}")
+    suspend fun uploadUserImage(
+        @Path("id") userId: Int,
+        @Part file: MultipartBody.Part
+    ): UserResponse
+
 }

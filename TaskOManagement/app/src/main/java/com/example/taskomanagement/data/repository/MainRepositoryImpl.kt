@@ -14,6 +14,10 @@ import com.example.taskomanagement.data.response.TaskResponse
 import com.example.taskomanagement.data.response.TeamMemberResponse
 import com.example.taskomanagement.data.response.TeamResponse
 import com.example.taskomanagement.data.response.UserResponse
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 
 class MainRepositoryImpl(
     private val apiService: ApiService,
@@ -101,4 +105,18 @@ class MainRepositoryImpl(
         userName: String,
         userPhotoUrl: String?,
     ): UserResponse = apiService.updateUser(userId, userName, userPhotoUrl)
+
+    override suspend fun uploadUserImage(
+        userId: Int,
+        file: File
+    ): UserResponse {
+        return apiService.uploadUserImage(
+            userId = userId,
+            file = MultipartBody.Part.createFormData(
+                name = "image",
+                filename = file.name,
+                body = file.asRequestBody("image/*".toMediaTypeOrNull())
+            )
+        )
+    }
 }

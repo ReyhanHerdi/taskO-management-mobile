@@ -12,6 +12,7 @@ import com.example.taskomanagement.data.response.TaskResponse
 import com.example.taskomanagement.data.response.TeamMemberResponse
 import com.example.taskomanagement.data.response.TeamResponse
 import com.example.taskomanagement.data.response.UserResponse
+import java.io.File
 
 interface MainRepository {
     // Auth
@@ -89,5 +90,9 @@ interface MainRepository {
         userId: Int,
         userName: String,
         userPhotoUrl: String? = null
+    ): UserResponse
+    suspend fun uploadUserImage(
+        userId: Int,
+        file: File
     ): UserResponse
 }

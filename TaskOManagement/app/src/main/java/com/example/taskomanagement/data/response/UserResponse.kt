@@ -17,7 +17,7 @@ data class UserResponse(
 data class UserDataItem(
 
 	@field:SerializedName("photoUrl")
-	val photoUrl: Any? = null,
+	val photoUrl: String? = null,
 
 	@field:SerializedName("updated_at")
 	val updatedAt: String? = null,
