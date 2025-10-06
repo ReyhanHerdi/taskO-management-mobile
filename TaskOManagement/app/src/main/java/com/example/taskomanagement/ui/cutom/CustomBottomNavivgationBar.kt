@@ -50,12 +50,12 @@ fun CustomBottomNavigationBar(
                 iconUnSelected = Icons.Outlined.DateRange,
                 label = "Projects"
             ),
-//            BottomNavItem(
-//                route = Screen.MessageScreen.routes,
-//                iconSelected = Icons.Filled.Email,
-//                iconUnSelected = Icons.Outlined.Email,
-//                label = "Message"
-//            ),
+            BottomNavItem(
+                route = Screen.MessageScreen.routes,
+                iconSelected = Icons.Filled.Email,
+                iconUnSelected = Icons.Outlined.Email,
+                label = "Message"
+            ),
             BottomNavItem(
                 route = Screen.TeamsScreen.routes,
                 iconSelected = Icons.Filled.AccountBox,

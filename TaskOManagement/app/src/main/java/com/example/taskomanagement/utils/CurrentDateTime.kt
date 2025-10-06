@@ -2,6 +2,9 @@ package com.example.taskomanagement.utils
 
 import android.icu.text.SimpleDateFormat
 import android.util.Log
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -49,4 +52,13 @@ fun setGreetingBasedOnCurrentTime(): String {
         else -> "malam"
     }
     return greeting
+}
+
+fun formatDateTime(time: String): String {
+    val zdt = ZonedDateTime.parse(time)
+    val zdtLocal = zdt.withZoneSameInstant(ZoneId.systemDefault())
+    val formatter = DateTimeFormatter.ofPattern("HH:mm")
+    val timeHhmm = formatter.format(zdtLocal)
+
+    return  timeHhmm
 }

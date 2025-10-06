@@ -49,7 +49,7 @@ fun Member(
                             member = it,
                             onItemClick = {
                                 sharedViewModel.setUerName(it?.user?.get(0)?.name ?: "Kosong")
-                                navController.navigate("ChatScreen/${it?.userId}")
+                                navController.navigate("ChatScreen/$teamId/${it?.userId}")
                             },
                             userId = user.idUser ?: 0
                         )

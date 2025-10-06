@@ -36,6 +36,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun Chat(
+    teamId: Int,
     memberId: Int,
     viewModel: MessageViewModel = koinViewModel(),
 ) {
@@ -100,7 +101,7 @@ fun Chat(
             Spacer(modifier = Modifier.weight(1f))
             IconButton(
                 onClick = {
-                    viewModel.sendMessage(text = text)
+                    viewModel.storeOrUpdateMessage(teamId = teamId, text = text)
                     text = ""
                 },
                 enabled = text != "",

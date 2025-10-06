@@ -3,6 +3,7 @@ package com.example.taskomanagement.data.api
 import com.example.taskomanagement.data.response.ExecutorByTaskIdResponse
 import com.example.taskomanagement.data.response.LoginResponse
 import com.example.taskomanagement.data.response.MembersOfTeamResponse
+import com.example.taskomanagement.data.response.MessageResponse
 import com.example.taskomanagement.data.response.ProjectDetailResponse
 import com.example.taskomanagement.data.response.ProjectResponse
 import com.example.taskomanagement.data.response.ProjectWithTaskResponse
@@ -168,6 +169,11 @@ interface ApiService {
         @Path("id") id: Int
     ): TaskResponse
 
+    @GET("api/message/{id}")
+    suspend fun getMessageList(
+        @Path("id") id: Int,
+    ) : MessageResponse
+
     @FormUrlEncoded
     @PUT("api/fcm-token/{id}")
     suspend fun updateFCMToken(
@@ -176,12 +182,13 @@ interface ApiService {
     ): UserResponse
 
     @FormUrlEncoded
-    @POST("api/message")
+    @POST("api/message/send")
     suspend fun sendMessage(
-        @Field("sender_id") userId: Int,
-        @Field("receiver_id") memberId: Int,
-        @Field("text") text: String,
-        @Field("datetime") time: Long
+        @Field("message_id") messageId: String,
+        @Field("team_id") teamId: Int,
+        @Field("user_id") userId: Int,
+        @Field("user2_id") memberId: Int,
+        @Field("message") text: String
     ): UserResponse
 
     @FormUrlEncoded

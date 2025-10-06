@@ -36,26 +36,39 @@ class MessageViewModel(private val repository: MainRepository) : ViewModel() {
     private suspend fun refChild(): String = if ((memberId ?: 0) < getUserId())"${memberId}_${getUserId()}" else "${getUserId()}_${memberId}"
     private suspend fun messageRef(): DatabaseReference = db.reference.child(refChild())
 
-    fun sendMessage(
+    fun storeOrUpdateMessage(
+        teamId: Int,
         text: String,
     ) {
         viewModelScope.launch {
-            getUser()
             try {
                 repository.sendMessage(
+                    messageId = refChild(),
+                    teamId = teamId,
                     userId = getUserId(),
                     memberId = memberId ?: 0,
                     text = text,
-                    time = currentDateTime().time
                 )
-//                val message = Message(
-//                    senderId = getUserId(),
-//                    userName = user.value.name ?: "Tanpa nama",
-//                    email = user.value.email ?: "Tanpa email",
-//                    message = text,
-//                    currentDate = currentDateTime().time
-//                )
-//                messageRef().push().setValue(message)
+
+                sendMessage(text)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private suspend fun sendMessage(
+        text: String,
+    ) {
+        viewModelScope.launch {
+            try {
+                val message = Message(
+                    senderId = getUserId(),
+                    receiverId = memberId ?: 0,
+                    text = text,
+                    timestamp = currentDateTime().time
+                )
+                messageRef().push().setValue(message)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

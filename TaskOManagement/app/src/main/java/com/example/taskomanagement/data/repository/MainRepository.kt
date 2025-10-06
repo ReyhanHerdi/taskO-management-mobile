@@ -3,6 +3,7 @@ package com.example.taskomanagement.data.repository
 import com.example.taskomanagement.data.response.ExecutorByTaskIdResponse
 import com.example.taskomanagement.data.response.LoginResponse
 import com.example.taskomanagement.data.response.MembersOfTeamResponse
+import com.example.taskomanagement.data.response.MessageResponse
 import com.example.taskomanagement.data.response.ProjectDetailResponse
 import com.example.taskomanagement.data.response.ProjectResponse
 import com.example.taskomanagement.data.response.ProjectWithTaskResponse
@@ -45,6 +46,7 @@ interface MainRepository {
     suspend fun getProjectById(id: Int): ProjectDetailResponse
     suspend fun getTasksByProjectId(id: Int): TaskResponse
     suspend fun getTasksDoneByProjectId(id: Int): TaskResponse
+    suspend fun getMessageList(id: Int): MessageResponse
     suspend fun postTeam(
         userId: Int,
         nameTeam: String,
@@ -88,10 +90,11 @@ interface MainRepository {
         token: String
     ): UserResponse
     suspend fun sendMessage(
+        messageId: String,
+        teamId: Int,
         userId: Int,
         memberId: Int,
         text: String,
-        time: Long
     ): UserResponse
     suspend fun inputMember(
         teamId: Int,

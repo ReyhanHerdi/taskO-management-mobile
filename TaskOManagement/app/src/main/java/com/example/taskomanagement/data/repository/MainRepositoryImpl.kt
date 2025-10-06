@@ -5,6 +5,7 @@ import com.example.taskomanagement.data.datastore.AuthDataStore
 import com.example.taskomanagement.data.response.ExecutorByTaskIdResponse
 import com.example.taskomanagement.data.response.LoginResponse
 import com.example.taskomanagement.data.response.MembersOfTeamResponse
+import com.example.taskomanagement.data.response.MessageResponse
 import com.example.taskomanagement.data.response.ProjectDetailResponse
 import com.example.taskomanagement.data.response.ProjectResponse
 import com.example.taskomanagement.data.response.ProjectWithTaskResponse
@@ -53,6 +54,8 @@ class MainRepositoryImpl(
     override suspend fun getProjectById(id: Int): ProjectDetailResponse = apiService.getProjectById(id)
     override suspend fun getTasksByProjectId(id: Int): TaskResponse = apiService.getTaskByProjectId(id)
     override suspend fun getTasksDoneByProjectId(id: Int): TaskResponse = apiService.getTaskDoneDByProjectId(id)
+    override suspend fun getMessageList(id: Int): MessageResponse = apiService.getMessageList(id)
+
     override suspend fun postTeam(
         userId: Int,
         nameTeam: String,
@@ -103,11 +106,12 @@ class MainRepositoryImpl(
     ): UserResponse = apiService.updateFCMToken(userId, token)
 
     override suspend fun sendMessage(
+        messageId: String,
+        teamId: Int,
         userId: Int,
         memberId: Int,
         text: String,
-        time: Long,
-    ): UserResponse = apiService.sendMessage(userId, memberId, text, time)
+    ): UserResponse = apiService.sendMessage(messageId, teamId, userId, memberId, text)
 
     override suspend fun inputMember(
         teamId: Int,

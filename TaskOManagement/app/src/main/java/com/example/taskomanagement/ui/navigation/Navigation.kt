@@ -120,6 +120,7 @@ fun Navigation(){
                     Screen.ProjectInputScreen.routes -> CustomTopAppBar(title = "Buat Proyek", showBackIcon = true, navController = navController)
                     Screen.TaskInputScreen.routes -> CustomTopAppBar(title = "Buat Tugas", showBackIcon = true, navController = navController)
                     Screen.MembersScreen.routes -> CustomTopAppBar(title = "Daftar Anggota", showBackIcon = true, navController = navController)
+                    Screen.MessageScreen.routes -> CustomTopAppBar(showBackIcon = false, title = "Daftar Pesan", navController = navController)
                     Screen.ChatScreen.routes -> CustomTopAppBar(
                         title = sharedViewModel.userName,
                         showBackIcon = true
@@ -167,7 +168,7 @@ fun Navigation(){
                 composable(Screen.ProjectsScreen.routes) { Projects(navController) }
                 composable(Screen.ProfileScreen.routes) { Profile(navController) }
                 composable(Screen.TeamsScreen.routes) { Teams(navController) }
-                composable(Screen.MessageScreen.routes) { Message() }
+                composable(Screen.MessageScreen.routes) { Message(navController, sharedViewModel) }
             }
             composable(Screen.TaskScreen.routes) { Task(navController) }
             composable(
@@ -273,13 +274,18 @@ fun Navigation(){
             }
             composable(
                 route = Screen.ChatScreen.routes,
-                arguments = listOf(navArgument("memberId") {
-                    type = NavType.IntType
-                })
+                arguments = listOf(
+                    navArgument("teamId") {
+                        type = NavType.IntType
+                    }, navArgument("memberId") {
+                        type = NavType.IntType
+                    }
+                )
             ) {
                 val memberId = navBackStackEntry?.arguments?.getInt("memberId")
-                if (memberId != null) {
-                    Chat(memberId)
+                val teamId = navBackStackEntry?.arguments?.getInt("teamId")
+                if (memberId != null && teamId != null) {
+                    Chat(teamId = teamId, memberId = memberId)
                 }
             }
             composable(
