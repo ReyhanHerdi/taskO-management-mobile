@@ -97,8 +97,9 @@ class MainRepositoryImpl(
         descriptionTask: String?,
         dueDateTask: String?,
         dueTimeTask: String?,
-        status: String?
-    ): TaskResponse = apiService.updateTask(taskId, nameTask, descriptionTask, dueDateTask, dueTimeTask, status)
+        status: String?,
+        userId: Int?
+    ): TaskResponse = apiService.updateTask(taskId, nameTask, descriptionTask, dueDateTask, dueTimeTask, status, userId)
 
     override suspend fun updateFcmToken(
         userId: Int,

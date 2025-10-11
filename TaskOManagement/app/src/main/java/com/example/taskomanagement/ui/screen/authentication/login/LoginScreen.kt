@@ -51,6 +51,7 @@ import com.example.taskomanagement.R
 import com.example.taskomanagement.data.model.Result
 import com.example.taskomanagement.utils.Screen
 import com.example.taskomanagement.utils.ShowCircularLoading
+import com.example.taskomanagement.utils.showToast
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -65,6 +66,8 @@ fun Login(
     var passwordVisible by remember { mutableStateOf(false) }
     val authStatus by viewModel.auth.collectAsState()
     val loginStatus = viewModel.loginResult.value
+    val context = LocalContext.current
+    val message by viewModel.message
 
     LaunchedEffect(key1 = authStatus) {
         Log.d("AUTH CHECK", authStatus.toString())
@@ -160,6 +163,7 @@ fun Login(
             onClick = {
                 scope.launch {
                     viewModel.login(email, password)
+                    showToast("$message", context)
                 }
             },
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),

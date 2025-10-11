@@ -112,7 +112,8 @@ interface ApiService {
         @Field("description") descriptionTask: String? = null,
         @Field("due_date") dueDateTask: String? = null,
         @Field("due_time") dueTimeTask: String? = null,
-        @Field("status") status: String? = null
+        @Field("status") status: String? = null,
+        @Field("user_id") userId: Int? = null
     ): TaskResponse
 
     @GET("api/user-teams/{id}")

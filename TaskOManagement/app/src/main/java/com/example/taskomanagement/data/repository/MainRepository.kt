@@ -83,7 +83,8 @@ interface MainRepository {
         descriptionTask: String? = null,
         dueDateTask: String? = null,
         dueTimeTask: String? = null,
-        status: String? = null
+        status: String? = null,
+        userId: Int? = null
     ): TaskResponse
     suspend fun updateFcmToken(
         userId: Int,

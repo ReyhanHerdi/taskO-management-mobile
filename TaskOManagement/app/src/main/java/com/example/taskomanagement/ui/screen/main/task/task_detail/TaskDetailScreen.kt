@@ -1,37 +1,52 @@
 package com.example.taskomanagement.ui.screen.main.task.task_detail
 
+import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.example.taskomanagement.data.model.Result
+import com.example.taskomanagement.data.response.MemberOfTeamDataItem
+import com.example.taskomanagement.data.response.TaskDataItem
+import com.example.taskomanagement.data.response.TeamMemberDataItem
 import com.example.taskomanagement.imageBaseUrl
+import com.example.taskomanagement.ui.cutom.CustomMemberList
 import com.example.taskomanagement.ui.navigation.NavigationSharedViewModel
 import com.example.taskomanagement.utils.ShowCircularLoading
 import com.example.taskomanagement.utils.formatDate
+import com.example.taskomanagement.utils.showToast
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -43,15 +58,28 @@ fun TaskDetail(
 ) {
     val task by viewModel.task.collectAsState()
     val executor by viewModel.executor.collectAsState()
+    val project by viewModel.project.collectAsState()
+    val member by viewModel.member.collectAsState()
+    val userId by viewModel.userId
+    val teamId by viewModel.teamId
+    val refreshKey by viewModel.refreshKey
     val loadingResult = viewModel.dataResult.value
 
     sharedViewModel.setTaskId(taskId)
-
-    LaunchedEffect(key1 = Unit) {
+    LaunchedEffect(key1 = refreshKey) {
         viewModel.getTaskById(taskId)
-        viewModel.getProjectById(task?.idTask ?: 0)
         viewModel.getExecutorByTaskId(taskId)
     }
+
+    LaunchedEffect(key1 = teamId) {
+        viewModel.getMember(teamId ?: 0)
+    }
+
+    InitializeModalBottomSheet(
+        memberDataItem = member,
+        userId = userId ?: 0,
+        task = task ?: null
+    )
 
     val nameTask = task?.nameTask ?: "Name Tugas"
     val descriptionTask = task?.description ?: "Dekripsi tugas"
@@ -143,21 +171,18 @@ fun TaskDetail(
         FloatingActionButton(
             onClick = {
                 if (task?.status != "done") {
-                    var taskStatus = ""
-                    when (task?.status) {
-                        "pending" -> taskStatus = "ongoing"
-                        "ongoing" -> taskStatus = "done"
-                        else -> { /* DO NOTHING */ }
+                    if (task?.status == "pending") {
+                        viewModel.setShowBottomSheet(true)
+                    } else {
+                        viewModel.setTaskDone(
+                            taskId,
+                            task?.nameTask ?: "Nama kosong",
+                            task?.description ?: "Deskripsi kosong",
+                            task?.dueDate ?: "2010-10-10",
+                            task?.dueTime ?: "00:00:00",
+                            "done",
+                        )
                     }
-                    viewModel.setTaskDone(
-                        taskId,
-                        task?.nameTask ?: "Nama kosong",
-                        task?.description ?: "Deskripsi kosong",
-                        task?.dueDate ?: "2010-10-10",
-                        task?.dueTime ?: "00:00:00",
-                        taskStatus
-                    )
-                    navController.popBackStack()
                 }
             },
             containerColor = if (task?.status == "done") MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary,
@@ -175,6 +200,57 @@ fun TaskDetail(
         is Result.Success -> ShowCircularLoading(isLoading = false)
         is Result.Error -> ShowCircularLoading(isLoading = false)
         null -> { /* DO NOTHING */ }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun InitializeModalBottomSheet(
+    memberDataItem: List<MemberOfTeamDataItem>?,
+    userId: Int,
+    task: TaskDataItem? = null,
+    viewModel: TaskDetailViewModel = koinViewModel(),
+) {
+    val showBottomSheet by viewModel.showBottomSHeet
+    val sheetState = rememberModalBottomSheetState()
+    val context = LocalContext.current
+    if (showBottomSheet) {
+        ModalBottomSheet(
+            onDismissRequest = {
+                viewModel.setShowBottomSheet(false)
+            },
+            sheetState = sheetState,
+            containerColor = MaterialTheme.colorScheme.surfaceContainer
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp)
+            ) {
+                LazyColumn {
+                    memberDataItem
+                        ?.filter { it.userId !=  userId}
+                        ?.forEach { member ->
+                        item {
+                            CustomMemberList(
+                                member = member,
+                                onItemClick = {
+                                    viewModel.setTaskDone(
+                                        task?.idTask ?: 0,
+                                        task?.nameTask ?: "Nama kosong",
+                                        task?.description ?: "Deskripsi kosong",
+                                        task?.dueDate ?: "2010-10-10",
+                                        task?.dueTime ?: "00:00:00",
+                                        "ongoing",
+                                        userId = member.userId
+                                    )
+                                    viewModel.setShowBottomSheet(false)
+                                },
+                                userId = userId
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

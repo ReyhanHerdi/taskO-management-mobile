@@ -28,6 +28,9 @@ class LoginViewModel(private val repository: MainRepository): ViewModel() {
     private val _loginResult = mutableStateOf<Result<String>?>(null)
     val loginResult: State<Result<String>?> = _loginResult
 
+    private val _message = mutableStateOf<String?>(null)
+    val message: State<String?> = _message
+
     private suspend fun setUserId(uid: Int) = repository.setUserId(uid)
     private suspend fun getUserId(): Int = repository.getUserId()
 
@@ -52,6 +55,7 @@ class LoginViewModel(private val repository: MainRepository): ViewModel() {
             } catch (e: Exception) {
                 Log.d("LOGIN HAS FAILED", "${e.message}")
                 _loginResult.value = Result.Error("${e.message}")
+                _message.value = "${e.message}"
             }
         }
     }
