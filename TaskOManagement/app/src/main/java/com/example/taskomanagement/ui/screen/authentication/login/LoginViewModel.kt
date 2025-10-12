@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import com.example.taskomanagement.data.model.Result
+import kotlinx.coroutines.flow.StateFlow
 
 class LoginViewModel(private val repository: MainRepository): ViewModel() {
     private val _auth = MutableStateFlow(false)
@@ -28,8 +29,8 @@ class LoginViewModel(private val repository: MainRepository): ViewModel() {
     private val _loginResult = mutableStateOf<Result<String>?>(null)
     val loginResult: State<Result<String>?> = _loginResult
 
-    private val _message = mutableStateOf<String?>(null)
-    val message: State<String?> = _message
+    private val _message = MutableStateFlow("")
+    val message: StateFlow<String> get() = _message
 
     private suspend fun setUserId(uid: Int) = repository.setUserId(uid)
     private suspend fun getUserId(): Int = repository.getUserId()
@@ -38,6 +39,7 @@ class LoginViewModel(private val repository: MainRepository): ViewModel() {
         email: String,
         password: String
     ) {
+        _message.value = ""
         viewModelScope.launch {
             _loginResult.value = Result.Loading
             try {
@@ -48,9 +50,11 @@ class LoginViewModel(private val repository: MainRepository): ViewModel() {
                     setUserId(login.data)
                     putFcmToken()
                     _loginResult.value = Result.Success("Login berhasil")
+                    _message.value = "Login berhasil"
                 } else {
                     Log.d("LOGIN GAGAL", "Email atau password salah")
                     _loginResult.value = Result.Error("Email atau password salah")
+                    _message.value = "Email atau password salah"
                 }
             } catch (e: Exception) {
                 Log.d("LOGIN HAS FAILED", "${e.message}")

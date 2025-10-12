@@ -67,7 +67,6 @@ fun Login(
     val authStatus by viewModel.auth.collectAsState()
     val loginStatus = viewModel.loginResult.value
     val context = LocalContext.current
-    val message by viewModel.message
 
     LaunchedEffect(key1 = authStatus) {
         Log.d("AUTH CHECK", authStatus.toString())
@@ -163,7 +162,11 @@ fun Login(
             onClick = {
                 scope.launch {
                     viewModel.login(email, password)
-                    showToast("$message", context)
+                    viewModel.message.collect { msg ->
+                        if (msg.isNotEmpty()) {
+                            showToast(msg, context)
+                        }
+                    }
                 }
             },
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
